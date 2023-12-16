@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.lpyuan219.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="名字multipath.conf - 多路径守护程序配置文件 描述&#x2F;etc&#x2F;multipath.conf 是多路径守护程序的配置文件。它用于覆盖multipathd的内置配置表。 任何第一个非空白字符为“#”的行都被视为注释行。 空行将被忽略。 当前使用的 multipathd 配置可以使用 multipath -t 或 multipathd show config 命令显示。 语法配置文件包含以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="multipath.conf">
+<meta property="og:url" content="http://www.lpyuan219.com/2023/12/16/5832bb4e.html">
+<meta property="og:site_name" content="Suzette219">
+<meta property="og:description" content="名字multipath.conf - 多路径守护程序配置文件 描述&#x2F;etc&#x2F;multipath.conf 是多路径守护程序的配置文件。它用于覆盖multipathd的内置配置表。 任何第一个非空白字符为“#”的行都被视为注释行。 空行将被忽略。 当前使用的 multipathd 配置可以使用 multipath -t 或 multipathd show config 命令显示。 语法配置文件包含以">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-16T08:04:13.000Z">
+<meta property="article:modified_time" content="2023-12-16T00:06:03.000Z">
+<meta property="article:author" content="小骆">
+<meta property="article:tag" content="多路径">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.lpyuan219.com/2023/12/16/5832bb4e.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>multipath.conf | Suzette219</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Suzette219</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Share make me happy</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-user-friends fa-fw"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-book-open fa-fw"></i>阅读</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>电影</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2023/12/16/5832bb4e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小骆">
+      <meta itemprop="description" content="一直青春无畏，一往无前">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suzette219">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          multipath.conf
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-12-16 08:04:13 / 修改时间：00:06:03" itemprop="dateCreated datePublished" datetime="2023-12-16T08:04:13Z">2023-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%98%E5%82%A8/" itemprop="url" rel="index"><span itemprop="name">存储</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2023/12/16/5832bb4e.html" class="post-meta-item leancloud_visitors" data-flag-title="multipath.conf" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2023/12/16/5832bb4e.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/12/16/5832bb4e.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="名字"><a href="#名字" class="headerlink" title="名字"></a>名字</h3><p>multipath.conf - 多路径守护程序配置文件</p>
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>/etc/multipath.conf 是多路径守护程序的配置文件。它用于覆盖multipathd的内置配置表。 任何第一个非空白字符为“#”的行都被视为注释行。 空行将被忽略。</p>
+<p>当前使用的 multipathd 配置可以使用 multipath -t 或 multipathd show config 命令显示。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>配置文件包含以下形式的条目：</p>
+<pre><code>&lt;章节&gt; &#123;
+    &lt;配置项&gt; &lt;值&gt;
+    ...
+    &lt;章节&gt; &#123;
+        &lt;配置项&gt; &lt;值&gt;
+        ...
+    &#125;
+&#125;
+</code></pre>
+<p>每个部分包含一个或多个属性或小节。 属性或小节的可识别关键字取决于它们出现的部分。</p>
+<p>&lt;配置项&gt; 和 &lt;值&gt; 必须位于同一行。 &lt;配置项&gt; 是本手册页中列出的关键字之一。 &lt;值&gt; 可以是一个简单的单词（不包含空格，也不包含字符 ‘“‘、’#’ 和 ‘!’），也可以是用双引号 (“…”) 括起来的一个字符串。在带引号的字符串之外， 以“#”和“!”开头的文本 被视为注释并被忽略直到行尾。在带引号的字符串内，’#’ 和 ‘!’ 是普通字符，并且保留空格。要在双引号字符串中表示双引号字符，请使用两个连续的双引号 (‘“”‘)。因此 ‘2.5” SSD’ 可以写为 “2.5” “ SSD”。</p>
+<p>左大括号 (‘{‘) 必须跟在同一行的（子）节名称之后。 标记（子）节结束的右大括号 (‘}’) 必须是该行中唯一的非空白字符。 除了双引号内的空格之外，空格都会被忽略，因此上面示例中显示的缩进对人类读者有帮助，但不是强制性的。</p>
+<p><strong>正则表达式注意事项：</strong>multipath.conf 语法允许将许多属性值指定为 POSIX 扩展正则表达式（请参阅 regex(7)）。 这些正则表达式区分大小写且不锚定，因此表达式“bar”匹配“barbie”、“rhabarber”和“wunderbar”，但不匹配“Barbie”。 为了避免不需要的子字符串匹配，可以使用使用特殊字符“^”和“$”的标准正则表达式语法。</p>
+<p>可以识别以下章节关键字：</p>
+<ul>
+<li><p>defaults    本节定义了属性的默认值，只要在适当的设备或多路径部分中没有给出值，就会使用这些默认值。</p>
+</li>
+<li><p>blacklist    本节定义应从多路径拓扑发现中排除哪些设备。</p>
+</li>
+<li><p>blacklist_exceptions    本部分定义哪些设备应包含在多路径拓扑发现中，尽管已列在黑名单部分中。</p>
+</li>
+<li><p>multipaths    本节定义多路径拓扑。 它们通过全球标识符 (WWID) 进行索引。 有关 WWID 生成的详细信息，请参阅下面的 WWID 生成部分。 本节中设置的属性优先于所有其他属性。</p>
+</li>
+<li><p>devices    本节定义设备特定的设置。 设备按供应商、产品和版本进行标识。</p>
+</li>
+<li><p>overrides    本节定义应覆盖所有设备的设备特定设置的属性值。</p>
+</li>
+</ul>
+<h4 id="defaults"><a href="#defaults" class="headerlink" title="defaults"></a>defaults</h4><p>defaults部分可识别以下关键字：</p>
+<ul>
+<li><p><strong>verbosity</strong>  默认详细程度。 值越高，详细程度越高。 有效级别在 0 到 6 之间。</p>
+<p>默认值：2</p>
+</li>
+<li><p><strong>polling_interval</strong>  两次路径检查之间的时间间隔（以秒为单位）。 对于正常运行的路径，检查之间的间隔将逐渐增加到 max_polling_interval。如果使用 systemd，则该值将被 multipathd.service 定义中的 WatchdogSec 设置覆盖。</p>
+<p>默认值：5</p>
+</li>
+<li><p><strong>max_polling_interval</strong>  两次路径检查之间的最大间隔（以秒为单位）。</p>
+<p>默认值：4 *  polling_interval</p>
+</li>
+<li><p><strong>reassign_maps</strong>  启用设备映射器映射的重新分配。 使用此选项，multipathd 将重新映射现有的设备映射器映射，以始终指向多路径设备，而不是底层块设备。 可能的值为 yes 和 no。</p>
+<p>默认值：依赖于特定的系统</p>
+</li>
+<li><p><strong>multipath_dir</strong>  存储动态共享对象的目录。 在编译时定义，通常为/lib64/multipath/或/lib/multipath/。</p>
+</li>
+<li><p><strong>path_selector</strong>  使用的默认路径选择器算法； 它们由内核多路径目标（target）提供。 选择器算法共有三种：</p>
+<ul>
+<li>round-robin 0  循环路径组中的每个路径，向每个路径发送相同数量的 I/O。 行为的某些方面可以通过以下属性进行控制：rr_min_io、rr_min_io_rq 和 rr_weight。</li>
+<li>queue-length 0  （自 2.6.31 内核起）根据路径上未完成的 I/O 数量选择下一批 I/O 的路径。</li>
+<li>service-time 0  （自 2.6.31 内核起）根据路径的未完成 I/O 量及其相对吞吐量选择下一组 I/O 的路径。</li>
+</ul>
+<p>默认值：service-time 0</p>
+</li>
+<li><p><strong>path_grouping_policy</strong>  应用于未指定多路径的默认路径分组策略。 可能的值为：</p>
+<ul>
+<li>failover 每个优先级组一条路径。</li>
+<li>multibus  一个优先级组中的所有路径。</li>
+<li>group_by_serial 每个序列号一个优先级组。</li>
+<li>group_by_prio  每个优先级值一个优先级组。 优先级由配置文件中指定为全局、每个控制器或每个多路径选项的标注程序确定。</li>
+<li>group_by_node_name  每个目标节点名称一个优先级组。 目标节点名称在 /sys/class/fc_transport/target*/node_name 中获取。</li>
+</ul>
+<p>默认值：failover</p>
+</li>
+<li><p><strong>uid_attrs</strong>  设置此选项会激活按 WWID 合并 uevent，这可能会提高 uevent 处理效率。 此外，它是配置 udev 属性以用于确定唯一路径标识符 (WWID) 的替代方法。</p>
+<p>该选项的值是一个空格分隔的记录列表，如“type:ATTR”，其中 type 与设备节点名称的开头匹配（例如 sd:ATTR 与 sda 匹配），ATTR 是 udev 属性的名称 用于匹配设备。</p>
+<p>如果此选项已配置并且与设备的设备节点名称匹配，它将覆盖用于确定此设备的 WWID 的任何其他已配置方法。</p>
+<p>默认值为：&lt;未设置&gt;。 要启用 uevent 合并，请将其设置为 到“sd：ID_SERIAL dasd：ID_UID nvme：ID_WWN”。</p>
+</li>
+<li><p><strong>uid_attribute</strong>  udev 属性提供唯一的路径标识符 (WWID)。 如果 uid_attribute 设置为空字符串，则使用 sysfs 方法而不是使用 udev 来确定 WWID（在生产中不推荐；请参阅下面的 WWID 生成）。</p>
+<p>默认值为：ID_SERIAL，适用于 SCSI 设备。</p>
+<p>默认值为：ID_UID，适用于 DASD 设备。</p>
+<p>默认为：ID_WWN，适用于 NVMe 设备。</p>
+</li>
+<li><p><strong>getuid_callout</strong>  （由 uid_attribute 取代）用于标注的默认程序和参数，以获取唯一路径标识符。 应使用绝对路径指定。</p>
+<p>默认值：未设置。</p>
+</li>
+<li><p><strong>prio</strong>  路径优先级例程的名称。指定的例程应该返回一个数值，指定该路径的相对优先级。数字越高，优先级越高。“none”是一个有效值。目前实现了以下路径优先级例程：</p>
+<ul>
+<li><strong>const</strong>  返回常量优先级 1。</li>
+<li><strong>sysfs</strong> 使用 sysfs 属性 access_state 和 Preferred_path 生成路径优先级。 该优先级排序器接受可选的 prio_arg exclusive_pref_bit。</li>
+<li><strong>emc</strong>  （取决于硬件）为 CLARiiON CX/AX 和 EMC VNX 以及 Unity 系列等 DGC 类阵列生成路径优先级。</li>
+<li><strong>alua</strong>  （取决于硬件）根据 SCSI-3 ALUA 设置生成路径优先级。 该优先级排序器接受可选的 prio_arg Exclusive_pref_bit。</li>
+<li><strong>ontap</strong>  （取决于硬件）生成 NetApp ONTAP 类和 OEM 阵列作为 IBM NSeries 的路径优先级。</li>
+<li><strong>rdac</strong>  （取决于硬件）为 LSI/Engenio/NetApp RDAC 类（如 NetApp SANtricity E/EF 系列）以及来自 IBM DELL SGI STK 和 SUN 的 OEM 阵列生成路径优先级。</li>
+<li><strong>hp_sw</strong>  （取决于硬件）专门为具有活动/备用模式的 HP/COMPAQ/DEC HSG80 和 MSA/HSV 阵列生成路径优先级。</li>
+<li><strong>hds</strong> （取决于硬件）为除 AMS 2000 之外的 Hitachi AMS 系列阵列生成路径优先级。</li>
+<li><strong>random</strong> 生成 1 到 10 之间的随机优先级。</li>
+<li><strong>weightedpath</strong>  根据正则表达式和作为参数提供的优先级生成路径优先级。 需要 prio_args 关键字。</li>
+<li><strong>path_latency</strong>  基于延迟算法生成路径优先级。 需要 prio_args 关键字。</li>
+<li><strong>ana</strong>  （取决于硬件）根据 NVMe ANA 设置生成路径优先级。</li>
+<li><strong>datacore</strong>  （取决于硬件）为某些 DataCore 存储阵列生成路径优先级。 需要 prio_args 关键字。</li>
+<li><strong>iet</strong>  （仅限 iSCSI）根据 IP 地址生成 iSCSI 目标的路径优先级。 需要 prio_args 关键字。</li>
+</ul>
+<p>默认值取决于 detector_prio 设置：如果 detector_prio 为 yes（默认），则默认优先级算法为 sysfs（NetAPP E 系列除外，该算法为 alua）。 如果 detector_prio 为 no，则默认优先级算法为 const。</p>
+</li>
+<li><p><strong>prio_args</strong>  要传递给 prio 函数的参数。 这仅适用于某些优先级器：</p>
+<ul>
+<li><p>weighted 需要“&lt;hbtl|devname|serial|wwn&gt; &lt;regex1&gt; &lt;prio1&gt; &lt;regex2&gt; &lt;prio2&gt; …”形式的值。</p>
+<ul>
+<li>hbtl 正则表达式可以是 SCSI H:B:T:L 格式。 例如：1:0:.:. ，*：0：0：。</li>
+<li>devname 正则表达式可以是设备名称格式。 例如： sda 、 sd.e。</li>
+<li>serial 正则表达式可以是序列号格式。 例如： .*J1FR.*324 。 可以通过 sysfs 或运行 multipathd show paths format “%z” 来查找序列号。 例如：0395J1FR904324。</li>
+<li>wwn 正则表达式的形式可以是“host_wwnn:host_wwpn:target_wwnn:target_wwpn”，这些值可以通过 sysfs 或运行 <code>multipathd show paths</code> 格式“%N:%R:%n:%r”来查找。 例如： 0x200100e08ba0aea0:0x210100e08ba0aea0:.*:.* , .*:.*:iqn.2009-10.com.redhat.msp.lab.ask-06:.*。</li>
+</ul>
+</li>
+<li><p>path_latency 需要“io_num=&lt;20&gt; base_num=&lt;10&gt;”形式的值。</p>
+<ul>
+<li><p>io_num 连续发送到当前路径的读IO数量，用于计算平均路径延迟。 有效值：整数，[2, 200]。</p>
+</li>
+<li><p>base_num 对数刻度的基数值，用于划分不同的优先级。 有效值：整数，[2, 10]。 最大平均延迟值为 100s，最小平均延迟值为 1us。 例如：如果base_num=10，路径将被分组为路径延迟 &lt;=1us、(1us, 10us]、(10us, 100us]、(100us, 1ms]、(1ms, 10ms]、(10ms, 100ms]、（100ms、1s]、（1s、10s]、（10s、100s]、&gt;100s。</p>
+</li>
+<li><p>alua 如果设置了 exclusive_pref_bit，则设置了首选路径位的路径将始终位于其自己的路径组中。</p>
+</li>
+<li><p>sysfs 如果设置了 exclusive_pref_bit，则设置了首选路径位的路径将始终位于其自己的路径组中。</p>
+</li>
+<li><p>datacore </p>
+<ul>
+<li>preferredsds （强制）首选的“SDS 名称”。</li>
+<li>timeout  （可选）查询的超时时间，以毫秒为单位。</li>
+</ul>
+</li>
+<li><p>iet </p>
+<ul>
+<li>preferredip=…  （强制）iSCSI 目标的首选 IP 地址（采用点分十进制表示法）。</li>
+</ul>
+</li>
+</ul>
+<p>默认值： 未设置</p>
+</li>
+</ul>
+</li>
+<li><p><strong>features</strong>  指定要使用的任何设备映射器功能。 语法为 num list，其中 num 是列表中功能的数量（介于 0 到 8 之间）。 功能列表的可能值为：</p>
+<ul>
+<li><p>queue_if_no_path  （已弃用，由 no_path_retry 取代）如果没有活动路径，则对 I/O 进行队列。 与队列值的 no_path_retry 相同。 如果同时设置了此功能和 no_path_retry，则后一个值优先。 请参阅已知问题。</p>
+</li>
+<li><p>pg_init_retries  &lt;times&gt;   (自内核2.6.24起) 重试pg_init的次数，必须在1到50之间。</p>
+</li>
+<li><p>pg_init_delay_msecs   (自内核 2.6.38 起) pg_init 重试之前的毫秒数，必须在 0 到 60000 之间。</p>
+</li>
+<li><p>queue_mode &lt;mode&gt;  （自内核 4.8 起）选择每个多路径设备的排队模式。 &lt;mode&gt;可以是bio、rq或mq，分别对应基于bio、基于请求和基于块多队列（blk-mq）请求。 默认值取决于内核参数 dm_mod.use_blk_mq。 如果设置了后者则为 mq，否则为 rq。</p>
+<p>默认值：未设置</p>
+</li>
+</ul>
+</li>
+<li><p>path_checker  用于确定路径状态的默认方法。 可能的值为：</p>
+<ul>
+<li><p>readsector0  （已弃用）读取设备的第一个扇区。 此检查器已被弃用，请使用 tur 代替。</p>
+</li>
+<li><p>tur  向设备发出 TEST UNIT READY 命令。</p>
+</li>
+<li><p>emc_clariion  （取决于硬件）查询 DGC/EMC 特定 EVPD 页 0xC0 以确定 CLARiiON CX/AX 以及 EMC VNX 和 Unity 阵列系列的路径状态。</p>
+</li>
+<li><p>hp_sw  （取决于硬件）仅在活动/备用模式下检查 HP/COMPAQ/DEC HSG80 和 MSA/HSV 阵列的路径状态。</p>
+</li>
+<li><p>rdac  （取决于硬件）检查 LSI/Engenio/NetApp RDAC 类（如 NetApp SANtricity E/EF 系列）以及来自 IBM DELL SGI STK 和 SUN 的 OEM 阵列的路径状态。</p>
+</li>
+<li><p>directio （已弃用）使用直接 I/O 读取第一个扇区。 此检查器已被弃用，它可能会在高负载下导致虚假路径故障。 请使用 tur 代替。</p>
+</li>
+<li><p>cciss_tur  （取决于硬件）检查 HP/COMPAQ 智能阵列 (CCISS) 控制器的路径状态。</p>
+</li>
+<li><p>none  不检查设备，回退使用从 sysfs 检索的值。</p>
+<p>默认值：tur</p>
+</li>
+</ul>
+</li>
+<li><p><strong>alias_prefix</strong>  user_friend_names 前缀。</p>
+<p>默认值：mpath</p>
+</li>
+<li><p><strong>failback</strong>  告诉 multipathd 如何管理路径组故障恢复。 要选择立即数或值，设备必须支持工作优先级排序器。</p>
+<ul>
+<li>immediate  立即故障回复到包含活动路径的最高优先级路径组。</li>
+<li>manual  不执行自动故障恢复。</li>
+<li>followover  用于处理多台计算机访问相同的主动/被动存储设备。 仅当路径组的第一条路径变为活动状态时才执行自动故障恢复。 当另一个节点请求故障转移时，这可以防止集群节点自动故障恢复。</li>
+<li>value &gt; 0 延迟故障回复（延迟时间以秒为单位）。</li>
+</ul>
+<p>默认值：manual</p>
+</li>
+<li><p><strong>rr_min_io</strong>  在切换到同一路径组中的下一个路径之前路由到路径的 I/O 请求数。 这仅适用于基于块 I/O(BIO) 的多路径，并且仅适用于循环路径选择器。</p>
+<p>默认值：1000</p>
+</li>
+<li><p><strong>rr_min_io_rq</strong>  在切换到同一路径组中的下一个路径之前路由到路径的 I/O 请求数。 这仅适用于基于请求的多路径，并且仅适用于循环路径选择器。</p>
+<p>默认值：1</p>
+</li>
+<li><p><strong>max_fds</strong>  指定 multipath 和 multipathd 可以打开的文件描述符的最大数量。 这相当于 ulimit -n。 max 值会将其设置为 /proc/sys/fs/nr_open 的系统限制。 如果未设置，则从调用进程中获取打开的 fd 的最大数量。 通常为 1024。为了安全起见，如果该数字大于 1024，则应将其设置为最大路径数加 32。</p>
+<p>默认值：max</p>
+</li>
+<li><p><strong>rr_weight</strong>  如果设置为优先级，多路径配置器会将路径权重分配为“path prio * rr_min_io”。 可能的值是priority 或uniform。 仅适用于循环路径选择器。</p>
+<p>默认值：uniform</p>
+</li>
+<li><p><strong>no_path_retry</strong>  指定当所有路径均已关闭时要执行的操作。 可能的值为：</p>
+<ul>
+<li>value &gt; 0  禁用 I/O 队列之前的重试次数。</li>
+<li>fail  立即失败（无 I/O 排队）。</li>
+<li>queue  用于永不停止 I/O 队列，类似于queue_if_no_path。 请参阅已知问题。</li>
+</ul>
+<p>默认值：fail</p>
+</li>
+<li><p><strong>queue_without_daemon</strong>   如果设置为 no ，当 multipathd 停止时，所有设备的排队将被关闭。 这对于设置 no_path_retry 的设备很有用。 如果在设备的所有路径都关闭时关闭计算机，则可能会在 multipathd 停止后挂起，等待 I/O 从设备返回。 如果不运行 multipathd，则无法恢复对路径的访问，并且无法告知内核停止排队 I/O。 将queue_without_daemon设置为no可以避免这个问题。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>checker_timeout</strong>   指定用于发出具有显式超时的 SCSI 命令的路径检查器和优先级排序器的超时（以秒为单位）。</p>
+<p>默认值：在/sys/block/sd&lt;x&gt;/device/timeout</p>
+</li>
+<li><p><strong>flush_on_last_del</strong>  如果设置为 yes ，当设备的最后一个路径被删除时，multipathd 将禁用排队。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>user_friendly_names</strong>  如果设置为 yes ，则使用绑定文件 /etc/multipath/bindings 为多路径分配持久且唯一的别名，格式为 mpath&lt;n&gt;。 如果设置为 no，则使用 WWID 作为别名。 无论哪种情况，这都将被多路径部分中的任何特定别名覆盖。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>fast_io_fail_tmo</strong>  指定在 FC 远程端口上检测到问题后，SCSI 层在对该远程端口上的设备进行 I/O 失败之前将等待的秒数。 这应该小于 dev_loss_tmo。 将其设置为关闭将禁用超时。</p>
+<p>默认值：5</p>
+</li>
+<li><p><strong>dev_loss_tmo</strong>  指定在 FC 远程端口上检测到问题后将其从系统中删除之前 SCSI 层将等待的秒数。 可以将其设置为“无穷大”，将其设置为最大值 2147483647 秒，即 68 年。 如果通过 no_path_retry 给出重试次数并且总体重试间隔长于指定的 dev_loss_tmo 值，则会自动调整为总体重试间隔 no_path_retry * polling_interval。 如果未设置 fast_io_fail_tmo，Linux 内核会将此值限制为 600。 请参阅已知问题。</p>
+<p>默认值：600</p>
+</li>
+<li><p><strong>bindings_file</strong>  设置 user_Friendly_names 选项时要使用的绑定文件的完整路径名。</p>
+<p>默认值：/etc/multipath/bindings</p>
+</li>
+<li><p><strong>wwids_file</strong>  WWID 文件的完整路径名，多路径使用该文件来跟踪它过去在其上创建的多路径设备的 LUN 的 WWID。</p>
+<p>默认值：/etc/multipath/wwids</p>
+</li>
+<li><p><strong>prkeys_file</strong>  prkeys 文件的完整路径名，当reservation_key 设置为file 时，multipathd 使用该文件来跟踪用于特定WWID 的持久保留密钥。</p>
+<p>默认值：/etc/multipath/prkeys</p>
+</li>
+<li><p><strong>log_checker_err</strong>  如果设置为 Once ，multipathd 将在日志记录级别 2 记录第一个路径检查器错误。任何后续错误都将在级别 3 记录，直到设备恢复为止。 如果设置为 always ，multipathd 始终以日志记录级别 2 记录路径检查器错误。</p>
+<p>默认值：always</p>
+</li>
+<li><p><strong>reservation_key</strong>  这是 mpathpersist 使用的服务操作保留密钥。 必须为所有使用持久保留的多路径设备设置它，并且它必须与 PERSISTENT RESERVE OUT 参数列表的 RESERVATION KEY 字段相同，该字段包含应用程序客户端向设备服务器提供的 8 字节值，用于标识 I_T 关系。 如果在使用 mpathpersist 注册密钥时使用 –param-aptpl 选项，则必须将 :aptpl 附加到保留密钥的末尾。</p>
+</li>
+<li><p><strong>all_tg_pt</strong>  使用 mpathpersist 注册密钥时设置“所有目标端口”标志。 某些阵列会自动设置和清除主机所有目标端口上的注册密钥，而不是每个主机的每个目标端口。 必须设置 ALL_TG_PT 标志才能在这些阵列上成功使用 mpathpersist。 设置此选项与使用 –param-alltgpt 调用 mpathpersist 相同。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>retain_attached_hw_handler</strong>  （对于 &gt;= 4.3 的内核已过时）如果设置为 yes 并且 SCSI 层已将 hardware_handler 附加到设备，则多路径不会强制设备使用 mutipath.conf 指定的 hardware_handler。 如果 SCSI 层未附加硬件处理程序，多路径将继续使用其配置的硬件处理程序。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>detect_prio</strong>  如果设置为 yes ，多路径将尝试检测设备是否支持 SCSI-3 ALUA。 如果是这样，如果支持所需的 sysf 属性 access_state 和 Preferred_path，设备将自动使用 sysfs 优先级排序器，如果不支持，则设备将自动使用 alua 优先级排序器。 如果设置为 no ，将照常选择优先级。</p>
+<p>默认值：yes</p>
+</li>
+<li><p><strong>detect_checker</strong>  如果设置为 yes ，multipath将尝试检测设备是否支持 SCSI-3 ALUA。 如果是这样，设备将自动使用 tur 检查器。 如果设置为 no ，将照常选择检查器。</p>
+<p>默认值：yes</p>
+</li>
+<li><p><strong>force_sync</strong>   如果设置为 yes ，multipathd 将仅在同步模式下调用路径检查器。这意味着一次只会运行一个检查器。 这在许多并行运行的多路径检查器导致 CPU 压力很大的情况下非常有用。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>strict_timing</strong>  如果设置为 yes ，multipathd 将在一秒后启动新的路径检查器循环，以便每次路径检查将恰好在 polling_interval 秒内发生。在繁忙的系统上，路径检查可能需要超过一秒的时间； 此处，缺失的刻度将在下一轮中计算在内。 如果路径检查花费的时间超过 polling_interval 秒，则会打印警告。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>deferred_remove</strong>    如果设置为 yes ，当删除最后一个路径设备时，multipathd 将执行延迟删除而不是常规删除。这意味着，如果多路径设备仍在使用中，则当最后一个用户关闭它时，它将被释放。如果在最后一个用户关闭多路径设备之前将路径添加到多路径设备，则延迟删除将被取消。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>partition_delimiter</strong>  如果重命名多路径映射（例如，如果添加或更改映射别名），此参数控制多路径如何选择多路径映射的分区设备名称。 如果此参数设置为“/UNSET/”以外的字符串（甚至是空字符串），则多路径会在设备名称和分区号之间插入该字符串以构造分区设备名称。 否则（即，如果此参数未设置或值为“/UNSET/”），则行为取决于映射名称：如果以数字结尾，则在名称和分区号之间插入“p”； 否则，只需附加分区号。 发行版可以为此选项使用非空默认值； 在这种情况下，用户必须将其设置为“/UNSET/”以获得原始的&lt;unset&gt;行为。 使用 multipath -T 检查当前设置。</p>
+<p>默认值：未设置</p>
+</li>
+<li><p><strong>config_dir</strong>   如果设置为“”以外的任何值，multipath 将按字母顺序搜索此目录中以“.conf”结尾的文件，并从中读取配置信息，就像在 /etc/multipath.conf 中一样。 config_dir 必须是“”或完全限定的目录名。</p>
+<p>默认值：/etc/multipath/conf.d/</p>
+</li>
+<li><p><strong>san_path_err_threshold</strong>  如果设置为大于 0 的值，multipathd 将监视路径并检查路径因错误而失败的次数。如果特定路径上的失败次数大于 san_path_err_threshold，则该路径将在 san_path_err_recovery_time 之前不会恢复 。这些路径故障应该发生在 san_path_err_forget_rate 检查中，如果没有，我们将认为该路径足够好以恢复。请参阅下面的“不稳定路径检测”。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>san_path_err_forget_rate</strong>   如果设置为大于 0 的值，multipathd 将在多次检查中检查路径故障是否超过 san_path_err_threshold，即 san_path_err_forget_rate 。 如果是这样，我们将不会恢复路径，直到 san_path_err_recovery_time。请参阅下面的“不稳定路径检测”。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>san_path_err_recovery_time</strong>  如果设置为大于 0 的值，multipathd 将确保当路径故障超过 san_path_err_forget_rate 内的 san_path_err_threshold 时，路径将在 san_path_err_recovery_time 持续时间内处于故障状态。一旦 san_path_err_recovery_time 超时，我们将恢复故障路径。 san_path_err_recovery_time 值应以秒为单位。 请参阅下面的“不稳定路径检测”。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>marginal_path_double_failed_time</strong>  支持基于统计IO错误（例如间歇性错误）进行路径检查的四个参数之一。 当由于 IO 错误而在 margin_path_double_failed_time 秒内发生两次路径失败事件并且设置了所有其他三个参数时，multipathd 将使该路径失败并将该路径排入一个队列，该队列的成员将被发送几个连续的直接读取异步 IO 10HZ 的固定采样率启动 IO 错误核算过程。 请参阅下面的“不稳定路径检测”。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>marginal_path_err_sample_time</strong>  支持基于统计IO错误（例如间歇性错误）进行路径检查的四个参数之一。 如果设置为不小于120的值，则当由于IO错误而在marginal_path_double_failed_time秒内发生两次路径失败事件时，multipathd将使该路径失败，并将该路径加入到一个队列中，该队列的成员会被连续发送几次直接 以 10HZ 的固定采样率读取异步 IO 以启动路径的 IO 统计过程将持续 margin_path_err_sample_time。 如果特定路径上的 IO 错误率大于 margin_path_err_rate_threshold，则该路径将不会在 margin_path_err_recheck_gap_time 秒内恢复，除非只有一个活动路径。 margin_path_err_recheck_gap_time到期后，该路径将被重新排队以进行重新检查。 如果检查结果足够好，该路径将被恢复。 请参阅下面的“不稳定路径检测”。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>marginal_path_err_rate_threshold</strong>  错误率阈值以百分比 (1/1000) 表示。 支持基于统计IO错误（例如间歇性错误）进行路径检查的四个参数之一。 请参阅marginal_path_err_sample_time。 如果特定路径上的 IO 错误率大于此参数，则除非只有一个活动路径，否则该路径将在 margin_path_err_recheck_gap_time 秒内不会恢复。 请参阅下面的“不稳定路径检测”。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>marginal_path_err_recheck_gap_time</strong>  支持基于统计IO错误（例如间歇性错误）进行路径检查的四个参数之一。 请参阅marginal_path_err_sample_time。 如果该参数设置为正值，则IO错误率大于marginal_path_err_rate_threshold的失败路径将在marginal_path_err_recheck_gap_time秒内保持失败状态。 当 margin_path_err_recheck_gap_time 秒到期时，该路径将被重新排队进行检查。 如果检查结果足够好，则该路径将被恢复，否则将保持失败。 请参阅下面的“不稳定路径检测”。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>delay_watch_checks</strong>  此选项已弃用，并映射到 san_path_err_forget_rate。 如果将此值设置为大于 0 的值并且未设置 san_path_err 选项，则 san_path_err_forget_rate 将设置为delay_watch_checks 的值，并且 san_path_err_threshold 将设置为 1。有关详细信息，请参阅 san_path_err_forget_rate 和 san_path_err_threshold 选项以及下面的“不稳定路径检测” 信息。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>delay_wait_checks</strong>  此选项已弃用，并映射到 san_path_err_recovery_time。 如果将此值设置为大于 0 的值并且未设置 san_path_err 选项，则 san_path_err_recovery_time 将设置为 delay_wait_checks 乘以 max_polling_interval 的值。 这将提供与之前的delay_wait_checks 大致相同的等待时间。 此外，san_path_err_threshold 将设置为 1。有关详细信息，请参阅 san_path_err_recovery_time 和 san_path_err_threshold 选项以及下面的“不稳定路径检测”。</p>
+</li>
+<li><p><strong>marginal_pathgroups</strong>  如果设置为 no，delay_*<em>checks、marginal_path</em>* 和 san_path_err_* 选项将阻止边缘或“不稳定”路径恢复，直到它们被监视一段时间。 这可能会导致所有非边缘路径都关闭的情况，并且在 multipathd 检测到此情况并恢复边缘路径之前没有路径可用。 如果在这种情况下多路径设备未配置为对 IO 进行排队，则即使存在可用的边际路径，也可能会导致发生 IO 错误。 但是，如果此选项设置为 yes，当其中一种边缘路径检测方法确定路径是边缘路径时，它将恢复并放置在单独的路径组中，只有在尝试了所有非边缘路径组后才会使用该路径组 第一的。 这可以防止边缘路径仍然可用时发生 IO 错误的可能性。 在路径经过配置的时间监控并被声明为健康后，它将返回到其正常路径组。 有关详细信息，请参阅下面的“不稳定路径检测”。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>find_multipaths</strong>  此选项控制 multipath 和 multipathd 是否尝试在它们遇到的非黑名单设备上创建多路径映射。这很重要 a)当在 udev 规则处理期间 multipath -u 遇到设备时（设备被更高层阻止进一步处理 - 例如 LVM - 当且仅当它被认为是有效的多路径设备路径时）。以及 b)当 multipathd 检测到新设备时。以下值是可能的：</p>
+<ul>
+<li><p>strict  multipath 和 multipathd 都只将此类设备视为多路径设备，这些设备先前已成为多路径映射的一部分，因此列在 wwids_file 中。 用户可以使用 multipathd add map 命令手动设置多路径映射。 手动设置后，地图将被记录在 wwids 文件中，并在将来自动设置。</p>
+</li>
+<li><p>no  multipath的行为类似struct模式。 multipathd的行为类似greedy模式。</p>
+</li>
+<li><p>yes  如果满足 strict 条件，或者检测到至少两个具有相同 WWID 的非黑名单路径，multipathd 和 multipath 都会将设备视为多路径设备。</p>
+</li>
+<li><p>greedy  multipathd 和 multipath 都将每个非黑名单设备视为多路径设备路径。</p>
+</li>
+<li><p>smart  这与 find_multipaths yes 的不同之处仅在于它处理仅检测到一条路径的新设备的方式。 当此类设备首次出现在 udev 规则中时，它将被视为多路径设备。 multipathd 等待是否出现具有相同 WWID 的其他路径。 如果发生这种情况，它会设置一个多路径映射。 如果直到超时才发生，或者设置地图失败，则会为设备触发一个新的 uevent； 在 udev 规则中第二次遇到时，该设备将被视为非多路径并传递给<br>上层。 注意：如果存在未列入黑名单的单路径设备，这可能会导致设备检测期间出现延迟。</p>
+<p>默认值：strict</p>
+</li>
+</ul>
+</li>
+<li><p><strong>find_multipaths_timeout</strong>  如果设置了 find_multipaths“smart”（见上文），则在检测到第一个路径后等待其他路径的超时（以秒为单位）。 如果该值为正数，则此超时将用于遇到的所有未知的非黑名单设备。 如果该值为负数（推荐），则它仅适用于在多路径硬件表（内置表或设备部分）中具有条目的“已知”设备； 其他（“未知”）设备将使用仅 1 秒的超时以避免启动延迟。 值 0 表示“使用内置默认值”。 如果 find_multipath 的值不是 smart，则此选项无效。</p>
+<p>默认值：-10（已知硬件为 10 秒，未知硬件为 1 秒）</p>
+</li>
+<li><p><strong>uxsock_timeout</strong>  CLI 接收超时（以毫秒为单位）。 对于较大的系统，在释放 multipathd 锁定并且可以处理 CLI 命令之前，CLI 命令可能会超时。 这将导致 CLI 命令返回“超时接收数据包”等错误。 在这些情况下，建议增加 CLI 超时以避免这些问题。</p>
+<p>默认值：1000</p>
+</li>
+<li><p><strong>retrigger_tries</strong>  设置 multipathd 尝试重新触发 uevent 以获取 WWID 的次数。</p>
+<p>默认值：3</p>
+</li>
+<li><p><strong>retrigger_delay</strong> 设置重新触发之间等待的时间（以秒为单位）。</p>
+<p>默认值：10</p>
+</li>
+<li><p><strong>missing_uev_wait_timeskip_kpartxout</strong>  控制在创建新的多路径设备后，在自动启用设备重新加载之前，multipathd 将等待多少秒以从 udev 接收设备的更改事件。 通常，multipathd 会延迟设备上的重新加载，直到收到来自初始表加载的更改 uevent。</p>
+<p>默认值：30</p>
+</li>
+<li><p><strong>skip_kpartx</strong>  如果设置为 yes ，kpartx 将不会自动在设备上创建分区。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>disable_changed_wwids</strong>  此选项已被弃用并被忽略。 如果路径的 WWID 突然更改，multipathd 会像删除然后再次添加一样处理它。</p>
+</li>
+<li><p><strong>remove_retries</strong>  这设置多路径重试删除正在使用的设备的次数。 在每次尝试之间，多路径将休眠 1 秒。</p>
+<p>默认值：0</p>
+</li>
+<li><p><strong>max_sectors_kb</strong>  将所有路径设备和多路径设备上的 max_sectors_kb 设备参数设置为指定值。</p>
+<p>默认值：依赖于对应的设备</p>
+</li>
+<li><p><strong>ghost_delay</strong>  设置在创建仅包含幽灵路径的设备之后多路径在将其标记为可在 systemd 中使用之前等待的秒数。这使得在多路径运行硬件处理程序将幽灵路径切换到活动路径之前，活动路径有时间出现。将其设置为 0 或打开会使多路径立即将仅具有幽灵路径的设备标记为就绪。</p>
+<p>默认值：no</p>
+</li>
+<li><p><strong>enable_foreign</strong>  启用或禁用外部库（请参阅下面的“外部多路径支持”部分）。 该值是一个正则表达式； 如果外部库的名称（例如“nvme”）与表达式匹配，则加载外部库。 默认情况下，启用所有外部库。</p>
+<p>默认值：””</p>
+</li>
+</ul>
+<h4 id="blacklist-and-blacklist-exceptions"><a href="#blacklist-and-blacklist-exceptions" class="headerlink" title="blacklist and blacklist_exceptions"></a>blacklist and blacklist_exceptions</h4><p>blacklist 部分用于从多路径拓扑中排除特定设备。 它最常用于排除多路径工具处理本地磁盘或非磁盘设备（例如存储阵列控制器的 LUN）。</p>
+<p>blacklist_exceptions 部分用于恢复黑名单部分的操作。 这允许人们有选择地包括（“白名单”）通常通过黑名单部分排除的设备。 常见用法是使用包罗万象的正则表达式将“所有内容”列入黑名单，并为应由多路径工具处理的那些设备创建特定的 blacklist_exceptions 条目。</p>
+<p>两个部分均识别以下关键字。 除非明确说明，否则默认值为空。</p>
+<ul>
+<li><p><strong>devnode</strong>  与要排除/包含的设备节点匹配的正则表达式。</p>
+<p>默认黑名单由正则表达式“^(ram|zram|raw|loop|fd|md|dm-|sr|scd|st|dcssblk)[0-9]”和“^(td|hd|vd)”组成 [a-z]”。 默认情况下，这会导致虚拟设备、非磁盘设备和某些其他设备类型被排除在多路径处理之外。</p>
+</li>
+<li><p><strong>wwid</strong>  要排除/包含的设备的全球标识符的正则表达式。</p>
+</li>
+<li><p><strong>device</strong>  设备描述子节。 本小节识别供应商和产品关键字。 两者都是正则表达式。 有关这些关键字的完整说明，请参阅设备部分说明。</p>
+</li>
+<li><p><strong>property</strong>  udev 属性的正则表达式。 所有具有匹配 udev 属性的设备都将被排除/包含。 property 关键字的处理是特殊的，因为如果设置了属性 blacklist_exception，则设备必须至少有一个列入白名单的 udev 属性； 否则，它们将被视为黑名单，并在日志中显示消息“黑名单，udev 属性丢失”。 例如，将属性 blacklist_exception 设置为 (SCSI_IDENT_|ID_WWN) 将导致包含正常运行的 SCSI 设备和提供 WWN（全球号码）的设备，并排除所有其他设备。 这可以排除大多数非多路径设备。</p>
+<p>注意: 与以前的版本相比，multipath-tools 0.8.2 中此选项的行为发生了变化。 按缺失属性列入黑名单仅适用于确实设置了 uid_attribute（例如 ID_SERIAL）指定的属性的设备。 以前，它应用于所有设备，可能会导致设备因临时 I/O 错误情况而被列入黑名单。</p>
+</li>
+<li><p><strong>protocol</strong>  要排除/包含的设备协议的正则表达式。</p>
+<p>多路径识别的协议字符串为 scsi:fcp、scsi:spi、scsi:ssa、scsi:sbp、scsi:srp、scsi:iscsi、scsi:sas、scsi:adt、scsi:ata、scsi:unspec、ccw、cciss 、nvme 和 undef。 可以通过运行 multipathd show paths format “%d %P” 查看路径正在使用的协议。</p>
+</li>
+</ul>
+<p>对于每个设备，这 5 个黑名单标准按照“property、devnode、device、protocol、wwid”的顺序进行评估。 如果设备被任何标准列入黑名单，则它将被排除在 multipathd 处理之外，并且不再评估后面的标准。 对于每个标准，如果设备同时匹配白名单和黑名单，则白名单优先于黑名单。</p>
+<p>注意：除了黑名单和白名单之外，其他配置选项（例如 find_multipaths）也会影响给定设备是否由多路径工具处理。</p>
+<h4 id="multipath"><a href="#multipath" class="headerlink" title="multipath"></a>multipath</h4><p>多路径部分允许设置多路径映射的属性。 通过多路径部分设置的属性（请参见下面的列表）优先于所有其他配置设置，包括来自覆盖部分的属性。</p>
+<p>多路径部分唯一可识别的属性是多路径子部分。 如果存在与给定 WWID 匹配的多个多路径子部分，则这些部分的内容将被合并，并且后面条目中的设置优先。</p>
+<p>多路径子节识别以下属性：</p>
+<ul>
+<li><strong>wwid</strong>  （强制）全球标识符。 检测到的多路径映射与此属性进行匹配。 请注意，与黑名单部分中的 wwid 属性不同，这不是正则表达式或子字符串； WWID 必须在多路径部分内完全匹配。</li>
+<li><strong>alias</strong>  多路径映射的符号名称。 这优先于绑定文件中相同 WWID 的条目。</li>
+</ul>
+<p>以下属性是可选的； 如果未设置，默认值将从overrides、devices或defaults部分获取：</p>
+<ul>
+<li>path_grouping_policy</li>
+<li>path_selector</li>
+<li>prio</li>
+<li>prio_args</li>
+<li>failback</li>
+<li>rr_weight</li>
+<li>no_path_retry</li>
+<li>rr_min_io</li>
+<li>rr_min_io_rq</li>
+<li>flush_on_last_del</li>
+<li>features</li>
+<li>reservation_key</li>
+<li>user_friendly_names</li>
+<li>deferred_remove</li>
+<li>san_path_err_threshold</li>
+<li>san_path_err_forget_rate</li>
+<li>san_path_err_recovery_time</li>
+<li>marginal_path_err_sample_time</li>
+<li>marginal_path_err_rate_threshold</li>
+<li>marginal_path_err_recheck_gap_time</li>
+<li>marginal_path_double_failed_time</li>
+<li>delay_watch_checks</li>
+<li>delay_wait_checks</li>
+<li>skip_kpartx</li>
+<li>max_sectors_kb</li>
+<li>ghost_delay</li>
+</ul>
+<h4 id="devices"><a href="#devices" class="headerlink" title="devices"></a>devices</h4><p>multipath-tools 有一个内置设备表，其中包含 100 多个已知的支持多路径的存储设备的合理默认值。 设备部分可用于覆盖这些设置。 如果给定设备有多个匹配项，则所有匹配条目的属性都将应用于该设备。 如果在多个匹配的设备小节中指定了某个属性，则后面的条目优先。 因此，config_dir 下的文件中的条目（按相反的字母顺序）具有最高优先级，其次是 multipath.conf 中的条目； 内置硬件表的优先级最低。 在配置文件中，后面的条目比前面的条目具有更高的优先级。</p>
+<p>devices 部分唯一可识别的属性是 device 子部分。 系统中检测到的设备使用供应商、产品和修订字段与设备条目进行匹配，这些字段都是 POSIX 扩展正则表达式（请参阅 regex(7)）。</p>
+<p>multipath 或multipathd检测系统中设备的供应商（vendor）、产品（product）和版本（revision）字段取决于设备类型。 对于 SCSI 设备，它们对应于 SCSI INQUIRY 页的相应字段。 一般来说，命令“multipathd show paths format “%d %s””可用于查看系统中所有设备的检测到的属性。</p>
+<p>设备部分识别以下属性：</p>
+<ul>
+<li><p><strong>vendor</strong>  （强制）匹配供应商名称的正则表达式。</p>
+</li>
+<li><p><strong>product</strong>  （强制）匹配产品名称的正则表达式。</p>
+</li>
+<li><p><strong>revision</strong>   匹配产品版本的正则表达式。 如果未指定，则任何修订版都会匹配。</p>
+</li>
+<li><p><strong>product_blacklist</strong>  给定供应商与此字符串匹配的产品将被列入黑名单。 这相当于黑名单部分中的设备条目，其供应商属性设置为该条目的供应商，产品属性设置为product_blacklist 的值。</p>
+</li>
+<li><p><strong>alias_prefix</strong>  用于此设备类型的 user_Friendly_names 前缀，而不是默认的“mpath”。</p>
+</li>
+<li><p><strong>vpd_vendor</strong>  供应商特定的 vpd 页面信息，使用 vpd 页面缩写。 vpd 页面缩写可以通过运行 sg_vpd -e 找到。 multipathd 将使用此信息来收集设备特定信息，这些信息可以通过 multipathd show paths format 和 multipathd show paths format 命令的 %g 通配符显示。 目前仅支持 hp3par vpd 页面。</p>
+</li>
+<li><p><strong>hardware_handler</strong>  用于此设备类型的硬件处理程序。 实现了以下硬件处理程序：</p>
+<ul>
+<li>1 emc  （取决于硬件）DGC 类阵列（如 CLARiiON CX/AX 和 EMC VNX 以及 Unity 系列）的硬件处理程序。</li>
+<li>1 rdac （依赖于硬件）LSI/Engenio/NetApp RDAC 类（如 NetApp SANtricity E/EF 系列）以及来自 IBM DELL SGI STK 和 SUN 的 OEM 阵列的硬件处理程序。</li>
+<li>1 hp_sw  （取决于硬件）专用于具有活动/备用模式的 HP/COMPAQ/DEC HSG80 和 MSA/HSV 阵列的硬件处理程序。</li>
+<li>1 alua （取决于硬件）SCSI-3 ALUA 兼容阵列的硬件处理程序。</li>
+<li>1 ana  （取决于硬件）NVMe ANA 兼容阵列的硬件处理程序。</li>
+</ul>
+<p>重要提示：Linux 内核 4.3 及更高版本会自动将设备处理程序附加到已知设备（包括所有支持 SCSI-3 ALUA 的设备），并且之后不允许更改处理程序。 在这些内核上为此类设备设置 hardware_handler 没有任何效果。</p>
+</li>
+</ul>
+<p>以下属性是可选的； 如果未设置，则默认值将从defaults部分获取：</p>
+<ul>
+<li>path_grouping_policy</li>
+<li>uid_attribute</li>
+<li>getuid_callout</li>
+<li>path_selector</li>
+<li>path_checker</li>
+<li>prio</li>
+<li>prio_args</li>
+<li>features</li>
+<li>failback</li>
+<li>rr_weight</li>
+<li>no_path_retry</li>
+<li>rr_min_io</li>
+<li>rr_min_io_rq</li>
+<li>fast_io_fail_tmo</li>
+<li>dev_loss_tmo</li>
+<li>flush_on_last_del</li>
+<li>user_friendly_names</li>
+<li>retain_attached_hw_handler</li>
+<li>detect_prio</li>
+<li>detect_checker</li>
+<li>deferred_remove</li>
+<li>san_path_err_threshold</li>
+<li>san_path_err_forget_rate</li>
+<li>san_path_err_recovery_time</li>
+<li>marginal_path_err_sample_time</li>
+<li>marginal_path_err_rate_threshold</li>
+<li>marginal_path_err_recheck_gap_time</li>
+<li>marginal_path_double_failed_time</li>
+<li>delay_watch_checks</li>
+<li>delay_wait_checks</li>
+<li>skip_kpartx</li>
+<li>max_sectors_kb</li>
+<li>ghost_delay</li>
+<li>all_tg_pt</li>
+</ul>
+<h4 id="overrides"><a href="#overrides" class="headerlink" title="overrides"></a>overrides</h4><p>overrides 部分识别以下可选属性； 如果未设置，则从设备或defaults部分获取值：</p>
+<ul>
+<li>path_grouping_policy</li>
+<li>uid_attribute</li>
+<li>getuid_callout</li>
+<li>path_selector</li>
+<li>path_checker</li>
+<li>alias_prefix</li>
+<li>features</li>
+<li>prio</li>
+<li>prio_args</li>
+<li>failback</li>
+<li>rr_weight</li>
+<li>no_path_retry</li>
+<li>rr_min_io</li>
+<li>rr_min_io_rq</li>
+<li>flush_on_last_del</li>
+<li>fast_io_fail_tmo</li>
+<li>dev_loss_tmo</li>
+<li>user_friendly_names</li>
+<li>retain_attached_hw_handler</li>
+<li>detect_prio</li>
+<li>detect_checker</li>
+<li>deferred_remove</li>
+<li>san_path_err_threshold</li>
+<li>san_path_err_forget_rate</li>
+<li>san_path_err_recovery_time</li>
+<li>marginal_path_err_sample_time</li>
+<li>marginal_path_err_rate_threshold</li>
+<li>marginal_path_err_recheck_gap_time</li>
+<li>marginal_path_double_failed_time</li>
+<li>delay_watch_checks</li>
+<li>delay_wait_checks</li>
+<li>skip_kpartx</li>
+<li>max_sectors_kb</li>
+<li>ghost_delay</li>
+<li>all_tg_pt</li>
+</ul>
+<h4 id="WWID-生成"><a href="#WWID-生成" class="headerlink" title="WWID 生成"></a>WWID 生成</h4><p>多路径使用全球标识 (WWID) 来确定哪些路径属于同一设备。 假设呈现相同 WWID 的每条路径都指向同一设备。</p>
+<p>WWID 由四种方法生成（按优先顺序排列）：</p>
+<ul>
+<li><strong>uid_attrs</strong>   WWID是通过匹配设备节点名称从udev属性派生而来的； 参见上面的 uid_attrs。</li>
+<li><strong>getuid_callout</strong>  使用指定的外部程序； 参见上面的 getuid_callout。 使用此方法时应注意； 外部程序需要从磁盘加载来执行，这可能会导致全路径下场景中的死锁情况。</li>
+<li><strong>uid_attribute</strong>  使用指定的udev属性的值； 参见上面的 uid_attribute。 此方法优于 getuid_callout，因为 multipath 不需要在此处调用任何外部程序。 但是，在某些情况下，udev 可能无法生成所请求的变量。</li>
+<li><strong>sysfs</strong>  尝试从 sysfs 属性确定 WWID。 对于 SCSI 设备，这意味着读取重要产品数据 (VPD) 页“设备标识”(0x83)。</li>
+</ul>
+<p>默认设置（使用从内置硬件表配置的 udev 和 uid_attribute）在大多数情况下应该可以正常工作。 想要启用uevent合并的用户必须设置uid_attrs。</p>
+<h4 id="不稳定路径检测"><a href="#不稳定路径检测" class="headerlink" title="不稳定路径检测"></a>不稳定路径检测</h4><p>SAN 设置中的一个常见问题是出现间歇性错误：路径无法访问，然后短时间内再次可达，再次消失，等等。 这种情况通常发生在不稳定的互连上。 在如此频繁、不可靠的事件上不必要地切换路径组是不合需要的。 multipathd 支持三种不同的方法来检测和处理这种情况。 所有方法共享相同的基本操作模式：如果发现路径“不稳定”或“翻转”，并且看起来处于健康状态，则不会立即恢复（重新使用）。 相反，它被置于“延迟”状态并观察一段时间，只有在健康状态看起来稳定时才恢复。 如果设置了 margin_pathgroups 选项，路径将立即恢复，但会放置在边缘路径的特殊路径组中。 在尝试完所有其他路径组之前，不会使用边缘路径组。 当路径正常恢复时，它将返回到其正常路径组。 确定“不稳定”状况的逻辑以及何时恢复的逻辑在三种方法之间是不同的。</p>
+<ul>
+<li><p>“delay_checks” 失败跟踪。此方法已弃用并映射到“san_path_err”方法。 有关更多信息，请参阅上面的delay_watch_checks 和delay_wait_checks 选项。</p>
+</li>
+<li><p>“marginal_path” 失败跟踪。如果在故障发生后的 margin_path_double_failed_time 秒内发生第二次故障事件（好-&gt;坏转换），则会对受影响的路径启动高频监控：以每秒 10 个的速率发送 I/O。 这是在 margin_path_err_sample_time 秒内完成的。 在此期间，路径不会恢复。 如果在监控期间错误率保持低于marginal_path_err_rate_threshold，则路径将恢复。 否则，将保持失败状态marginal_path_err_recheck_gap_time，之后再次进行监控。 对于此方法，时间间隔以秒为单位测量。</p>
+</li>
+<li><p>“san_path_err” 失败跟踪。multipathd 对每条路径的路径故障进行计数。 一旦失败次数超过 san_path_err_threshold 给定的值，路径在 san_path_err_recovery_time 秒内不会恢复。 在计算失败次数时，multipathd 每“san_path_err_forget_rate”一次就会“忘记”一次过去的失败； 因此，如果在遗忘率间隔内错误发生的频率不高于一次，则失败计数不会增加，并且永远不会达到阈值。 时间间隔是 multipathd 路径检查之间的时间，它是可变的，由 polling_interval 和 max_polling_interval 参数控制。</p>
+<p>此方法已被弃用，取而代之的是“marginal_path”故障跟踪方法，并且仅提供向后兼容性。</p>
+</li>
+</ul>
+<p>有关详细信息，请参阅上面各个选项的文档。 强烈建议不要对任何给定的多路径映射使用多个这些方法，因为这两种并发方法可能会以不可预测的方式交互。 如果“marginal_path”方法处于活动状态，则“san_path_err”参数将隐式设置为 0。</p>
+<h4 id="外部多路径支持"><a href="#外部多路径支持" class="headerlink" title="外部多路径支持"></a>外部多路径支持</h4><p>multipath 和 multipathd 可以加载 “外部” 库，以添加对 Linux 设备映射器之外的其他多路径技术的支持。 目前，此支持仅限于打印检测到的有关多路径设置的信息。 在拓扑输出中，外部映射的名称以方括号中的外部库名称为前缀，如本例中所示：</p>
+<pre><code>   # multipath -ll
+   uuid.fedcba98-3579-4567-8765-123456789abc [nvme]:nvme4n9 NVMe,Some NVMe controller,FFFFFFFF
+   size=167772160 features=&#39;n/a&#39; hwhandler=&#39;ANA&#39; wp=rw
+   |-+- policy=&#39;n/a&#39; prio=50 status=optimized
+   | `- 4:38:1    nvme4c38n1 0:0     n/a   optimized    live
+   `-+- policy=&#39;n/a&#39; prio=50 status=optimized
+     `- 4:39:1    nvme4c39n1 0:0     n/a   optimized    live
+</code></pre>
+<p>“nvme” 外部库为内核中的 NVMe 本机多路径提供支持。 它是标准多路径包的一部分。</p>
+<h4 id="已知的问题"><a href="#已知的问题" class="headerlink" title="已知的问题"></a>已知的问题</h4><p>在 LUN 的所有路径都脱机的情况下，使用queue_if_no_path 选项可能会导致 D 状态进程挂起且不可终止。 建议改用 no_path_retry 选项。</p>
+<p>如果 dev_loss_tmo 设置导致设备在 I/O 仍在排队时被删除，则使用queue_if_no_path 或 no_path_retry 可能会导致死锁。 多路径守护进程将相应地更新 dev_loss_tmo 设置以避免这种死锁。 因此，如果指定了两个值，则优先顺序为 no_path_retry、queue_if_no_path、dev_loss_tmo。</p>
+<h4 id="也可以看看"><a href="#也可以看看" class="headerlink" title="也可以看看"></a>也可以看看</h4><p>udev(8), dmsetup(8), multipath(8), multipathd(8).</p>
+<h4 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h4><p>multipath-tools 由 Christophe Varoqui、<a href="mailto:&#99;&#104;&#114;&#105;&#115;&#116;&#x6f;&#112;&#x68;&#x65;&#x2e;&#118;&#97;&#x72;&#111;&#x71;&#117;&#105;&#x40;&#111;&#112;&#x65;&#x6e;&#x73;&#118;&#x63;&#46;&#x63;&#x6f;&#109;">&#99;&#104;&#114;&#105;&#115;&#116;&#x6f;&#112;&#x68;&#x65;&#x2e;&#118;&#97;&#x72;&#111;&#x71;&#117;&#105;&#x40;&#111;&#112;&#x65;&#x6e;&#x73;&#118;&#x63;&#46;&#x63;&#x6f;&#109;</a> 等人开发。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>小主，路过打个赏再走呗~</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="小骆 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="小骆 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%9A%E8%B7%AF%E5%BE%84/" rel="tag"><i class="fa fa-tag"></i> 多路径</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/12/08/d1909d72.html" rel="prev" title="ALUA多路径技术">
+      <i class="fa fa-chevron-left"></i> ALUA多路径技术
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+      
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8D%E5%AD%97"><span class="nav-number">1.</span> <span class="nav-text">名字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#defaults"><span class="nav-number">3.1.</span> <span class="nav-text">defaults</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#blacklist-and-blacklist-exceptions"><span class="nav-number">3.2.</span> <span class="nav-text">blacklist and blacklist_exceptions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#multipath"><span class="nav-number">3.3.</span> <span class="nav-text">multipath</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#devices"><span class="nav-number">3.4.</span> <span class="nav-text">devices</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#overrides"><span class="nav-number">3.5.</span> <span class="nav-text">overrides</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WWID-%E7%94%9F%E6%88%90"><span class="nav-number">3.6.</span> <span class="nav-text">WWID 生成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E7%A8%B3%E5%AE%9A%E8%B7%AF%E5%BE%84%E6%A3%80%E6%B5%8B"><span class="nav-number">3.7.</span> <span class="nav-text">不稳定路径检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E5%A4%9A%E8%B7%AF%E5%BE%84%E6%94%AF%E6%8C%81"><span class="nav-number">3.8.</span> <span class="nav-text">外部多路径支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%B2%E7%9F%A5%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.9.</span> <span class="nav-text">已知的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B9%9F%E5%8F%AF%E4%BB%A5%E7%9C%8B%E7%9C%8B"><span class="nav-number">3.10.</span> <span class="nav-text">也可以看看</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E"><span class="nav-number">3.11.</span> <span class="nav-text">关于</span></a></li></ol></li></ol></div>
+      </div>
+
+      <!--/noindex-->
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小骆"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">小骆</p>
+  <div class="site-description" itemprop="description">一直青春无畏，一往无前</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+
+  <!--音乐插件-->
+  <audio src="/music/陈奕迅-喜帖街.mp3"  
+  style="max-height :100%; max-width: 100%; 
+  display: block; margin-left: auto; margin-right: auto;" 
+  controls="controls" loop="loop" preload="meta">
+  Your browser does not support the audio tag.
+  </audio>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HDMLOVE/hello-algorithm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HDMLOVE&#x2F;hello-algorithm" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lpyuan21@outlook.com" title="E-Mail → mailto:lpyuan21@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://mobile.twitter.com/HDML0VE" title="Twitter → https:&#x2F;&#x2F;mobile.twitter.com&#x2F;HDML0VE" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小骆</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'B4XbT4kXwfh9RTyBuoKPvOoH-9Nh9j0Va',
+      appKey     : 'S3dLSovwi3LXNsun5D7z7CI7',
+      placeholder: "如果对文章或本站点有任何疑问或者建议，请留言~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '5' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":210,"height":360},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

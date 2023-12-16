@@ -203,7 +203,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2020/03/14/dc0b7f4a.html">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2021/01/06/6aac47f4.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -217,7 +217,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/14/dc0b7f4a.html" class="post-title-link" itemprop="url">面试知识点</a>
+            <a href="/2021/01/06/6aac47f4.html" class="post-title-link" itemprop="url">结构体对齐</a>
         </h2>
 
         <div class="post-meta">
@@ -227,14 +227,326 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-13 22:27:24" itemprop="dateCreated datePublished" datetime="2020-03-13T22:27:24Z">2020-03-13</time>
+              <time title="创建时间：2021-01-06 06:21:28" itemprop="dateCreated datePublished" datetime="2021-01-06T06:21:28Z">2021-01-06</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-16 02:59:46" itemprop="dateModified" datetime="2023-12-16T02:59:46Z">2023-12-16</time>
+                <time title="修改时间：2023-12-07 16:46:45" itemprop="dateModified" datetime="2023-12-07T16:46:45Z">2023-12-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-C/" itemprop="url" rel="index"><span itemprop="name">C/C++</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/01/06/6aac47f4.html" class="post-meta-item leancloud_visitors" data-flag-title="结构体对齐" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/06/6aac47f4.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/06/6aac47f4.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="结构体对齐"><a href="#结构体对齐" class="headerlink" title="结构体对齐"></a>结构体对齐</h1><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><blockquote>
+<p>&ensp;&ensp;&ensp;&ensp;结构体对齐一直是一个老生常谈的问题，我面试过就被问过几次，但是每一次都复习准备好好的，但是一到面试时候，总能被面试官问倒（卑微~）其实主要的原因就是自己没有准确的深刻的理解结构体对齐这个知识点，没有对其进行一个总结。</p>
+</blockquote>
+<h2 id="为什么需要结构体对齐"><a href="#为什么需要结构体对齐" class="headerlink" title="为什么需要结构体对齐"></a>为什么需要结构体对齐</h2><p>&ensp;&ensp;&ensp;&ensp;结构体需要对其的原因主要就是对CPU对内存访问效率优化的一个问题。假设是intel 32的CPU， 每个总线周期都是要从偶地址读取32位的内存数据。</p>
+<p>假设我们的CPU和总线都是64位的，每次可以从内存中获取8个字节（Byte）64位（bit）的数据，这8个字节就是对齐的，假设就是0<del>7，8</del>15类似这样，你不能从中间3<del>10这样取值。如果需要取值3</del>10之间的数据，就需要取两次，分别是0<del>7，再取8</del>15。所以CPU的取值效率就下降了。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/06/6aac47f4.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2021/01/04/a9fd59ec.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小骆">
+      <meta itemprop="description" content="一直青春无畏，一往无前">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suzette219">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/04/a9fd59ec.html" class="post-title-link" itemprop="url">进程间通信</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-04 07:34:54" itemprop="dateCreated datePublished" datetime="2021-01-04T07:34:54Z">2021-01-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-07 17:07:34" itemprop="dateModified" datetime="2023-12-07T17:07:34Z">2023-12-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unix%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Unix环境高级编程</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/01/04/a9fd59ec.html" class="post-meta-item leancloud_visitors" data-flag-title="进程间通信" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/04/a9fd59ec.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/04/a9fd59ec.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><strong>原子操作</strong>，即不可分割开的操作；该操作一定是在同一个cpu时间片中完成，这样即使线程被切换，多个线程也不会看到同一块内存中不完整的数据。</p>
+<p>线程同步的主要方式–线程锁 线程同步最常用的方法是使用<strong>锁</strong>(Lock)。锁是一种非强制机制，每一个线程访问数据或资源之前，首先试图获取(Acquireuytreewq)锁,并在访问结束之后释放(release)。在锁已经被占用时获取锁，线程会等待，直到该锁被释放。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/04/a9fd59ec.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2021/01/03/67a506ce.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小骆">
+      <meta itemprop="description" content="一直青春无畏，一往无前">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suzette219">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/01/03/67a506ce.html" class="post-title-link" itemprop="url">信号Signal</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-03 04:39:12" itemprop="dateCreated datePublished" datetime="2021-01-03T04:39:12Z">2021-01-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-07 17:09:07" itemprop="dateModified" datetime="2023-12-07T17:09:07Z">2023-12-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unix%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Unix环境高级编程</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/01/03/67a506ce.html" class="post-meta-item leancloud_visitors" data-flag-title="信号Signal" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/01/03/67a506ce.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/01/03/67a506ce.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="信号机制"><a href="#信号机制" class="headerlink" title="信号机制"></a>信号机制</h1><p>信号是一种软中断，信号提供了一种处理异步事件的方法。通过<code>kill -l</code>命令我们可以很清楚的看待linux下对应的信号有64个。这些信号主要可以分为两大类，<strong>可靠信号</strong>与<strong>不可靠信号</strong>。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/01/03/67a506ce.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2020/12/27/7a4494fd.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小骆">
+      <meta itemprop="description" content="一直青春无畏，一往无前">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suzette219">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/12/27/7a4494fd.html" class="post-title-link" itemprop="url">手撕代码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-27 00:43:58" itemprop="dateCreated datePublished" datetime="2020-12-27T00:43:58Z">2020-12-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-07 17:08:02" itemprop="dateModified" datetime="2023-12-07T17:08:02Z">2023-12-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,7 +559,7 @@
             </span>
 
           
-            <span id="/2020/03/14/dc0b7f4a.html" class="post-meta-item leancloud_visitors" data-flag-title="面试知识点" title="阅读次数">
+            <span id="/2020/12/27/7a4494fd.html" class="post-meta-item leancloud_visitors" data-flag-title="手撕代码" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -262,8 +574,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/03/14/dc0b7f4a.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/14/dc0b7f4a.html" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/12/27/7a4494fd.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/27/7a4494fd.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -278,12 +590,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="网络基础"><a href="#网络基础" class="headerlink" title="网络基础"></a>网络基础</h1><h2 id="大端小端网络字节序"><a href="#大端小端网络字节序" class="headerlink" title="大端小端网络字节序"></a>大端小端网络字节序</h2><p>&ensp;&ensp;&ensp;&ensp;”大端”，”小端”指的是表示多字节的值哪一端存储在该值的起始地址处；多字节小端存储起始地址处称为小端字节序，多字节的大端存储在起始地址处称为大端字节序。<br>&ensp;&ensp;&ensp;&ensp;通俗的说就是。</p>
-<p>&ensp;&ensp;&ensp;&ensp;常用的X86架构就是采用的小端存储，最高有效位在最高位地址。</p>
-<p>&ensp;&ensp;&ensp;&ensp;大端字节序：最高有效位存于最低的内存地址，最低的有效位存于最高的内存地址。<br>&ensp;&ensp;&ensp;&ensp;小端字节序：最高有效位存于最高的内存地址，最低的有效位存于最低的内存地址。</p>
+          <h1 id="面试常见的手撕代码题型"><a href="#面试常见的手撕代码题型" class="headerlink" title="面试常见的手撕代码题型"></a>面试常见的手撕代码题型</h1><p>所有代码都已经跑过，可以正常编译运行。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/14/dc0b7f4a.html#more" rel="contents">
+              <a class="btn" href="/2020/12/27/7a4494fd.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -307,7 +617,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2020/03/02/e3aa8e8f.html">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2020/12/20/f255ffad.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -321,7 +631,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/02/e3aa8e8f.html" class="post-title-link" itemprop="url">Google浏览器无法安装问题</a>
+            <a href="/2020/12/20/f255ffad.html" class="post-title-link" itemprop="url">docker</a>
         </h2>
 
         <div class="post-meta">
@@ -331,14 +641,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-01 17:03:02" itemprop="dateCreated datePublished" datetime="2020-03-01T17:03:02Z">2020-03-01</time>
+              <time title="创建时间：2020-12-20 08:49:58" itemprop="dateCreated datePublished" datetime="2020-12-20T08:49:58Z">2020-12-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-16 02:59:46" itemprop="dateModified" datetime="2023-12-16T02:59:46Z">2023-12-16</time>
+                <time title="修改时间：2023-06-30 14:22:10" itemprop="dateModified" datetime="2023-06-30T14:22:10Z">2023-06-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -346,12 +656,12 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Windows/" itemprop="url" rel="index"><span itemprop="name">Windows</span></a>
+                  <a href="/categories/%E8%99%9A%E6%8B%9F%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">虚拟化</span></a>
                 </span>
             </span>
 
           
-            <span id="/2020/03/02/e3aa8e8f.html" class="post-meta-item leancloud_visitors" data-flag-title="Google浏览器无法安装问题" title="阅读次数">
+            <span id="/2020/12/20/f255ffad.html" class="post-meta-item leancloud_visitors" data-flag-title="docker" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -366,8 +676,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/03/02/e3aa8e8f.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/02/e3aa8e8f.html" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/12/20/f255ffad.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/20/f255ffad.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -382,216 +692,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <img src="/images/20210219125929354.jpg" alt="20210219125929354" style="zoom:50%;" />
-
-<p>今天遇到一个有趣的问题，Google浏览器莫名其面的一直安装不上，自己捣鼓了好久最后才解决。网上有很多方法说是因为注册表有残留，准确的说是GoogleUpdate这个东西在作怪，解决的方法只需要将注册表里Google相关的东西删除。</p>
+          <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>Docker 类似一个虚拟机。</p>
+<p>在docker中有几个基本的概念。</p>
+<p>1、镜像：类似于平时使用的iso或者image镜像文件。</p>
+<p>2、容器：容器其实就会类似于虚拟机</p>
+<p>3、tar文件：类似于vmdk文件，可以直接打个包在别的地方直接run运行。</p>
+<p>4、docker file。docker 的一些配置</p>
+<p>5、仓库：存放有很多已经打包好的镜像，MySQL镜像、ngnix镜像等。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/02/e3aa8e8f.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2020/02/25/3b09f244.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="小骆">
-      <meta itemprop="description" content="一直青春无畏，一往无前">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Suzette219">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/25/3b09f244.html" class="post-title-link" itemprop="url">釜山行</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-25 13:33:03" itemprop="dateCreated datePublished" datetime="2020-02-25T13:33:03Z">2020-02-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-16 02:59:46" itemprop="dateModified" datetime="2023-12-16T02:59:46Z">2023-12-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/02/25/3b09f244.html" class="post-meta-item leancloud_visitors" data-flag-title="釜山行" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/25/3b09f244.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/25/3b09f244.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一开始听到影片讲丧尸的时候，我对这一步电影是拒绝的，谁知道朋友圈的伙伴们便对我进行一番嘲讽，不服气的我便是选择勇敢地看完。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/25/3b09f244.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2020/02/17/4a17b156.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="小骆">
-      <meta itemprop="description" content="一直青春无畏，一往无前">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Suzette219">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/17/4a17b156.html" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-16 21:56:06" itemprop="dateCreated datePublished" datetime="2020-02-16T21:56:06Z">2020-02-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-16 02:59:46" itemprop="dateModified" datetime="2023-12-16T02:59:46Z">2023-12-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%85%B6%E4%BB%96/" itemprop="url" rel="index"><span itemprop="name">其他</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/02/17/4a17b156.html" class="post-meta-item leancloud_visitors" data-flag-title="Hello World" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/02/17/4a17b156.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/17/4a17b156.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/02/17/4a17b156.html#more" rel="contents">
+              <a class="btn" href="/2020/12/20/f255ffad.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -614,7 +724,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -681,19 +791,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
