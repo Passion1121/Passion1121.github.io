@@ -28,7 +28,7 @@
 <meta property="og:description" content="名字multipath.conf - 多路径守护程序配置文件 版本 multipath-tools v0.9.6 (07&#x2F;05, 2023)  描述&#x2F;etc&#x2F;multipath.conf 是多路径守护程序的配置文件。它用于覆盖multipathd的内置配置表。 任何第一个非空白字符为“#”的行都被视为注释行。 空行将被忽略。 当前使用的 multipathd 配置可以使用 multipath -t">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-16T08:04:13.000Z">
-<meta property="article:modified_time" content="2023-12-16T09:35:51.759Z">
+<meta property="article:modified_time" content="2023-12-16T09:37:53.137Z">
 <meta property="article:author" content="小骆">
 <meta property="article:tag" content="多路径">
 <meta name="twitter:card" content="summary">
@@ -231,7 +231,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-12-16 08:04:13 / 修改时间：09:35:51" itemprop="dateCreated datePublished" datetime="2023-12-16T08:04:13Z">2023-12-16</time>
+              <time title="创建时间：2023-12-16 08:04:13 / 修改时间：09:37:53" itemprop="dateCreated datePublished" datetime="2023-12-16T08:04:13Z">2023-12-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -285,20 +285,20 @@
 <p><strong>正则表达式注意事项：</strong>multipath.conf 语法允许将许多属性值指定为 POSIX 扩展正则表达式（请参阅 regex(7)）。 这些正则表达式区分大小写且不锚定，因此表达式“bar”匹配“barbie”、“rhabarber”和“wunderbar”，但不匹配“Barbie”。 为了避免不需要的子字符串匹配，可以使用使用特殊字符“^”和“$”的标准正则表达式语法。</p>
 <p>可以识别以下章节关键字：</p>
 <ul>
-<li><p>defaults    本节定义了属性的默认值，只要在适当的设备或多路径部分中没有给出值，就会使用这些默认值。</p>
+<li><p><strong>defaults</strong>    本节定义了属性的默认值，只要在适当的设备或多路径部分中没有给出值，就会使用这些默认值。</p>
 </li>
-<li><p>blacklist    本节定义应从多路径拓扑发现中排除哪些设备。</p>
+<li><p><strong>blacklist</strong>    本节定义应从多路径拓扑发现中排除哪些设备。</p>
 </li>
-<li><p>blacklist_exceptions    本部分定义哪些设备应包含在多路径拓扑发现中，尽管已列在黑名单部分中。</p>
+<li><p><strong>blacklist_exceptions</strong>    本部分定义哪些设备应包含在多路径拓扑发现中，尽管已列在黑名单部分中。</p>
 </li>
-<li><p>multipaths    本节定义多路径拓扑。 它们通过全球标识符 (WWID) 进行索引。 有关 WWID 生成的详细信息，请参阅下面的 WWID 生成部分。 本节中设置的属性优先于所有其他属性。</p>
+<li><p><strong>multipaths</strong>    本节定义多路径拓扑。 它们通过全球标识符 (WWID) 进行索引。 有关 WWID 生成的详细信息，请参阅下面的 WWID 生成部分。 本节中设置的属性优先于所有其他属性。</p>
 </li>
-<li><p>devices    本节定义设备特定的设置。 设备按供应商、产品和版本进行标识。</p>
+<li><p><strong>devices</strong>    本节定义设备特定的设置。 设备按供应商、产品和版本进行标识。</p>
 </li>
-<li><p>overrides    本节定义应覆盖所有设备的设备特定设置的属性值。</p>
+<li><p><strong>overrides</strong>    本节定义应覆盖所有设备的设备特定设置的属性值。</p>
 </li>
 </ul>
-<h4 id="defaults"><a href="#defaults" class="headerlink" title="defaults"></a>defaults</h4><p>defaults部分可识别以下关键字：</p>
+<h4 id="defaults"><a href="#defaults" class="headerlink" title="defaults"></a>defaults</h4><p>defaults 部分可识别以下关键字：</p>
 <ul>
 <li><p><strong>verbosity</strong>  默认详细程度。 值越高，详细程度越高。 有效级别在 0 到 6 之间。</p>
 <p>默认值：2</p>
@@ -413,7 +413,7 @@
 </li>
 </ul>
 </li>
-<li><p>path_checker  用于确定路径状态的默认方法。 可能的值为：</p>
+<li><p><strong>path_checker</strong>  用于确定路径状态的默认方法。 可能的值为：</p>
 <ul>
 <li><p>readsector0  （已弃用）读取设备的第一个扇区。 此检查器已被弃用，请使用 tur 代替。</p>
 </li>
@@ -772,11 +772,11 @@
 <p>默认设置（使用从内置硬件表配置的 udev 和 uid_attribute）在大多数情况下应该可以正常工作。 想要启用uevent合并的用户必须设置uid_attrs。</p>
 <h4 id="不稳定路径检测"><a href="#不稳定路径检测" class="headerlink" title="不稳定路径检测"></a>不稳定路径检测</h4><p>SAN 设置中的一个常见问题是出现间歇性错误：路径无法访问，然后短时间内再次可达，再次消失，等等。 这种情况通常发生在不稳定的互连上。 在如此频繁、不可靠的事件上不必要地切换路径组是不合需要的。 multipathd 支持三种不同的方法来检测和处理这种情况。 所有方法共享相同的基本操作模式：如果发现路径“不稳定”或“翻转”，并且看起来处于健康状态，则不会立即恢复（重新使用）。 相反，它被置于“延迟”状态并观察一段时间，只有在健康状态看起来稳定时才恢复。 如果设置了 margin_pathgroups 选项，路径将立即恢复，但会放置在边缘路径的特殊路径组中。 在尝试完所有其他路径组之前，不会使用边缘路径组。 当路径正常恢复时，它将返回到其正常路径组。 确定“不稳定”状况的逻辑以及何时恢复的逻辑在三种方法之间是不同的。</p>
 <ul>
-<li><p>“delay_checks” 失败跟踪。此方法已弃用并映射到“san_path_err”方法。 有关更多信息，请参阅上面的delay_watch_checks 和delay_wait_checks 选项。</p>
+<li><p>“<strong>delay_checks</strong>” 失败跟踪。此方法已弃用并映射到“san_path_err”方法。 有关更多信息，请参阅上面的delay_watch_checks 和delay_wait_checks 选项。</p>
 </li>
-<li><p>“marginal_path” 失败跟踪。如果在故障发生后的 margin_path_double_failed_time 秒内发生第二次故障事件（好-&gt;坏转换），则会对受影响的路径启动高频监控：以每秒 10 个的速率发送 I/O。 这是在 margin_path_err_sample_time 秒内完成的。 在此期间，路径不会恢复。 如果在监控期间错误率保持低于marginal_path_err_rate_threshold，则路径将恢复。 否则，将保持失败状态marginal_path_err_recheck_gap_time，之后再次进行监控。 对于此方法，时间间隔以秒为单位测量。</p>
+<li><p>“<strong>marginal_path</strong>” 失败跟踪。如果在故障发生后的 margin_path_double_failed_time 秒内发生第二次故障事件（好-&gt;坏转换），则会对受影响的路径启动高频监控：以每秒 10 个的速率发送 I/O。 这是在 margin_path_err_sample_time 秒内完成的。 在此期间，路径不会恢复。 如果在监控期间错误率保持低于marginal_path_err_rate_threshold，则路径将恢复。 否则，将保持失败状态marginal_path_err_recheck_gap_time，之后再次进行监控。 对于此方法，时间间隔以秒为单位测量。</p>
 </li>
-<li><p>“san_path_err” 失败跟踪。multipathd 对每条路径的路径故障进行计数。 一旦失败次数超过 san_path_err_threshold 给定的值，路径在 san_path_err_recovery_time 秒内不会恢复。 在计算失败次数时，multipathd 每“san_path_err_forget_rate”一次就会“忘记”一次过去的失败； 因此，如果在遗忘率间隔内错误发生的频率不高于一次，则失败计数不会增加，并且永远不会达到阈值。 时间间隔是 multipathd 路径检查之间的时间，它是可变的，由 polling_interval 和 max_polling_interval 参数控制。</p>
+<li><p>“<strong>san_path_err</strong>” 失败跟踪。multipathd 对每条路径的路径故障进行计数。 一旦失败次数超过 san_path_err_threshold 给定的值，路径在 san_path_err_recovery_time 秒内不会恢复。 在计算失败次数时，multipathd 每“san_path_err_forget_rate”一次就会“忘记”一次过去的失败； 因此，如果在遗忘率间隔内错误发生的频率不高于一次，则失败计数不会增加，并且永远不会达到阈值。 时间间隔是 multipathd 路径检查之间的时间，它是可变的，由 polling_interval 和 max_polling_interval 参数控制。</p>
 <p>此方法已被弃用，取而代之的是“marginal_path”故障跟踪方法，并且仅提供向后兼容性。</p>
 </li>
 </ul>
@@ -794,7 +794,7 @@
 <h4 id="已知的问题"><a href="#已知的问题" class="headerlink" title="已知的问题"></a>已知的问题</h4><p>在 LUN 的所有路径都脱机的情况下，使用queue_if_no_path 选项可能会导致 D 状态进程挂起且不可终止。 建议改用 no_path_retry 选项。</p>
 <p>如果 dev_loss_tmo 设置导致设备在 I/O 仍在排队时被删除，则使用queue_if_no_path 或 no_path_retry 可能会导致死锁。 多路径守护进程将相应地更新 dev_loss_tmo 设置以避免这种死锁。 因此，如果指定了两个值，则优先顺序为 no_path_retry、queue_if_no_path、dev_loss_tmo。</p>
 <h4 id="也可以看看"><a href="#也可以看看" class="headerlink" title="也可以看看"></a>也可以看看</h4><p>udev(8), dmsetup(8), multipath(8), multipathd(8).</p>
-<h4 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h4><p>multipath-tools 由 Christophe Varoqui、<a href="mailto:&#x63;&#x68;&#x72;&#105;&#x73;&#116;&#111;&#112;&#x68;&#x65;&#x2e;&#x76;&#x61;&#x72;&#111;&#x71;&#117;&#105;&#x40;&#x6f;&#112;&#x65;&#110;&#x73;&#x76;&#99;&#x2e;&#99;&#111;&#109;">&#x63;&#x68;&#x72;&#105;&#x73;&#116;&#111;&#112;&#x68;&#x65;&#x2e;&#x76;&#x61;&#x72;&#111;&#x71;&#117;&#105;&#x40;&#x6f;&#112;&#x65;&#110;&#x73;&#x76;&#99;&#x2e;&#99;&#111;&#109;</a> 等人开发。</p>
+<h4 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h4><p>multipath-tools 由 Christophe Varoqui、<a href="mailto:&#99;&#x68;&#x72;&#105;&#115;&#x74;&#x6f;&#x70;&#104;&#x65;&#x2e;&#x76;&#x61;&#x72;&#111;&#x71;&#117;&#105;&#x40;&#111;&#x70;&#x65;&#x6e;&#115;&#118;&#x63;&#x2e;&#99;&#111;&#x6d;">&#99;&#x68;&#x72;&#105;&#115;&#x74;&#x6f;&#x70;&#104;&#x65;&#x2e;&#x76;&#x61;&#x72;&#111;&#x71;&#117;&#105;&#x40;&#111;&#x70;&#x65;&#x6e;&#115;&#118;&#x63;&#x2e;&#99;&#111;&#x6d;</a> 等人开发。</p>
 <h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><p>[1] <a target="_blank" rel="noopener" href="https://github.com/opensvc/multipath-tools">https://github.com/opensvc/multipath-tools</a></p>
 
     </div>
