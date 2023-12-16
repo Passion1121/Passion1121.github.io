@@ -47,7 +47,7 @@
       </tags>
   </entry>
   <entry>
-    <title>multipath.conf（译）</title>
+    <title>多路径配置文件 multipath.conf（译）</title>
     <url>/2023/12/16/5832bb4e.html</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="名字"><a href="#名字" class="headerlink" title="名字"></a>名字</h3><p>multipath.conf - 多路径守护程序配置文件</p>
 <h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><p>/etc/multipath.conf 是多路径守护程序的配置文件。它用于覆盖multipathd的内置配置表。 任何第一个非空白字符为“#”的行都被视为注释行。 空行将被忽略。</p>
@@ -579,7 +579,7 @@
 <h4 id="已知的问题"><a href="#已知的问题" class="headerlink" title="已知的问题"></a>已知的问题</h4><p>在 LUN 的所有路径都脱机的情况下，使用queue_if_no_path 选项可能会导致 D 状态进程挂起且不可终止。 建议改用 no_path_retry 选项。</p>
 <p>如果 dev_loss_tmo 设置导致设备在 I/O 仍在排队时被删除，则使用queue_if_no_path 或 no_path_retry 可能会导致死锁。 多路径守护进程将相应地更新 dev_loss_tmo 设置以避免这种死锁。 因此，如果指定了两个值，则优先顺序为 no_path_retry、queue_if_no_path、dev_loss_tmo。</p>
 <h4 id="也可以看看"><a href="#也可以看看" class="headerlink" title="也可以看看"></a>也可以看看</h4><p>udev(8), dmsetup(8), multipath(8), multipathd(8).</p>
-<h4 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h4><p>multipath-tools 由 Christophe Varoqui、<a href="mailto:&#x63;&#104;&#114;&#x69;&#x73;&#116;&#111;&#112;&#104;&#x65;&#46;&#x76;&#97;&#x72;&#111;&#113;&#x75;&#105;&#x40;&#111;&#x70;&#101;&#x6e;&#x73;&#118;&#x63;&#x2e;&#99;&#111;&#109;">&#x63;&#104;&#114;&#x69;&#x73;&#116;&#111;&#112;&#104;&#x65;&#46;&#x76;&#97;&#x72;&#111;&#113;&#x75;&#105;&#x40;&#111;&#x70;&#101;&#x6e;&#x73;&#118;&#x63;&#x2e;&#99;&#111;&#109;</a> 等人开发。</p>
+<h4 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h4><p>multipath-tools 由 Christophe Varoqui、<a href="mailto:&#99;&#x68;&#x72;&#105;&#x73;&#x74;&#x6f;&#x70;&#x68;&#x65;&#46;&#x76;&#x61;&#114;&#111;&#x71;&#x75;&#105;&#x40;&#x6f;&#x70;&#101;&#110;&#x73;&#118;&#99;&#46;&#x63;&#111;&#109;">&#99;&#x68;&#x72;&#105;&#x73;&#x74;&#x6f;&#x70;&#x68;&#x65;&#46;&#x76;&#x61;&#114;&#111;&#x71;&#x75;&#105;&#x40;&#x6f;&#x70;&#101;&#110;&#x73;&#118;&#99;&#46;&#x63;&#111;&#109;</a> 等人开发。</p>
 ]]></content>
       <categories>
         <category>存储</category>
