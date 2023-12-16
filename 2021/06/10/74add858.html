@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.lpyuan219.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Git是目前世界上最先进的一款分布式版本控制系统，可以对我们的代码进行很好的版本管理。全球最大同性交流网站（Github）是程序员必逛的网站，学会使用Git是一个合格成熟的程序员必须掌握的技能之一，本篇文章主要介绍了Git的一个基本原理和常用的使用技巧。 如果使用Window，有一个Git版本控制客户端TortoiseGit非常好用，特别是像我以前使用惯了TortoiseSvn的人来说。 工具推荐">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git使用指南">
+<meta property="og:url" content="http://www.lpyuan219.com/2021/06/10/74add858.html">
+<meta property="og:site_name" content="Suzette219">
+<meta property="og:description" content="Git是目前世界上最先进的一款分布式版本控制系统，可以对我们的代码进行很好的版本管理。全球最大同性交流网站（Github）是程序员必逛的网站，学会使用Git是一个合格成熟的程序员必须掌握的技能之一，本篇文章主要介绍了Git的一个基本原理和常用的使用技巧。 如果使用Window，有一个Git版本控制客户端TortoiseGit非常好用，特别是像我以前使用惯了TortoiseSvn的人来说。 工具推荐">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.lpyuan219.com/images/image-20211017101514515.png">
+<meta property="article:published_time" content="2021-06-10T00:54:11.000Z">
+<meta property="article:modified_time" content="2023-12-16T02:59:46.885Z">
+<meta property="article:author" content="小骆">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.lpyuan219.com/images/image-20211017101514515.png">
+
+<link rel="canonical" href="http://www.lpyuan219.com/2021/06/10/74add858.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Git使用指南 | Suzette219</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Suzette219</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Share make me happy</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-user-friends fa-fw"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-book-open fa-fw"></i>阅读</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>电影</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2021/06/10/74add858.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小骆">
+      <meta itemprop="description" content="一直青春无畏，一往无前">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suzette219">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git使用指南
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-06-10 00:54:11" itemprop="dateCreated datePublished" datetime="2021-06-10T00:54:11Z">2021-06-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-16 02:59:46" itemprop="dateModified" datetime="2023-12-16T02:59:46Z">2023-12-16</time>
+              </span>
+
+          
+            <span id="/2021/06/10/74add858.html" class="post-meta-item leancloud_visitors" data-flag-title="Git使用指南" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/06/10/74add858.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/06/10/74add858.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Git是目前世界上最先进的一款分布式版本控制系统，可以对我们的代码进行很好的版本管理。全球最大同性交流网站（Github）是程序员必逛的网站，学会使用Git是一个合格成熟的程序员必须掌握的技能之一，本篇文章主要介绍了Git的一个基本原理和常用的使用技巧。</p>
+<p>如果使用Window，有一个Git版本控制客户端TortoiseGit非常好用，特别是像我以前使用惯了TortoiseSvn的人来说。</p>
+<p>工具推荐：<a target="_blank" rel="noopener" href="https://tortoisegit.org/download/">下载地址</a>。</p>
+<p>Mac下还没找到特别好用的，暂时就先不推荐了^_^</p>
+<a id="more"></a>
+
+<p>Git的代码管理原理可以简化如下图。</p>
+<img src="/images/image-20211017101514515.png" alt="image-20211017101514515" style="zoom:50%;" />
+
+<p>1、我们在工作目录编辑代码，当觉得OK的时候我们可以<code>git add files</code>将我们的代码提交大暂存区。</p>
+<p>2、然后继续编辑代码，如果没有问题我们可以将一个功能或者特性<code>git commit</code>提交到版本中，如果发现有问题我们可以<code>git reset</code>回退代码。</p>
+<p>3、如果测试没问题，我们可以将代码提交到远程仓库。</p>
+<p><strong>代码提交规范</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">feat:新功能</span><br><span class="line">fix:修复bug</span><br><span class="line">docs:文档改变</span><br><span class="line">style:代码格式改变</span><br><span class="line">refactor:某个功能重构</span><br><span class="line">perf:性能优化</span><br><span class="line"><span class="built_in">test</span>:增加测试</span><br><span class="line">build:改变了build功能，如grunt变成了npm</span><br><span class="line">revert:撤销上一次commit</span><br><span class="line">chore:构建过程或者辅助功能的变动</span><br></pre></td></tr></table></figure>
+<p><strong>Git的一些基本操作</strong></p>
+<ul>
+<li><p>初始化一个本地仓库。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></li>
+<li><p>添加远程仓库。有时候你已经在本地创建了一个Git仓库后，又想在GitHub创建一个Git仓库，并且将本地仓库同步到远程Git仓库。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git@github.com:HDMLOVE/Git_test.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看本地分支</span></span><br><span class="line">git branch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看远程分支</span></span><br><span class="line">git branch -av</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前分支远程地址</span></span><br><span class="line">git remote -v</span><br></pre></td></tr></table></figure></li>
+<li><p>下载（克隆）远程仓库代码</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:HDMLOVE/Git_test.git</span><br></pre></td></tr></table></figure></li>
+<li><p>查看代码提交记录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看提交历史记录</span></span><br><span class="line">git <span class="built_in">log</span> --graph</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看代码详细修改</span></span><br><span class="line">git show HEAD(commitid)</span><br></pre></td></tr></table></figure></li>
+<li><p>切换/创建分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换到Test分支，本地分支不存在该分支，则会自动从远端仓库下载分支代码。</span></span><br><span class="line">git checkout Test</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从master分支创建新的分支Git_test并切换到Git_test分支。</span></span><br><span class="line">git checkout -b Git_test master</span><br></pre></td></tr></table></figure></li>
+<li><p>提交代码文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提交某个&lt;file&gt;文件到暂存区。</span></span><br><span class="line">git add &lt;file&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交当前目录下已经跟踪到的所有文件到暂存区</span></span><br><span class="line">git add .</span><br><span class="line">git add -u</span><br></pre></td></tr></table></figure></li>
+<li><p>配置相关信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前用户全局（global）配置信息</span></span><br><span class="line">git config --global --list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前仓库配置信息</span></span><br><span class="line">git config --<span class="built_in">local</span> --list</span><br><span class="line"></span><br><span class="line"><span class="comment"># git status 没有颜色区分提示问题 </span></span><br><span class="line"><span class="comment"># Git显示颜色设置，也可以对其进行单独配置。</span></span><br><span class="line">git config --global color.ui <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># git diff 中文显示乱码问题</span></span><br><span class="line">git config --global core.quotepath <span class="literal">false</span>          <span class="comment"># 显示 status 编码</span></span><br><span class="line">git config --global gui.encoding utf-8            <span class="comment"># 图形界面编码</span></span><br><span class="line">git config --global i18n.commit.encoding utf-8    <span class="comment"># 提交信息编码</span></span><br><span class="line">git config --global i18n.logoutputencoding utf-8  <span class="comment"># 输出 log 编码</span></span><br><span class="line"><span class="built_in">export</span> LESSCHARSET=utf-8</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置用户名、邮箱等信息</span></span><br><span class="line">git config --global user.name <span class="string">&quot;张三&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;helloworl@outlook.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置完毕后可以通过下面命令来修正本次提交所用的用户身份信息</span></span><br><span class="line">git commit --amend --reset-author</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p>配置免密提交</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成ssh key</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;helloworld@sangfor.com&quot;</span> -b 4096</span><br><span class="line"><span class="comment"># 上传到git服务器上或者添加ssh key</span></span><br><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure></li>
+<li><p>修改某个commit</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改最近的一次的commit信息</span></span><br><span class="line">git rebase --amend</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示最近的5次修改</span></span><br><span class="line">git rebase -i HEAD~5</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改完成后，强制推送到远程分支</span></span><br><span class="line">git push origin &lt;master&gt; --force   &lt;==&gt;  git push master -f</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除分支</p>
+<p>当我们不需要某个分支的时候我们可以使用以下命令进行分支删除，但是当我们处于该分支的时候是无法删除的，所以我们第一步应该是先使用<code>git checkout &lt;branch&gt;</code>切换到一个其他的分支。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除本地分支</span></span><br><span class="line">git branch -d &lt;branch&gt;	<span class="comment"># 删除分支（本地还有代码没推送到本地分支时候是无法删除的）</span></span><br><span class="line">git branch -D &lt;branch&gt; 	<span class="comment"># 强制删除分支（本地代码没有推送到远程也可以删除）</span></span><br></pre></td></tr></table></figure></li>
+<li><p>分支重命名</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将分支old_branch重命名为new_branch</span></span><br><span class="line">git branch -m old_branch new_branch</span><br></pre></td></tr></table></figure></li>
+<li><p>仓库太大下载单个分支</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git </span><br></pre></td></tr></table></figure></li>
+<li><p>更新或者恢复某一个文件或者目录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 可以直接使用命令对其进程恢复，或者先删除掉再使用该命令进行恢复</span></span><br><span class="line">git checkout -- test.c</span><br><span class="line">git checkout -- testdir</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销暂存区的文件，git add 之后想要撤销，恢复到某个提交的版本（HEAD）</span></span><br><span class="line">git reset --hard HEAD</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销所有则执行如下命令</span></span><br><span class="line">git reset </span><br></pre></td></tr></table></figure>
+<hr>
+</li>
+</ul>
+<p><strong>常见问题</strong></p>
+<p>（1）linux普通用户无法使用git clone 克隆代码问题，一直报口令认证失败，公钥等其他问题均已排查过。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解决方案：修改tty权限。</span></span><br><span class="line">ll /dev/tty</span><br><span class="line">chmod 777 /dev/tty</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>小主，路过打个赏再走呗~</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="小骆 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="小骆 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/16/61622d0e.html" rel="prev" title="笔记">
+      <i class="fa fa-chevron-left"></i> 笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/07/17/349ba270.html" rel="next" title="GDB调试">
+      GDB调试 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+      
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+
+      <!--/noindex-->
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小骆"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">小骆</p>
+  <div class="site-description" itemprop="description">一直青春无畏，一往无前</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+
+  <!--音乐插件-->
+  <audio src="/music/陈奕迅-喜帖街.mp3"  
+  style="max-height :100%; max-width: 100%; 
+  display: block; margin-left: auto; margin-right: auto;" 
+  controls="controls" loop="loop" preload="meta">
+  Your browser does not support the audio tag.
+  </audio>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HDMLOVE/hello-algorithm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HDMLOVE&#x2F;hello-algorithm" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lpyuan21@outlook.com" title="E-Mail → mailto:lpyuan21@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://mobile.twitter.com/HDML0VE" title="Twitter → https:&#x2F;&#x2F;mobile.twitter.com&#x2F;HDML0VE" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小骆</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'B4XbT4kXwfh9RTyBuoKPvOoH-9Nh9j0Va',
+      appKey     : 'S3dLSovwi3LXNsun5D7z7CI7',
+      placeholder: "如果对文章或本站点有任何疑问或者建议，请留言~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '5' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":210,"height":360},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

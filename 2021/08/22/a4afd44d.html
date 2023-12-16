@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.lpyuan219.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="荀子在《劝学》中有道，”不积跬步，无以至千里，不积小流无以成江海“，我们需要不断的积累自己遇到的解决过的一些问题，这样久而久之我们才能会掌握的越来越丰富的东西。  东西比较咋还不成系统，暂时先记录下来。 方便再次遇到同样的问题方便查找。  2021.08.22__attribute__((unused)) 变量属性（variable attribute） &amp;ensp;&amp;ensp;&amp;ensp;&amp;en">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不积跬步无以至千里">
+<meta property="og:url" content="http://www.lpyuan219.com/2021/08/22/a4afd44d.html">
+<meta property="og:site_name" content="Suzette219">
+<meta property="og:description" content="荀子在《劝学》中有道，”不积跬步，无以至千里，不积小流无以成江海“，我们需要不断的积累自己遇到的解决过的一些问题，这样久而久之我们才能会掌握的越来越丰富的东西。  东西比较咋还不成系统，暂时先记录下来。 方便再次遇到同样的问题方便查找。  2021.08.22__attribute__((unused)) 变量属性（variable attribute） &amp;ensp;&amp;ensp;&amp;ensp;&amp;en">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-22T09:52:20.000Z">
+<meta property="article:modified_time" content="2023-12-16T02:59:46.893Z">
+<meta property="article:author" content="小骆">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.lpyuan219.com/2021/08/22/a4afd44d.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>不积跬步无以至千里 | Suzette219</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Suzette219</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Share make me happy</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-user-friends fa-fw"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-book-open fa-fw"></i>阅读</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>电影</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2021/08/22/a4afd44d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小骆">
+      <meta itemprop="description" content="一直青春无畏，一往无前">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suzette219">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          不积跬步无以至千里
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-22 09:52:20" itemprop="dateCreated datePublished" datetime="2021-08-22T09:52:20Z">2021-08-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-16 02:59:46" itemprop="dateModified" datetime="2023-12-16T02:59:46Z">2023-12-16</time>
+              </span>
+
+          
+            <span id="/2021/08/22/a4afd44d.html" class="post-meta-item leancloud_visitors" data-flag-title="不积跬步无以至千里" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/08/22/a4afd44d.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/08/22/a4afd44d.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>荀子在《劝学》中有道，”不积跬步，无以至千里，不积小流无以成江海“，我们需要不断的积累自己遇到的解决过的一些问题，这样久而久之我们才能会掌握的越来越丰富的东西。</p>
+<ul>
+<li>东西比较咋还不成系统，暂时先记录下来。</li>
+<li>方便再次遇到同样的问题方便查找。</li>
+</ul>
+<h1 id="2021-08-22"><a href="#2021-08-22" class="headerlink" title="2021.08.22"></a>2021.08.22</h1><p><code>__attribute__((unused))</code> 变量属性（variable attribute）</p>
+<p>&ensp;&ensp;&ensp;&ensp;通常，如果变量被声明但是从未被引用的话，C编译器则是会报出警告⚠️（warnning）。这个属性就是通知编译器你希望某个变量未使用，并且告诉它未使用的时候不要发出警告。</p>
+<blockquote>
+<p><strong>注意：</strong></p>
+<p>此变量属性是 ARM 编译器支持的 GNU 编译器扩展。</p>
+<p>This variable attribute is a GNU compiler extension that the ARM compiler supports.</p>
+</blockquote>
+<p><strong>示例1：</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Variable_Attribute_unused_0</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> aStatic = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> aUnesed __attribute__((unused));</span><br><span class="line">    <span class="comment">// __attribute__((unused)) int aUnesed;</span></span><br><span class="line">    <span class="keyword">int</span> bUnused;</span><br><span class="line">    aStatic++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在此示例中，编译器警告<code>bUnused</code>已声明但从未引用过的 ，但不会警告<code>aUnused</code>.</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.keil.com/support/man/docs/armcc/armcc_chr1359124982981.htm">https://www.keil.com/support/man/docs/armcc/armcc_chr1359124982981.htm</a></p>
+<a id="more"></a>
+
+<h1 id="2021-11-04"><a href="#2021-11-04" class="headerlink" title="2021.11.04"></a>2021.11.04</h1><ul>
+<li>tcudmp过滤条件抓vlan数据包问题。</li>
+</ul>
+<p>以前在处理现场项目的时候发现，客户的环境带有vlan数据头的数据包在使用tcpdump加上某个过滤条件之后（比如端口，或者IP）就会出现抓取不到数据包的情况，但是全抓不加过滤条件则是可以正常抓取，当时没在意就过去了。前两天又遇到了，同样的情况决定探一番究竟，在国内翻滚了一圈CSDN全是你抄我我抄你清一色的回答，最终无奈只能查阅<a target="_blank" rel="noopener" href="https://www.tcpdump.org/manpages/pcap-filter.7.html">官方文档</a>中找到了答案。</p>
+<p>vlan [vlan_id]<br>True if the packet is an IEEE 802.1Q VLAN packet. If the optional vlan_id is specified, only true if the packet has the specified vlan_id. Note that the first vlan keyword encountered in an expression changes the decoding offsets for the remainder of the expression on the assumption that the packet is a VLAN packet. The <code>vlan [vlan_id]</code> keyword may be used more than once, to filter on VLAN hierarchies. Each use of that keyword increments the filter offsets by 4.<br>For example:<br>vlan 100 &amp;&amp; vlan 200<br>filters on VLAN 200 encapsulated within VLAN 100, and<br>vlan &amp;&amp; vlan 300 &amp;&amp; ip<br>filters IPv4 protocol encapsulated in VLAN 300 encapsulated within any higher order VLAN.</p>
+<ul>
+<li>在过滤vlan报文的过程中，需要加上vlan关键字配合过滤，如果是多层vlan则需要多个vlan关键字配合，例如<code>tcpdump -ieth0 vlan &amp;&amp; port 3306 </code>。</li>
+<li>对指定的vlan ID的数据包进行过滤则是可以<code>tcpdump -ieth0 vlan 200 &amp;&amp; port 3306</code>。</li>
+</ul>
+<h2 id="2021-11-13"><a href="#2021-11-13" class="headerlink" title="2021.11.13"></a>2021.11.13</h2><ul>
+<li>Gcc编译native选项问题</li>
+</ul>
+<p>编译dpdk的时候，有编译不过的地方，按照网上文章指导开启了native选项，然后换了个环境的时候，竟然报错起不来了报SSE4_1指令集不支持，网上查了相关的资料原来才明白其中的原委，官方解释有如下。</p>
+<p>‘native’</p>
+<p>This selects the CPU to generate code for at compilation time by determining the processor type of the compiling machine. Using -march=native enables all instruction subsets supported by the local machine (hence the result might not run on different machines). Using -mtune=native produces code optimized for the local machine under the constraints of the selected instruction set.</p>
+<p>大致意思就是说编译的时候会根据编译环境所支持的CPU指令集进行编译优化，所以如果我们开启了native选项，但是如果在和我们编译环境不一致的运行环境上可能会出现cpu指令集不支持从而导致起不来的现象。</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p><a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html">https://gcc.gnu.org/onlinedocs/gcc/x86-Options.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/">https://gcc.gnu.org/onlinedocs/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cxyzjd.com/article/zangchang/80084257">https://www.cxyzjd.com/article/zangchang/80084257</a></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>小主，路过打个赏再走呗~</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="小骆 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="小骆 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/19/88d0fd78.html" rel="prev" title="对称RSS">
+      <i class="fa fa-chevron-left"></i> 对称RSS
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/27/aaa6ef00.html" rel="next" title="vim宝典">
+      vim宝典 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+      
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2021-08-22"><span class="nav-number">1.</span> <span class="nav-text">2021.08.22</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2021-11-04"><span class="nav-number">2.</span> <span class="nav-text">2021.11.04</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2021-11-13"><span class="nav-number">2.1.</span> <span class="nav-text">2021.11.13</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">2.1.1.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+
+      <!--/noindex-->
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小骆"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">小骆</p>
+  <div class="site-description" itemprop="description">一直青春无畏，一往无前</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+
+  <!--音乐插件-->
+  <audio src="/music/陈奕迅-喜帖街.mp3"  
+  style="max-height :100%; max-width: 100%; 
+  display: block; margin-left: auto; margin-right: auto;" 
+  controls="controls" loop="loop" preload="meta">
+  Your browser does not support the audio tag.
+  </audio>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HDMLOVE/hello-algorithm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HDMLOVE&#x2F;hello-algorithm" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lpyuan21@outlook.com" title="E-Mail → mailto:lpyuan21@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://mobile.twitter.com/HDML0VE" title="Twitter → https:&#x2F;&#x2F;mobile.twitter.com&#x2F;HDML0VE" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小骆</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'B4XbT4kXwfh9RTyBuoKPvOoH-9Nh9j0Va',
+      appKey     : 'S3dLSovwi3LXNsun5D7z7CI7',
+      placeholder: "如果对文章或本站点有任何疑问或者建议，请留言~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '5' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":210,"height":360},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

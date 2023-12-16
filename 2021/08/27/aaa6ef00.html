@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.lpyuan219.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;vim是Linux系统上一款优秀的编辑器，学会使用vim能极大的提升我们在linux系统上对文本的编辑。一般vim打开文件有三种模式，分别是”一般指令模式“，”编辑模式“，”命令行模式“。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vim宝典">
+<meta property="og:url" content="http://www.lpyuan219.com/2021/08/27/aaa6ef00.html">
+<meta property="og:site_name" content="Suzette219">
+<meta property="og:description" content="&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;vim是Linux系统上一款优秀的编辑器，学会使用vim能极大的提升我们在linux系统上对文本的编辑。一般vim打开文件有三种模式，分别是”一般指令模式“，”编辑模式“，”命令行模式“。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-27T00:23:23.000Z">
+<meta property="article:modified_time" content="2023-12-16T02:59:46.893Z">
+<meta property="article:author" content="小骆">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.lpyuan219.com/2021/08/27/aaa6ef00.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>vim宝典 | Suzette219</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Suzette219</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Share make me happy</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-user-friends fa-fw"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-book-open fa-fw"></i>阅读</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>电影</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2021/08/27/aaa6ef00.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小骆">
+      <meta itemprop="description" content="一直青春无畏，一往无前">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suzette219">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vim宝典
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-27 00:23:23" itemprop="dateCreated datePublished" datetime="2021-08-27T00:23:23Z">2021-08-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-16 02:59:46" itemprop="dateModified" datetime="2023-12-16T02:59:46Z">2023-12-16</time>
+              </span>
+
+          
+            <span id="/2021/08/27/aaa6ef00.html" class="post-meta-item leancloud_visitors" data-flag-title="vim宝典" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/08/27/aaa6ef00.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/08/27/aaa6ef00.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&ensp;&ensp;&ensp;&ensp;vim是Linux系统上一款优秀的编辑器，学会使用vim能极大的提升我们在linux系统上对文本的编辑。一般vim打开文件有三种模式，分别是”一般指令模式“，”编辑模式“，”命令行模式“。</p>
+<a id="more"></a>
+
+<p><strong>常用的一些操作：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 多窗口功能</span></span><br><span class="line">:vsp	       <span class="comment"># 分屏打开，垂直方向。</span></span><br><span class="line">:sp	         <span class="comment"># 水平方向打开</span></span><br><span class="line">Ctrl+ww      <span class="comment"># 切换窗口</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关键字补全功能</span></span><br><span class="line">Ctrl + n 向下寻找关键字补全。</span><br><span class="line">ctrl + p 向上查找关键字补全。</span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制粘贴</span></span><br><span class="line">命令模式输入v自由选取模式，选择需要剪切的文字后，按下d就可以进行剪切了。</span><br><span class="line">yy      复制当前行</span><br><span class="line">nyy     n表示大于1的数字，复制n行</span><br><span class="line">dd      剪切当前行</span><br><span class="line">ndd     n表示大于1的数字，剪切n行</span><br><span class="line">fn+--&gt; 按下a </span><br><span class="line"></span><br><span class="line"><span class="built_in">fc</span>: 把光标移到同一行的下一个c字符处</span><br><span class="line">Fc: 把光标移到同一行的上一个c字符处</span><br><span class="line">tc: 把光标移到同一行的下一个c字符前</span><br><span class="line">Tc: 把光标移到同一行的上一个c字符后</span><br><span class="line"></span><br><span class="line">w往右移动一个单词</span><br><span class="line"></span><br><span class="line">b往左移动一个单词</span><br><span class="line"></span><br><span class="line">f行内搜索 </span><br><span class="line"></span><br><span class="line">；行内搜索下一个搜索结果</span><br><span class="line"></span><br><span class="line">比如说有这么个字符串 <span class="string">&quot;testdfat&quot;</span>，假设光标停留在第一个 **t** 位置。</span><br><span class="line"></span><br><span class="line">di<span class="string">&quot;：delete all content inside **&quot;</span>**，结果字符串为<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">dta：delete all content **to** **a**，结果字符串为<span class="string">&quot;at&quot;</span></span><br><span class="line"></span><br><span class="line">dfa：delete all content from current location, until **a** is **found**，结果字符串为<span class="string">&quot;t&quot;</span></span><br><span class="line"></span><br><span class="line">d$: 删除当前到行结尾</span><br><span class="line"></span><br><span class="line">整页翻页 ctrl-f ctrl-b</span><br><span class="line">f就是forword b就是backward</span><br><span class="line"></span><br><span class="line">翻半页</span><br><span class="line">ctrl-d ctlr-u</span><br><span class="line">d=down u=up</span><br><span class="line"></span><br><span class="line">滚一行</span><br><span class="line">ctrl-e ctrl-y</span><br><span class="line"></span><br><span class="line">zz 让光标所在的行居屏幕中央</span><br><span class="line">zt 让光标所在的行居屏幕最上一行 t=top</span><br><span class="line">zb 让光标所在的行居屏幕最下一行 b=bottom </span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看编码格式</span></span><br><span class="line">:<span class="built_in">set</span> fileencoding</span><br><span class="line"><span class="comment"># 设置编码格式</span></span><br><span class="line">:<span class="built_in">set</span> fileencoding=utf-8</span><br><span class="line"><span class="comment"># 查看文件格式</span></span><br><span class="line">:<span class="built_in">set</span> fileformat</span><br><span class="line"><span class="comment"># 文件格式转换</span></span><br><span class="line">:<span class="built_in">set</span> fileformat=unix</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除倒数第二个花括号内的所有内容并进入插入模式，对应的‘ci&#123;’</span></span><br><span class="line">c2i&#123;</span><br></pre></td></tr></table></figure>
+<p><strong>Mac笔记本📒下vim配置</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot; plug</span></span><br><span class="line"><span class="string">call plug#begin()</span></span><br><span class="line"><span class="string">Plug &#x27;joshdick/onedark.vim&#x27;</span></span><br><span class="line"><span class="string">Plug &#x27;itchyny/lightline.vim&#x27;</span></span><br><span class="line"><span class="string">Plug &#x27;majutsushi/Tagbar&#x27;</span></span><br><span class="line"><span class="string">Plug &#x27;preservim/nerdtree&#x27;</span></span><br><span class="line"><span class="string">Plug &#x27;fatih/vim-go&#x27;, &#123; &#x27;do&#x27;: &#x27;:GoUpdateBinaries&#x27; &#125;</span></span><br><span class="line"><span class="string">call plug#end()</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936</span></span><br><span class="line"><span class="string">set termencoding=utf-8</span></span><br><span class="line"><span class="string">set encoding=utf-8</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> 自动提示</span><br><span class="line"><span class="built_in">set</span> completeopt=menu</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; 语法高亮</span></span><br><span class="line"><span class="string">syntax on</span></span><br><span class="line"><span class="string">&quot;</span> 侦测文件类型</span><br><span class="line">filetype on</span><br><span class="line"><span class="string">&quot; 载入文件类型插件</span></span><br><span class="line"><span class="string">filetype plugin on</span></span><br><span class="line"><span class="string">&quot;</span> 为特定文件类型载入相关缩进文件</span><br><span class="line">filetype indent on</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&quot; show print margin</span></span><br><span class="line"><span class="string">set colorcolumn=79</span></span><br><span class="line"><span class="string">&quot;</span> 设置背景</span><br><span class="line"><span class="string">&quot; set background=dark</span></span><br><span class="line"><span class="string">&quot;</span> 配色方案</span><br><span class="line"><span class="string">&quot;let g:molokai_original = 1</span></span><br><span class="line"><span class="string">&quot;</span><span class="built_in">let</span> g:rehash256 = 1</span><br><span class="line"><span class="string">&quot;Tomorrow-Night-Blue</span></span><br><span class="line"><span class="string">&quot;</span>Tomorrow-Night-Bright</span><br><span class="line"><span class="string">&quot;Tomorrow-Night-Eighties</span></span><br><span class="line"><span class="string">&quot;</span>Tomorrow-Night</span><br><span class="line"><span class="string">&quot;Tomorrow</span></span><br><span class="line"><span class="string">&quot;</span>molokai</span><br><span class="line"><span class="string">&quot;solarized</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">colorscheme onedark</span></span><br><span class="line"><span class="string">let g:lightline = &#123;</span></span><br><span class="line"><span class="string">  \ &#x27;colorscheme&#x27;: &#x27;onedark&#x27;,</span></span><br><span class="line"><span class="string">  \ &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> 去掉输入错误的提示声音</span><br><span class="line"><span class="built_in">set</span> noeb</span><br><span class="line"><span class="string">&quot; 启动的时候不显示那个援助索马里儿童的提示</span></span><br><span class="line"><span class="string">set shortmess=atI</span></span><br><span class="line"><span class="string">&quot;</span> 关闭菜单的ALT</span><br><span class="line"><span class="built_in">set</span> winaltkeys=no</span><br><span class="line"><span class="string">&quot; 设定默认解码</span></span><br><span class="line"><span class="string">set fenc=utf-8</span></span><br><span class="line"><span class="string">set fencs=utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936</span></span><br><span class="line"><span class="string">&quot;</span> 不要使用vi的键盘模式，而是vim自己的</span><br><span class="line"><span class="built_in">set</span> nocompatible</span><br><span class="line"><span class="string">&quot; history文件中需要记录的行数</span></span><br><span class="line"><span class="string">set history=100</span></span><br><span class="line"><span class="string">&quot;</span> 与windows共享剪贴板</span><br><span class="line"><span class="built_in">set</span> clipboard+=unnamed</span><br><span class="line"><span class="string">&quot; 状态行颜色</span></span><br><span class="line"><span class="string">&quot;</span>highlight StatusLine guifg=SlateBlue guibg=Yellow</span><br><span class="line"><span class="string">&quot;highlight StatusLineNC guifg=Gray guibg=White</span></span><br><span class="line"><span class="string">&quot;</span> 取消自动注释</span><br><span class="line"><span class="built_in">set</span> formatoptions=ql</span><br><span class="line"><span class="built_in">set</span> paste</span><br><span class="line"><span class="string">&quot; 不要备份文件（根据自己需要取舍）</span></span><br><span class="line"><span class="string">set backup</span></span><br><span class="line"><span class="string">set backupdir=~/.vimbak</span></span><br><span class="line"><span class="string">&quot;</span> 不要生成swap文件，当buffer被丢弃的时候隐藏它</span><br><span class="line">setlocal noswapfile</span><br><span class="line"><span class="built_in">set</span> bufhidden=hide</span><br><span class="line"><span class="string">&quot; 字符间插入的像素行数目</span></span><br><span class="line"><span class="string">set linespace=0</span></span><br><span class="line"><span class="string">&quot;</span> 增强模式中的命令行自动完成操作</span><br><span class="line"><span class="built_in">set</span> wildmenu</span><br><span class="line"><span class="string">&quot; 在状态行上显示光标所在位置的行号和列号</span></span><br><span class="line"><span class="string">set ruler</span></span><br><span class="line"><span class="string">set rulerformat=%20(%2*%&lt;%f%=\ %m%r\ %3l\ %c\ %p%%%)</span></span><br><span class="line"><span class="string">&quot;</span> 命令行（在状态行下）的高度，默认为1，这里是2</span><br><span class="line"><span class="built_in">set</span> cmdheight=2</span><br><span class="line"><span class="string">&quot; 使回格键（backspace）正常处理indent, eol, start等</span></span><br><span class="line"><span class="string">set backspace=2</span></span><br><span class="line"><span class="string">&quot;</span> 允许backspace和光标键跨越行边界</span><br><span class="line"><span class="built_in">set</span> whichwrap+=&lt;,&gt;,h,l</span><br><span class="line"><span class="string">&quot; 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）</span></span><br><span class="line"><span class="string">set mouse=a</span></span><br><span class="line"><span class="string">set selection=exclusive</span></span><br><span class="line"><span class="string">set selectmode=mouse,key</span></span><br><span class="line"><span class="string">&quot;</span> 通过使用: commands命令，告诉我们文件的哪一行被改变过</span><br><span class="line"><span class="built_in">set</span> report=0</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; 不让vim发出讨厌的滴滴声</span></span><br><span class="line"><span class="string">set noerrorbells</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> 在被分割的窗口间显示空白，便于阅读</span><br><span class="line"><span class="built_in">set</span> fillchars=vert:\ ,stl:\ ,stlnc:\</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">&quot;</span> Search</span><br><span class="line"><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">&quot;</span> 高亮显示匹配的括号</span><br><span class="line"><span class="built_in">set</span> showmatch</span><br><span class="line"><span class="string">&quot; 匹配括号高亮的时间（单位是十分之一秒）</span></span><br><span class="line"><span class="string">set matchtime=5</span></span><br><span class="line"><span class="string">&quot;</span> 在搜索的时候忽略大小写</span><br><span class="line"><span class="built_in">set</span> ignorecase</span><br><span class="line"><span class="string">&quot; highligth the search word</span></span><br><span class="line"><span class="string">set hlsearch</span></span><br><span class="line"><span class="string">&quot;</span> 在搜索时，输入的词句的逐字符高亮（类似firefox的搜索）</span><br><span class="line"><span class="built_in">set</span> incsearch</span><br><span class="line"><span class="string">&quot; 输入:set list命令是应该显示些啥？</span></span><br><span class="line"><span class="string">set listchars=tab:\|\ ,trail:.,extends:&gt;,precedes:&lt;,eol:$</span></span><br><span class="line"><span class="string">&quot;</span> 光标移动到buffer的顶部和底部时保持3行距离</span><br><span class="line"><span class="built_in">set</span> scrolloff=3</span><br><span class="line"><span class="string">&quot; 不要闪烁</span></span><br><span class="line"><span class="string">set novisualbell</span></span><br><span class="line"><span class="string">&quot;</span> 我的状态行显示的内容（包括文件类型和解码）</span><br><span class="line"><span class="built_in">set</span> statusline=%F%m%r%h%w\ [FORMAT=%&#123;&amp;ff&#125;]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %&#123;strftime(\&quot;%d/%m/%y\ -\ %H:%M\&quot;)&#125;</span><br><span class="line"><span class="string">&quot; 总是显示状态行</span></span><br><span class="line"><span class="string">set laststatus=2</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"><span class="string">&quot; Text</span></span><br><span class="line"><span class="string">&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"><span class="string">&quot; 自动格式化</span></span><br><span class="line"><span class="string">set formatoptions=tcrqn</span></span><br><span class="line"><span class="string">&quot;</span> 继承前一行的缩进方式，特别适用于多行注释</span><br><span class="line"><span class="built_in">set</span> noautoindent</span><br><span class="line"><span class="string">&quot; 为C程序提供自动缩进</span></span><br><span class="line"><span class="string">set nosmartindent</span></span><br><span class="line"><span class="string">&quot;</span> 使用C样式的缩进</span><br><span class="line"><span class="built_in">set</span> cindent</span><br><span class="line"><span class="string">&quot; 制表符为4</span></span><br><span class="line"><span class="string">set tabstop=4</span></span><br><span class="line"><span class="string">&quot;</span> 统一缩进为4</span><br><span class="line"><span class="built_in">set</span> softtabstop=4</span><br><span class="line"><span class="built_in">set</span> shiftwidth=4</span><br><span class="line"><span class="string">&quot; 不要用空格代替制表符</span></span><br><span class="line"><span class="string">set expandtab</span></span><br><span class="line"><span class="string">&quot;</span> 换行</span><br><span class="line"><span class="built_in">set</span> wrap</span><br><span class="line"><span class="string">&quot; 在行和段开始处使用制表符</span></span><br><span class="line"><span class="string">set smarttab</span></span><br><span class="line"><span class="string">&quot;</span> 用空格键来开关折叠</span><br><span class="line"><span class="built_in">set</span> foldenable</span><br><span class="line"><span class="string">&quot;set foldmethod=marker</span></span><br><span class="line"><span class="string">&quot;</span> show line number</span><br><span class="line"><span class="built_in">set</span> number</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; quickfix</span></span><br><span class="line"><span class="string">&quot;</span> <span class="built_in">set</span> switchbuf=newtab</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">&quot;</span> Session</span><br><span class="line"><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string">set sessionoptions=blank,buffers,sesdir,folds,help,options,tabpages,winsize</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"><span class="string">&quot; NERDTree</span></span><br><span class="line"><span class="string">&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line">noremap &lt;F7&gt; :NERDTreeToggle&lt;CR&gt;</span><br><span class="line"><span class="string">&quot; autocmd BufReadPost *.go NERDTree</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> ============================================================================</span><br><span class="line"><span class="string">&quot; Go</span></span><br><span class="line"><span class="string">&quot;</span> ============================================================================</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; quickfix</span></span><br><span class="line"><span class="string">let g:go_list_type = &quot;</span>locationlist<span class="string">&quot;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> highlight</span><br><span class="line"><span class="built_in">let</span> g:go_highlight_types = 1</span><br><span class="line"><span class="built_in">let</span> g:go_highlight_functions = 1</span><br><span class="line"><span class="built_in">let</span> g:go_highlight_methods = 1</span><br><span class="line"><span class="built_in">let</span> g:go_highlight_structs = 1</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; let g:go_highlight_fields = 1</span></span><br><span class="line"><span class="string">let g:go_highlight_operators = 1</span></span><br><span class="line"><span class="string">let g:go_highlight_extra_types = 1 </span></span><br><span class="line"><span class="string">let g:go_highlight_build_constraints = 1</span></span><br><span class="line"><span class="string">let g:go_highlight_generate_tags = 1</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"><span class="string">&quot; gotags</span></span><br><span class="line"><span class="string">&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"><span class="built_in">let</span> g:tagbar_width = 45</span><br><span class="line"><span class="built_in">let</span> g:tagbar_autoclose = 0</span><br><span class="line"><span class="built_in">let</span> g:tagbar_autofocus = 0</span><br><span class="line"><span class="built_in">let</span> g:tagbar_show_linenumbers = 0</span><br><span class="line"><span class="built_in">let</span> g:tagbar_show_visibility = 1</span><br><span class="line"><span class="built_in">let</span> g:tagbar_autoshowtag = 1</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> g:tagbar_type_go = &#123;</span><br><span class="line">            \ <span class="string">&#x27;ctagstype&#x27;</span> : <span class="string">&#x27;go&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;kinds&#x27;</span>     : [</span><br><span class="line">            \ <span class="string">&#x27;p:package&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;i:imports:1&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;c:constants&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;v:variables&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;t:types&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;n:interfaces&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;w:fields&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;e:embedded&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;m:methods&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;r:constructor&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;f:functions&#x27;</span></span><br><span class="line">            \ ],</span><br><span class="line">            \ <span class="string">&#x27;sro&#x27;</span> : <span class="string">&#x27;.&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;kind2scope&#x27;</span> : &#123;</span><br><span class="line">            \ <span class="string">&#x27;t&#x27;</span> : <span class="string">&#x27;ctype&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;n&#x27;</span> : <span class="string">&#x27;ntype&#x27;</span></span><br><span class="line">            \ &#125;,</span><br><span class="line">            \ <span class="string">&#x27;scope2kind&#x27;</span> : &#123;</span><br><span class="line">            \ <span class="string">&#x27;ctype&#x27;</span> : <span class="string">&#x27;t&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;ntype&#x27;</span> : <span class="string">&#x27;n&#x27;</span></span><br><span class="line">            \ &#125;,</span><br><span class="line">            \ <span class="string">&#x27;ctagsbin&#x27;</span>  : <span class="string">&#x27;/Users/terrysmao/go/bin/gotags&#x27;</span>,</span><br><span class="line">            \ <span class="string">&#x27;ctagsargs&#x27;</span> : <span class="string">&#x27;-sort -silent&#x27;</span></span><br><span class="line">            \ &#125;</span><br><span class="line"></span><br><span class="line">noremap &lt;F8&gt; :TagbarToggle&lt;CR&gt;</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"><span class="string">&quot; godef</span></span><br><span class="line"><span class="string">&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string"> let g:go_def_mode = &#x27;godef&#x27;</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string"> &quot;</span> open the definition <span class="keyword">in</span> a new tab</span><br><span class="line"> <span class="built_in">let</span> g:godef_split=0</span><br><span class="line"> </span><br><span class="line"> <span class="string">&quot; want jumps to the same file to move your current cursor instead of splitting</span></span><br><span class="line"><span class="string"> let g:godef_same_file_in_same_window=1</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string"> &quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"> <span class="string">&quot; lint</span></span><br><span class="line"><span class="string"> &quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"> <span class="built_in">let</span> g:go_metalinter_enabled = [<span class="string">&#x27;vet&#x27;</span>, <span class="string">&#x27;golint&#x27;</span>, <span class="string">&#x27;errcheck&#x27;</span>]</span><br><span class="line"> <span class="built_in">let</span> g:go_metalinter_autosave = 1</span><br><span class="line"> <span class="built_in">let</span> g:go_metalinter_autosave_enabled = [<span class="string">&#x27;vet&#x27;</span>, <span class="string">&#x27;golint&#x27;</span>]</span><br><span class="line"> <span class="built_in">let</span> g:go_metalinter_deadline = <span class="string">&quot;5s&quot;</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> <span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string"> &quot;</span> goimports</span><br><span class="line"> <span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;</span></span><br><span class="line"><span class="string"> let g:go_fmt_command = &quot;</span>goimports<span class="string">&quot;</span></span><br><span class="line"><span class="string"> let g:go_fmt_autosave = 1</span></span><br><span class="line"><span class="string"> let g:go_fmt_fail_silently = 1</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string"> &quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"> <span class="string">&quot; identifier</span></span><br><span class="line"><span class="string"> &quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span><span class="string">&quot;&quot;</span></span><br><span class="line"> <span class="string">&quot; let g:go_auto_type_info = 1</span></span><br><span class="line"><span class="string"> &quot;</span> <span class="built_in">let</span> g:go_auto_sameids = 1</span><br><span class="line"> <span class="string">&quot; set updatetime=100</span></span><br><span class="line"><span class="string"> &quot;</span> autocmd FileType go nmap &lt;Leader&gt;i &lt;Plug&gt;(go-info)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>小主，路过打个赏再走呗~</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="小骆 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="小骆 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/08/22/a4afd44d.html" rel="prev" title="不积跬步无以至千里">
+      <i class="fa fa-chevron-left"></i> 不积跬步无以至千里
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/10/17/2dea6533.html" rel="next" title="Go并发编程">
+      Go并发编程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+      
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+
+      <!--/noindex-->
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小骆"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">小骆</p>
+  <div class="site-description" itemprop="description">一直青春无畏，一往无前</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+
+  <!--音乐插件-->
+  <audio src="/music/陈奕迅-喜帖街.mp3"  
+  style="max-height :100%; max-width: 100%; 
+  display: block; margin-left: auto; margin-right: auto;" 
+  controls="controls" loop="loop" preload="meta">
+  Your browser does not support the audio tag.
+  </audio>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HDMLOVE/hello-algorithm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HDMLOVE&#x2F;hello-algorithm" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lpyuan21@outlook.com" title="E-Mail → mailto:lpyuan21@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://mobile.twitter.com/HDML0VE" title="Twitter → https:&#x2F;&#x2F;mobile.twitter.com&#x2F;HDML0VE" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小骆</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'B4XbT4kXwfh9RTyBuoKPvOoH-9Nh9j0Va',
+      appKey     : 'S3dLSovwi3LXNsun5D7z7CI7',
+      placeholder: "如果对文章或本站点有任何疑问或者建议，请留言~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '5' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":210,"height":360},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

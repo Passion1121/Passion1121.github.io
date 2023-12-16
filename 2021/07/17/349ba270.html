@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.lpyuan219.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;GDB是GUN（GUN is not unix）开源组织发布的，Unix&#x2F;Linux操作系统下的一款基于命令行方式交互的调试工具。GDB支持调试多种语言，比如C&#x2F;C++、Go、Objective-C、Pascal等等，但是最强大的、用的最多的是调试C&#x2F;C++程序，作为一个C&#x2F;C++程序员，要是你不会使用GDB，那可能都没脸出门了。 说明：参数 &amp;lt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GDB调试">
+<meta property="og:url" content="http://www.lpyuan219.com/2021/07/17/349ba270.html">
+<meta property="og:site_name" content="Suzette219">
+<meta property="og:description" content="&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;GDB是GUN（GUN is not unix）开源组织发布的，Unix&#x2F;Linux操作系统下的一款基于命令行方式交互的调试工具。GDB支持调试多种语言，比如C&#x2F;C++、Go、Objective-C、Pascal等等，但是最强大的、用的最多的是调试C&#x2F;C++程序，作为一个C&#x2F;C++程序员，要是你不会使用GDB，那可能都没脸出门了。 说明：参数 &amp;lt">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-17T11:56:25.000Z">
+<meta property="article:modified_time" content="2023-12-16T02:59:46.885Z">
+<meta property="article:author" content="小骆">
+<meta property="article:tag" content="调试工具">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.lpyuan219.com/2021/07/17/349ba270.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>GDB调试 | Suzette219</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Suzette219</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Share make me happy</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-user-friends fa-fw"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-book-open fa-fw"></i>阅读</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>电影</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2021/07/17/349ba270.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小骆">
+      <meta itemprop="description" content="一直青春无畏，一往无前">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suzette219">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GDB调试
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-17 11:56:25" itemprop="dateCreated datePublished" datetime="2021-07-17T11:56:25Z">2021-07-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-16 02:59:46" itemprop="dateModified" datetime="2023-12-16T02:59:46Z">2023-12-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-C/" itemprop="url" rel="index"><span itemprop="name">C/C++</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/07/17/349ba270.html" class="post-meta-item leancloud_visitors" data-flag-title="GDB调试" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/07/17/349ba270.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/07/17/349ba270.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&ensp;&ensp;&ensp;&ensp;GDB是GUN（GUN is not unix）开源组织发布的，Unix/Linux操作系统下的一款基于命令行方式交互的调试工具。GDB支持调试多种语言，比如C/C++、Go、Objective-C、Pascal等等，但是最强大的、用的最多的是调试C/C++程序，作为一个C/C++程序员，要是你不会使用GDB，那可能都没脸出门了。</p>
+<p>说明：参数 &lt;program&gt; 不包括符号“&lt;&gt;”。</p>
+<a id="more"></a>
+
+<ul>
+<li><p>启动调试程序</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 可以直接从一个可执行的程序和core文件开始。</span><br><span class="line">gdb &lt;program&gt; &lt;corefile&gt;</span><br><span class="line"></span><br><span class="line"># 如果需要调试正在运行的进程。</span><br><span class="line">gdb program &lt;processId&gt;</span><br><span class="line">gdb -p &lt;processId&gt;</span><br><span class="line">gdb attach -p &lt;processId&gt;</span><br><span class="line"></span><br><span class="line">gdb -q                          # 关闭启动信息</span><br><span class="line">set confirm off                 # 关闭退出时确认退出提示信息</span><br></pre></td></tr></table></figure></li>
+<li><p>设置启动参数，例如<code>&#39;-c 1 -t 100&#39;</code>。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 启动时直接指定参数&#x27;-c 1 -t 100&#x27;。</span><br><span class="line">gdb  -args &lt;program&gt; -c 1 -t 100 </span><br><span class="line"></span><br><span class="line"># 通过交互方式设置参数。</span><br><span class="line">(gdb) set args -c 1 -t 100</span><br><span class="line">(gdb)</span><br><span class="line">(gdb) show args </span><br><span class="line">Argument list to give program being debugged when it is started is &quot;-c 1 -t 100&quot;.</span><br><span class="line"></span><br><span class="line"># 运行时指定。</span><br><span class="line">gdb) run -c 1 -t 100</span><br><span class="line">Starting program: /root/lpyuan/Hera_tool/webbench -c 1 -t 100</span><br><span class="line">webbench: Missing URL.</span><br><span class="line">(gdb) show args</span><br><span class="line">Argument list to give program being debugged when it is started is &quot;-c 1 -t 100&quot;.</span><br><span class="line">(gdb) </span><br></pre></td></tr></table></figure></li>
+<li><p>运行信息</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">start                    # 指令执行到main()函数起始的位置，类似于在main函数设置一个断点。</span><br><span class="line">r (run)                  # 运行程序，程序会在第一个断点处停止，否则则是一直执行到结束🔚。</span><br><span class="line">c (continue)             # 继续执行，直到下一个断点处（或者直接到运行结束）</span><br><span class="line">n (next)                 # 单步调试，下一步，遇到函数调用不会进入该函数，默认走一步，也可指定步数，如3步：n 3。</span><br><span class="line">s (step)                 # 单步调试，与next类似，区别在于遇到函数调用会直接跳入，也可以执行步数，如3步：s 3。</span><br><span class="line">until                    # 不想在循环里面单步调试，可以使用该指令直接运行程序直到退出循环体。</span><br><span class="line">until+行号                # 直接运行到指定行，不仅仅可以跳出循环。</span><br><span class="line">finish                   # 运行程序，接收当前函数调用并完成返回🔙，并且打印出函数返回时候的对战地址和返回值、参数等信息。</span><br><span class="line">call func(args)          # 调用函数中的可见函数，并传递参数，函数调用也可以使用print。</span><br><span class="line">where/bt                 # 显示当前函数调用栈信息。</span><br><span class="line">up/down                  # 改边调用栈的深度，可以选择哪一帧（frame）。</span><br><span class="line">info functions           # 显示当前进程的函数符号</span><br><span class="line">info program             # 查看当前进程所处的状态，是否在运行，进程号，被中断暂停的原因等</span><br><span class="line">infi signals             # 查看程序对应的中断信号处理方式。</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong><em>Note</em>:</strong> 程序在执行的过程中如果使用run（r）或者start指令，则表示重启启动程序。</p>
+</blockquote>
+</li>
+<li><p>断点调试</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">b n (break num)           # 在第n行设置断点，也可以指定某个文件，如：b test.c:666</span><br><span class="line">b func                    # 在某个函数入口设置断点，如：b benchcore</span><br><span class="line">info b (info breakpoints) # 显示当前程序的断点设置情况。</span><br><span class="line">b func if a&gt;b             # 条件断点设置，如果a&gt;b成立，则是触发断点。</span><br><span class="line">disable n                 # 暂定第n个断点。</span><br><span class="line">enable n                  # 启用第n个断点。</span><br><span class="line">delete n                  # 删除第n个断点。</span><br><span class="line">delete breakpoints        # 清除程序目前设置的所有的断点。</span><br><span class="line">tb test.c:15 (tbreak)     # 临时断点，断点只生效一次，触发后会自动删除，查看断点列表触发后不存在。</span><br><span class="line">ignore bnum count         # 忽略断点，接下来的count次经过该断点都不会触发，直到count+1次时候会触发次断点。</span><br></pre></td></tr></table></figure></li>
+<li><p>窗口相关</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">layout                    # 分割窗口，如果有代码的话可以一遍看代码一遍跟踪。</span><br><span class="line">layout src (layout source)# 显示源代码窗口。</span><br><span class="line">layout asm                # 显示反汇编的窗口</span><br><span class="line">layout regs               # 显示源代码、反汇编、和CPU寄存器的窗口。</span><br><span class="line">layout split              # 显示源代码和反汇编的窗口。</span><br><span class="line">Ctrl+L                    # 刷新窗口，类似于clear、cls等清屏操作。</span><br></pre></td></tr></table></figure></li>
+<li><p>打印相关</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">print 表达式              # print 后面可以加任何有效的表达式，可以是一个数字、变量、甚至函数调用。</span><br><span class="line">print 5                  # 打印值5。</span><br><span class="line">print a=5                # 给a赋值5，然后打印出a的值。</span><br><span class="line">print ++a                # 将a变量的值自增，并打印出来。</span><br><span class="line">print func(66)           # 调用函数func，并传递参数值66。</span><br><span class="line">print func(a)            # 将变量a的值作为参数，传递给func函数。</span><br><span class="line">i locals (info locals)   # 查询当前堆栈页中所有的变量。</span><br><span class="line">whatis                   # 查询变量或者函数。</span><br></pre></td></tr></table></figure></li>
+<li><p>查看源代码</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">l (list)                 # 显示程序源代码，默认显示10行</span><br><span class="line">l n (list num)           # 显示当前文件以n行前后10行代码，如：l 10</span><br><span class="line">l func                   # 列出函数名所在函数的代码，如：l benchcore</span><br><span class="line">list                     # 重复执行上一个list命令，输出下边的内容。</span><br></pre></td></tr></table></figure></li>
+<li><p>gdb配置文件</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 在使用gdb的时候，如果我们每次进去之后都要重新配置启动参数、断点等繁琐的信息，那么效率就很低。</span><br><span class="line"># 我们可以通过配置文件，可以将这些一次性配置好，避免重复性工作。</span><br><span class="line"># 当gdb启动时，会读取HOME和当前目录下的配置文件，然后直接一次性执行里面的指令，这个文件通常为&#x27;.gdbinit&#x27;。</span><br><span class="line"># 如果需要在当前目录下配置.gdbinit文件，则还需要在HOME（~）目录下配置.gitinit文件，并输入以下指令，否则gdb路径保护会报错。</span><br><span class="line">set auto-load safe-path /</span><br><span class="line"># 当然我们也可以自己写一个配置文件，但是gdb不会自动读取，需要我们通过&#x27;source 自定义脚本&#x27;手动导入。</span><br><span class="line">[root@localhost Hera_tool]# gdb webbench</span><br><span class="line">GNU gdb (GDB) Red Hat Enterprise Linux 7.6.1-115.el7</span><br><span class="line">Copyright (C) 2013 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.  Type &quot;show copying&quot;</span><br><span class="line">and &quot;show warranty&quot; for details.</span><br><span class="line">This GDB was configured as &quot;x86_64-redhat-linux-gnu&quot;.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/bugs/&gt;...</span><br><span class="line">Reading symbols from /root/lpyuan/Hera_tool/webbench...(no debugging symbols found)...done.</span><br><span class="line">(gdb) source lpyuanGdb </span><br><span class="line">Breakpoint 1 at 0x400f7f</span><br><span class="line">(gdb) show args</span><br><span class="line">Argument list to give program being debugged when it is started is &quot;-c 1 -t 100 http://lpyuan.club&quot;.</span><br><span class="line">(gdb) show b</span><br><span class="line">Ambiguous show command &quot;b&quot;: backtrace, basenames-may-differ, breakpoint, build-id-core-loads, build-id-verbose.</span><br><span class="line">(gdb) info b</span><br><span class="line">Num     Type           Disp Enb Address            What</span><br><span class="line">1       breakpoint     keep y   0x0000000000400f7f &lt;Socket&gt;</span><br><span class="line">(gdb) </span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打印STL容器中的内容</span></span><br><span class="line">python</span><br><span class="line">import sys</span><br><span class="line">sys.path.insert(0, <span class="string">&quot;/home/xmj/project/gcc-trunk/libstdc++-v3/python&quot;</span>)</span><br><span class="line">from libstdcxx.v6.printers import register_libstdcxx_printers</span><br><span class="line">register_libstdcxx_printers (None)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存历史命令</span></span><br><span class="line"><span class="built_in">set</span> <span class="built_in">history</span> filename ~/.gdb_history</span><br><span class="line"><span class="built_in">set</span> <span class="built_in">history</span> save on</span><br><span class="line"></span><br><span class="line"><span class="comment"># 记录执行gdb的过程</span></span><br><span class="line"><span class="built_in">set</span> logging file ./.gdblog.txt</span><br><span class="line"><span class="built_in">set</span> logging on</span><br><span class="line"></span><br><span class="line"><span class="comment"># 退出时不显示提示信息</span></span><br><span class="line"><span class="built_in">set</span> confirm off</span><br><span class="line"></span><br><span class="line"><span class="comment"># 按照派生类型打印对象</span></span><br><span class="line"><span class="built_in">set</span> <span class="built_in">print</span> object on</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印数组的索引下标</span></span><br><span class="line"><span class="built_in">set</span> <span class="built_in">print</span> array-indexes on</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每行打印一个结构体成员</span></span><br><span class="line"><span class="built_in">set</span> <span class="built_in">print</span> pretty on</span><br><span class="line"></span><br><span class="line"><span class="comment">#  调试子进程</span></span><br><span class="line"><span class="built_in">set</span> follow-fort-mode child</span><br><span class="line"><span class="built_in">set</span> detach-on-fork on</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置运行参数</span></span><br><span class="line"><span class="built_in">set</span> args -c 1 -t 100 http://lpyuan.club</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置断点</span></span><br><span class="line">b Socket</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>生成gdb调试日志。使用gdb调试时候，我们可以将我们的调试的过程记录下来，方便后面或者别人帮忙一起分析。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set logging file filename # gdb的默认日志文件为gdb.txt，我们也可以通过命令更改日志文件名。</span><br><span class="line">set logging on            # 开启日志记录。</span><br></pre></td></tr></table></figure></li>
+<li><p>watch 监视内存断点</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 设置一个监视点，一旦表达式的值发生改变，立马强行终止当前调式程序，比较监视a变量，watch a。</span><br><span class="line">watch 表达式</span><br><span class="line">1. watch 变量的类型。</span><br><span class="line">(1)整形变量。</span><br><span class="line">	int a; </span><br><span class="line">	watch a:  # 监视变量a的值。</span><br><span class="line">(2)指针变量</span><br><span class="line">	char *a;</span><br><span class="line">	watch a:  # 此时监视的a变量这个地址，不是a执行的地址的值，查看的是*(&amp;a)。</span><br><span class="line">	watch *a: # 此时监视a所指向的地址的值的变化情况。</span><br><span class="line">(3)数组类型。</span><br><span class="line">	watch 一个数字或者内存区间。</span><br><span class="line">	char buf[128];</span><br><span class="line">	watch buf: # 对数组的128个值进行监视，此时采用的是软中断，不是采用的硬件断点，软中断方式去检查内存变量是比较耗费CPU的。</span><br><span class="line">	如果指明了精确的地址，则是采用的是硬件中断。</span><br><span class="line">	</span><br><span class="line">2. 当设置的监视点是一个局部变量时，局部变量无效后，则监视点也无效。</span><br><span class="line">3. 与watch命令相似的还有两个命令</span><br><span class="line">(1)rwatch   # 只要程序中出现读取目标变量（表达式）的值得操作，程序就会立即停止运行。</span><br><span class="line">(2)awatch   # 只要程序中出现读取目标变量（表达式）的值或者改变值得操作，程序就会立即停止运行。</span><br><span class="line">	</span><br></pre></td></tr></table></figure></li>
+<li><p>加载带有符号信息可执行文件</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 调试没有符号信息的可执行文件，可以编译一个带有调试信息版本的程序。</span><br><span class="line"># 通过&#x27;file&#x27;参数加载符号，对其进行调试。</span><br><span class="line">(gdb) file webbench1 </span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@localhost Hera_tool]# gdb webbench</span><br><span class="line">GNU gdb (GDB) Red Hat Enterprise Linux 7.6.1-115.el7</span><br><span class="line">Copyright (C) 2013 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.  Type &quot;show copying&quot;</span><br><span class="line">and &quot;show warranty&quot; for details.</span><br><span class="line">This GDB was configured as &quot;x86_64-redhat-linux-gnu&quot;.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/bugs/&gt;...</span><br><span class="line">Reading symbols from /root/lpyuan/Hera_tool/webbench...(no debugging symbols found)...done.</span><br><span class="line">(gdb) file webbench1 </span><br><span class="line">Reading symbols from /root/lpyuan/Hera_tool/webbench1...done.</span><br><span class="line">(gdb) directory ../</span><br><span class="line">Source directories searched: /root/lpyuan/Hera_tool/..:$cdir:$cwd</span><br><span class="line">(gdb)</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p>多进程调试</p>
+<table>
+<thead>
+<tr>
+<th>follow-fork-mode</th>
+<th>detach-on-fork</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>parent</td>
+<td>on</td>
+<td>单独调试主进程（默认情况下）</td>
+</tr>
+<tr>
+<td>child</td>
+<td>on</td>
+<td>单独只调试子进程</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>off</td>
+<td>同时调试两个进程，<code>gdb</code>跟随主进程，子进程阻塞(block)在<code>fork</code>的位置</td>
+</tr>
+<tr>
+<td>child</td>
+<td>off</td>
+<td>同时调试两个进程，<code>gdb</code>跟随子进程，主进程阻塞(block)在<code>fork</code>的位置</td>
+</tr>
+</tbody></table>
+<p>GDB调试多进程的时候，如果该进程<code>fork()</code>出了一个子进程，那么GDB还是会继续调试当前进程不会自动的切换子进程调试，如果     我们在子进程里面设置了断点，那么子进程就会收到一个<code>SIGTRAP</code>信号并终止。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">There is NO WARRANTY, to the extent permitted by law.  Type &quot;show copying&quot;</span><br><span class="line">and &quot;show warranty&quot; for details.</span><br><span class="line">This GDB was configured as &quot;x86_64-redhat-linux-gnu&quot;.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/bugs/&gt;...</span><br><span class="line">Reading symbols from /root/lpyuan/Hera_tool/webbench...(no debugging symbols found)...done.</span><br><span class="line">(gdb) set follow-fork-mode child </span><br><span class="line">(gdb) set detach-on-fork on</span><br><span class="line">(gdb) set args -c -t 100 http://lpyuan.club </span><br><span class="line">(gdb) show follow-fork-mode </span><br><span class="line">Debugger response to a program call of fork or vfork is &quot;child&quot;.</span><br><span class="line">(gdb) show detach-on-fork   </span><br><span class="line">Whether gdb will detach the child of a fork is on.</span><br><span class="line">(gdb) show args</span><br><span class="line">Argument list to give program being debugged when it is started is &quot;-c -t 100 http://lpyuan.club&quot;.</span><br><span class="line">(gdb) run</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong><em>Note</em>:</strong> </p>
+<ol>
+<li><p>交互模式下，重复回车则是重复执行上一个命令。</p>
+</li>
+<li><p>cgdb是一个更加强大的调试工具，交互命令和gdb一样，熟练使用gdb的同学也可以很快的上手。</p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a target="_blank" rel="noopener" href="https://www.gnu.org/software/gdb/documentation/">https://www.gnu.org/software/gdb/documentation/</a></p>
+<p><a target="_blank" rel="noopener" href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/gdb.html">https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/gdb.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://wizardforcel.gitbooks.io/100-gdb-tips/content/index.html">https://wizardforcel.gitbooks.io/100-gdb-tips/content/index.html</a></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>小主，路过打个赏再走呗~</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="小骆 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="小骆 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7/" rel="tag"><i class="fa fa-tag"></i> 调试工具</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/06/10/74add858.html" rel="prev" title="Git使用指南">
+      <i class="fa fa-chevron-left"></i> Git使用指南
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/18/1ddb9d4e.html" rel="next" title="问题记录">
+      问题记录 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+      
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">1.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+      </div>
+
+      <!--/noindex-->
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小骆"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">小骆</p>
+  <div class="site-description" itemprop="description">一直青春无畏，一往无前</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+
+  <!--音乐插件-->
+  <audio src="/music/陈奕迅-喜帖街.mp3"  
+  style="max-height :100%; max-width: 100%; 
+  display: block; margin-left: auto; margin-right: auto;" 
+  controls="controls" loop="loop" preload="meta">
+  Your browser does not support the audio tag.
+  </audio>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HDMLOVE/hello-algorithm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HDMLOVE&#x2F;hello-algorithm" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lpyuan21@outlook.com" title="E-Mail → mailto:lpyuan21@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://mobile.twitter.com/HDML0VE" title="Twitter → https:&#x2F;&#x2F;mobile.twitter.com&#x2F;HDML0VE" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小骆</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'B4XbT4kXwfh9RTyBuoKPvOoH-9Nh9j0Va',
+      appKey     : 'S3dLSovwi3LXNsun5D7z7CI7',
+      placeholder: "如果对文章或本站点有任何疑问或者建议，请留言~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '5' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":210,"height":360},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

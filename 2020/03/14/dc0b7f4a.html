@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.lpyuan219.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="网络基础大端小端网络字节序&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;”大端”，”小端”指的是表示多字节的值哪一端存储在该值的起始地址处；多字节小端存储起始地址处称为小端字节序，多字节的大端存储在起始地址处称为大端字节序。&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;通俗的说就是。 &amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;常用的X86架构就是采用的小端存储，最高有效位在最高位地址。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试知识点">
+<meta property="og:url" content="http://www.lpyuan219.com/2020/03/14/dc0b7f4a.html">
+<meta property="og:site_name" content="Suzette219">
+<meta property="og:description" content="网络基础大端小端网络字节序&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;”大端”，”小端”指的是表示多字节的值哪一端存储在该值的起始地址处；多字节小端存储起始地址处称为小端字节序，多字节的大端存储在起始地址处称为大端字节序。&amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;通俗的说就是。 &amp;ensp;&amp;ensp;&amp;ensp;&amp;ensp;常用的X86架构就是采用的小端存储，最高有效位在最高位地址。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.lpyuan219.com/images/image-20201220131133527.jpg">
+<meta property="og:image" content="http://www.lpyuan219.com/images/image-20201220131233527.jpg">
+<meta property="og:image" content="http://www.lpyuan219.com/images/image-20201220131433527.jpg">
+<meta property="og:image" content="http://www.lpyuan219.com/images/image-20201220131633527.jpg">
+<meta property="og:image" content="http://www.lpyuan219.com/images/image-20201220131733527.jpg">
+<meta property="og:image" content="http://www.lpyuan219.com/images/image-20201220131833527.jpg">
+<meta property="og:image" content="http://www.lpyuan219.com/images/image-20201220131933527.jpg">
+<meta property="article:published_time" content="2020-03-13T22:27:24.000Z">
+<meta property="article:modified_time" content="2023-12-16T02:59:46.901Z">
+<meta property="article:author" content="小骆">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.lpyuan219.com/images/image-20201220131133527.jpg">
+
+<link rel="canonical" href="http://www.lpyuan219.com/2020/03/14/dc0b7f4a.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>面试知识点 | Suzette219</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Suzette219</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Share make me happy</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-user-friends fa-fw"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-books">
+
+    <a href="/books/" rel="section"><i class="fa fa-book-open fa-fw"></i>阅读</a>
+
+  </li>
+        <li class="menu-item menu-item-movies">
+
+    <a href="/movies/" rel="section"><i class="fa fa-film fa-fw"></i>电影</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2020/03/14/dc0b7f4a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小骆">
+      <meta itemprop="description" content="一直青春无畏，一往无前">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suzette219">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          面试知识点
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-13 22:27:24" itemprop="dateCreated datePublished" datetime="2020-03-13T22:27:24Z">2020-03-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-16 02:59:46" itemprop="dateModified" datetime="2023-12-16T02:59:46Z">2023-12-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95%E5%AE%9D%E5%85%B8/" itemprop="url" rel="index"><span itemprop="name">面试宝典</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/03/14/dc0b7f4a.html" class="post-meta-item leancloud_visitors" data-flag-title="面试知识点" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/03/14/dc0b7f4a.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/03/14/dc0b7f4a.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="网络基础"><a href="#网络基础" class="headerlink" title="网络基础"></a>网络基础</h1><h2 id="大端小端网络字节序"><a href="#大端小端网络字节序" class="headerlink" title="大端小端网络字节序"></a>大端小端网络字节序</h2><p>&ensp;&ensp;&ensp;&ensp;”大端”，”小端”指的是表示多字节的值哪一端存储在该值的起始地址处；多字节小端存储起始地址处称为小端字节序，多字节的大端存储在起始地址处称为大端字节序。<br>&ensp;&ensp;&ensp;&ensp;通俗的说就是。</p>
+<p>&ensp;&ensp;&ensp;&ensp;常用的X86架构就是采用的小端存储，最高有效位在最高位地址。</p>
+<p>&ensp;&ensp;&ensp;&ensp;大端字节序：最高有效位存于最低的内存地址，最低的有效位存于最高的内存地址。<br>&ensp;&ensp;&ensp;&ensp;小端字节序：最高有效位存于最高的内存地址，最低的有效位存于最低的内存地址。</p>
+<a id="more"></a>
+
+<img src="/images/image-20201220131133527.jpg" alt="image-20201220131133527" style="zoom:80%;" />
+
+<p>网络字节序，网络上传输的数据都是字节流。**UDP/TCP/IP协议规定:**把接收到的第一个字节当作高位字节看待,这就要求发送端发送的第一个字节是高位字节。而在发送端发送数据时,发送的第一个字节是该数值在内存中的起始地址处对应的那个字节,也就是说,该数值在内存中的起始地址处对应的那个字节就是要发送的第一个高位字节(即:高位字节存放在低地址处);由此可见,<strong>多字节数值在发送之前,在内存中因该是以大端法存放的</strong>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">union 联合体成员存放的顺序都是从低地址开始存放，并且是所有的成员共享同一个内存空间，</span></span><br><span class="line"><span class="comment">可以利用这个特性进行一个大小端的判断。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 定义联合体结构 */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">union</span> _<span class="title">testUnion</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> a;</span><br><span class="line">    <span class="keyword">char</span> b;</span><br><span class="line">&#125;testUnion;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 判断大小端 */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isBigEndStorage</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    testUnion a;</span><br><span class="line">    a.a = <span class="number">0x01</span>;</span><br><span class="line">    <span class="keyword">return</span> a.b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">1</span> == isBigEndStorage())</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;小端存储&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;大端存储&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="tcp三次握手"><a href="#tcp三次握手" class="headerlink" title="tcp三次握手"></a>tcp三次握手</h2><p>&ensp;&ensp;&ensp;&ensp;为什么建立连接需要三次握手？TCP的两次握手是最基本的，第一次握手，客户端发了个连接请求消息到服务端，服务端收到信息后知道自己与客户端是可以连接成功的，但此时客户端并不知道服务端是否已经接收到了它的请求，所以服务端接收到消息后的应答，客户端得到服务端的反馈后，才确定自己与服务端是可以连接上的，这就是第二次握手。<br>&ensp;&ensp;&ensp;&ensp;客户端只有确定了自己能与服务端连接上才能开始发数据。所以两次握手肯定是最基本的。<br>&ensp;&ensp;&ensp;&ensp;到了这，有人肯定又有疑问，两次握手不就可以了吗，为什么需要第三次握手。其实，第三次握手主要的原因是防止已经失效的连接请求报文由于某种原因突然又回到服务端，从而就会产生错误。比如，一个请求的数据包，因为某些原因滞留在网络中很久，一直到了连接释放的时候才到达服务端，这时候，服务端以为是客户端的第一次连接回应了客户端从而建立了连接，实际上是不必要的连接客户端并没有任何数据要发送，当存在大量的这种情况下，会造成很大的资源浪费。所以需要第三次握手，只有客户端再次回应一下，就可以避免这种情况。</p>
+<img src="/images/image-20201220131233527.jpg" alt="image-20201220131233527" style="zoom:50%;" />
+
+<h2 id="TCP与UDP的概念"><a href="#TCP与UDP的概念" class="headerlink" title="TCP与UDP的概念"></a>TCP与UDP的概念</h2><p>&ensp;&ensp;&ensp;&ensp;TCP:一种面向连接的，可靠的，基于字节流的通信协议。<br>&ensp;&ensp;&ensp;&ensp;UDP:提供无连接的通信，不可靠的，基于数据报的通信协议。<br><strong>两者的主要区别是</strong>：<br>&ensp;&ensp;&ensp;&ensp;（1）TCP是面向连接的传输控制协议，而UDP是提供无连接的数据报服务。<br>&ensp;&ensp;&ensp;&ensp;（2）TCP具有高可靠性，能确保数据的完整性和正确性。<br>&ensp;&ensp;&ensp;&ensp;（3）TCP需要的系统资源比较多，而UDP需要的就相对少一些。<br>&ensp;&ensp;&ensp;&ensp;（4）UDP实时性比较高，低延迟，但是TCP的工作效率相对高一些。</p>
+<h2 id="UDP调用connect函数作用"><a href="#UDP调用connect函数作用" class="headerlink" title="UDP调用connect函数作用"></a>UDP调用connect函数作用</h2><p>&ensp;&ensp;&ensp;&ensp;UDP调用connect函数的作用，并不会引起和服务器目标端的网络交互，也就是说并不会触发所谓的”握手🤝“报文的过程。其主要的作用是让应用程序能够接收到”异步错误“的信息。假设在服务器不开启的情况下，客户端程序是不会报错的，程序会一直阻塞在recvfrom函数上，等待返回或者超时。如果将UDP套接字进行connect绑定，将UDP套接字建立“上下文”，那么这时候操作系统内核接收到的信息就可以和相应的套接字进行相关联。</p>
+<h2 id="TCP如何设定超时时间"><a href="#TCP如何设定超时时间" class="headerlink" title="TCP如何设定超时时间"></a>TCP如何设定超时时间</h2><img src="/images/image-20201220131433527.jpg" alt="image-20201220131433527" style="zoom:33%;" />
+
+<p>如果TCP握手🤝的SYN超时按照上图来backoff。在Linux中，net.ipv4.tcp_syn_retries参数表示建立TCP连接时SYN报文重试的次数，最多会尝试7次。2的7次幂减去1刚好是127。我们将net.ipv4.tcp_syn_retries参数改成1，就可以将connect超时时间改成3秒。</p>
+<p>&ensp;&ensp;&ensp;&ensp;tcp设置发送和接收超时，可以通过SO_SNDTIMEO和SO_RCVTIMEO的选项来设置超时。</p>
+<h2 id="SYN-flood洪水攻击"><a href="#SYN-flood洪水攻击" class="headerlink" title="SYN flood洪水攻击"></a>SYN flood洪水攻击</h2><p>&ensp;&ensp;&ensp;&ensp;正常的情况下，TCP需要经过三次握手才能建立连接。于是就出现了对握手🤝，过程进行的攻击。通过发送大量的SYN数据包，服务器响应（SYN+ACK）包。但是这个时候，攻击者不会回应ACK数据包，这个时候服务器不知道发送的（SYN+ACK）包是否发送成功，默认情况下会重试5次（tcp_syn_retries）。这样的话，对于服务器的内存、带宽都会有消耗。如果处于公网地址，攻击者伪造大量的报文进行攻击，那么如果服务器没有任何防护设施的话，可能会直接导致服务器连接资源耗尽，导致拒绝对外服务。</p>
+<p>&ensp;&ensp;&ensp;&ensp;从服务器防御的角度来看，可以采取以下措施。</p>
+<p>&ensp;&ensp;&ensp;（1）对内核参数进行调优。</p>
+<p>&ensp;&ensp;&ensp;（2）利用防火墙禁止掉部分IP。</p>
+<p>&ensp;&ensp;&ensp;&ensp;Linux内核参数调优主要从下面几个方面进行：</p>
+<p>&ensp;&ensp;&ensp;（1）限制SYN并发的数量，超时时间</p>
+<p>&ensp;&ensp;&ensp;（2）增大tcp_max_syn_backblog</p>
+<p>&ensp;&ensp;&ensp;&ensp;当半连接的请求数量超过了tcp_max_syn_backlog时，内核就会启用SYN cookie机制，不再把半连接请求放到队列里，而是用SYN cookie来检验。</p>
+<p>&ensp;&ensp;&ensp;（3）减小tcp_synack_retries</p>
+<p>&ensp;&ensp;&ensp;（4）启用tcp_syncookies</p>
+<p>&ensp;&ensp;&ensp;&ensp;&ensp;SYN cookie是非常巧妙地利用了TCP规范来绕过了TCP连接建立过程的验证过程，从而让服务器的负载可以大大降低在三次握手中，当服务器回应（SYN + ACK）包后，客户端要回应一个n + 1的ACK到服务器。其中n是服务器自己指定的。当启用tcp_syncookies时，backlog满了后，linux内核生成一个特定的n值，而不并把客户的连接放到半连接的队列backlog里（即没有存储任何关于这个连接的信息，不浪费内存）。当客户端提交第三次握手的ACK包时，linux内核取出n值，进行校验，如果通过，则认为这个是一个合法的连接。</p>
+<h2 id="tcp-粘包半包问题怎么处理？"><a href="#tcp-粘包半包问题怎么处理？" class="headerlink" title="tcp 粘包半包问题怎么处理？"></a>tcp 粘包半包问题怎么处理？</h2><p>粘包与分包的处理方法：</p>
+<p>（1）一个是采用分隔符方式。在封装要传输的数据包的时候，采用的固定的符号作为结束符🔚。这样接收到的数据中，如果接收到数据后，出如果出现结尾标识，即进行人为的将粘包分开，如果一个包中没有我们定义的结尾标识符，则是人为出现了分包，则此时我们需要等待下一个数据包进行组包。如HTTP协议以\r\n结尾。</p>
+<p>（2）在数据包中添加长度的方式。在数据包的头部或者某个固定的位置封装一个数据包的长度信息。当收到数据包之后，先解析长度然后按照长度截取数据包。</p>
+<p>（3）</p>
+<h2 id="域套接字比流式套接字快的原因"><a href="#域套接字比流式套接字快的原因" class="headerlink" title="域套接字比流式套接字快的原因"></a>域套接字比流式套接字快的原因</h2><p>域套接字用于同一台计算机上进程间的通信，</p>
+<p>1、它仅仅只是复制数据.。</p>
+<p>2、不执行协议的处理，不需要增加或删除网络报头。</p>
+<p>3、不进行检验和的计算，也不产生序列号，不需要进行校验和的计算</p>
+<p>4、无需发送确认报文</p>
+<h2 id="tcp的socket怎么收取数据的，recv的返回值。"><a href="#tcp的socket怎么收取数据的，recv的返回值。" class="headerlink" title="tcp的socket怎么收取数据的，recv的返回值。"></a>tcp的socket怎么收取数据的，recv的返回值。</h2><p>TCP收取数据的时候，可以使用函数recv或者read对数据进行读取。</p>
+<p>一般的返回值有：</p>
+<p>ret  &gt; 0 成功从内核缓冲区读取到的数据大小</p>
+<p>ret = 0 TCP连接已经关闭</p>
+<p>ret=-1 错误，需要读取错误码进行判断</p>
+<p>主要的错误码(errno)有：</p>
+<p>EINTR：操作被信号中断</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    cnt = (<span class="keyword">int</span>)recv(m_socket, pBuf,RECVSIZE, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span>( cnt &gt;<span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//正常处理数据</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">   &#123;</span><br><span class="line">         <span class="keyword">if</span>((cnt&lt;<span class="number">0</span>) &amp;&amp;(errno == EAGAIN||errno == EWOULDBLOCK||errno == EINTR)) </span><br><span class="line">         <span class="comment">//这几种错误码，认为连接是正常的，继续接收</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">continue</span>;<span class="comment">//继续接收数据</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;<span class="comment">//跳出接收循环</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="TCP慢启动、拥塞控制、快重传、快恢复"><a href="#TCP慢启动、拥塞控制、快重传、快恢复" class="headerlink" title="TCP慢启动、拥塞控制、快重传、快恢复"></a>TCP慢启动、拥塞控制、快重传、快恢复</h2><h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="进程和线程"><a href="#进程和线程" class="headerlink" title="进程和线程"></a>进程和线程</h2><p>&ensp;&ensp;&ensp;&ensp;进程：进程是具有一定独立功能的程序关于某一个数据集合的一心运行活动，他是系统进程资源分配和调度的一个基本单位。<br>&ensp;&ensp;&ensp;&ensp;线程：线程是进程的一个实体，他是CPU分配和调度的基本单位。<br><strong>线程的优点</strong>：<br>&ensp;&ensp;&ensp;&ensp;（1）易于调度。<br>&ensp;&ensp;&ensp;&ensp;（2）线程可以提供并发性，利用线程可以有效的实现并发。<br>&ensp;&ensp;&ensp;&ensp;（3）线程开销小。<br>&ensp;&ensp;&ensp;&ensp;（4）有利于发挥对处理器的优点。通过创建多线程，每个线程可以不同的处理器上运行，从而实现应用程序的并行，使得每个处理器都能得到充分发挥。<br><strong>进程与线程的区别</strong>：<br>&ensp;&ensp;&ensp;&ensp;&ensp;(1) 一个线程属于一个进程，而一个进程可以有多个线程。<br>&ensp;&ensp;&ensp;&ensp;（2）一个进程的所有线程共享一个进程的所有资源，这些资源包括有打开的文件，创建的socket，不同的进程是相互独立的<br>&ensp;&ensp;&ensp;&ensp;（3）线程是轻量级进程，进程有进程控制块，线程也有线程控制块。但是线程控制块比进程控制块小的很多，线程切换代价小，进程空间切换代价大，线程空间切换代价小。</p>
+<h2 id="僵尸进程"><a href="#僵尸进程" class="headerlink" title="僵尸进程"></a>僵尸进程</h2><p><strong>定义</strong>：<br>&ensp;&ensp;&ensp;&ensp;ps 命令观察进程的执行状态的时候，看到状态栏为defunct状态的进程，这些就是所谓的僵尸进程。<br><strong>僵尸进程的危害</strong><br>&ensp;&ensp;&ensp;&ensp;进程表中占用一个位置（slot）,由于进程表的容量是有限的，所以defunct进程不仅会占用系统资源，影响系统的性能，如果数目太多的话会导致系统的崩溃。<br><strong>僵尸进程产生的原因</strong><br>&ensp;&ensp;&ensp;&ensp;(1)操作系统对所有的进程维护一张进程表，每一个进程在进程表中都有一个entry（进入点），核心程序在执行该进程时候所使用的一切信息都是存储在entry（进入点）中，ps命令查看的就是这个进程表中的相关数据。<br>&ensp;&ensp;&ensp;&ensp;(2)当一个父进程fork()系统调用建立一个新的进程之后，核心进程就会在进程表中给子进程分配一个entry（进入点），然后将这些信息存放在对应的进程表内，这些信息中有一项就是其父进程的识别码。<br>&ensp;&ensp;&ensp;&ensp;(3)当子进程结束之后，其实该没有被真正的销毁，而此时进程表中的数据会被该进程的退出码（exit code），执行所需要的的CPU时间等等数据结构所取代，这些数据会一直保存到父进程读取为止。<br>&ensp;&ensp;&ensp;&ensp;（4）此时，该进程几乎已经放弃所有的把内存空间，没有任何可执行代码，同时也不能被调度，仅仅只是在进程表中保留一个位置，除此之外该进程不占用任何存储空间。该父进程一直没有注册SIGCHILD信号处理函数调用wait或者waitpid等待子进程结束，或者也没有注册忽略该信号，那么这些进程将会变成僵尸进程（zombie），如果父进程一直处于循环状态，系统中就会有很多的僵尸进程。<br><strong>解决的方法</strong><br>&ensp;&ensp;&ensp;&ensp;（1）重启服务器电脑，这个是最简单，最易用的方法，但是如果你服务器电脑上运行有其他的程序，那么这个方法，代价很大。<br>&ensp;&ensp;&ensp;&ensp;（2）找到僵尸进程的父进程，将父进程杀掉。ps -ef |grep defunct_process_id。<br><strong>如何防止僵尸进程</strong><br>&ensp;&ensp;&ensp;&ensp;（1）父进程fork之前注册之前忽略SIG_CLILD信号，忽略子进程退出相关的信息。调用函数：signal（SIGCHILD, SIG_IGN）。<br>&ensp;&ensp;&ensp;&ensp;（2）父进程调用wait,waitpid函数收集子进程退出的状态码。<br>&ensp;&ensp;&ensp;&ensp;（3）在父进程创建子进程的时候，连续调用两次fork()，而且使紧跟的子进程直接退出，使其孙子进程成为孤儿进程，从而init进程将代替父进程来接手，负责清除这个孤儿进程，系统自动回收。<br>##死锁是怎么样产生的##<br><strong>死锁的定义</strong><br>&ensp;&ensp;&ensp;&ensp;系统中有若干个进程在并发运行，他们不断的申请和释放资源，在这一个过程中，由于争夺资源而处于无限期的等待资源的状态，此时导致程序无法继续进行，若无外力的作用，他都将无法推进下去，这是系统处于死锁状态，或者系统产生了死锁。<br><strong>产生死锁的原因</strong><br>&ensp;&ensp;&ensp;&ensp;（1）系统的资源不足，例如多个打印机，但是由于纸张不够，进程推进不下去，产生了死锁。<br>&ensp;&ensp;&ensp;&ensp;（2）进程推进顺序不对。<br>&ensp;&ensp;&ensp;&ensp;（3）资源的分配不当。<br><strong>产生死锁的条件</strong><br>&ensp;&ensp;&ensp;&ensp;（1）互斥性，每个资源每次只能被一个进程使用。<br>&ensp;&ensp;&ensp;&ensp;（2）请求与保持等待，当一个进程因为请求资源而被阻塞等待时，对已经获得的资源保持不释放。<br>&ensp;&ensp;&ensp;&ensp;（3）不可剥夺，进程已经获得资源，未使用完之前，不可被其他剥夺。<br>&ensp;&ensp;&ensp;&ensp;（4）环路等待，若干进程之间 形成首尾相接的的等待资源的关系。</p>
+<h2 id="CPU的执行方式"><a href="#CPU的执行方式" class="headerlink" title="CPU的执行方式"></a>CPU的执行方式</h2><img src="/images/image-20201220131633527.jpg" alt="image-20201220131633527" style="zoom:60%;" />
+
+<p>CPU的工作主要分为五个阶段：<br>1、取指令（IF，instruction fetch）。将一条程序执行指令从主存中取出来放到指令寄存器的一个过程。<br>2、指令译码阶段（ID，instruction decode）。取出指令之后，指令译码器按照预定的指令格式对取回的指令进行拆分和解释，识别区分不同的指令类别以及获取各种操作数的方法。<br>3、执行指令的阶段（EX，execute）。具体实现指令的功能，CPU的不同部分被连接起来，以执行所需的操作。<br>4、访问存取数的阶段（MEM，memory）。根据指令的需要访问主存，读取操作数，CPU得到操作数在主存的地址，并从主存中读取该操作数用于运算。<br>5、结果回写阶段（WB，write back）。作为最后一个阶段，结果写回阶段把指令的运行结果数据“写回”到某种存储形式。</p>
+<p>资料参考<br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/05c6c1d73144">https://www.jianshu.com/p/05c6c1d73144</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bfff5d0e718e">https://www.jianshu.com/p/bfff5d0e718e</a></p>
+<h2 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h2><p>资料参考<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/Al_xin/article/details/38602093">https://blog.csdn.net/Al_xin/article/details/38602093</a></p>
+<h2 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h2><img src="/images/image-20201220131733527.jpg" alt="image-20201220131733527" style="zoom:60%;" />
+
+<p>32位系统0-4G地址空间，用户空间内存，从低到高分别是五种不同的内存段。<br>1、只读段，主要包括有代码和一些常量。<br>2、数据段，主要包括全局变量。<br>3、堆，主要包括分配的内存，从低地址开始向上增长。<br>4、文件映射段，主要包括动态库、共享内存等，从高地址向下增长。<br>5、栈，包括局部变量，函数的调用的上下文等，栈的大小一般是固定的，一般是8M。<br>在这五个内存段中，堆和文件映射段是动态内存分配的，malloc或者mmap等。<br><strong>堆是线程私有还是共有？栈呢？</strong><br>1、在多线程环境下，每个线程拥有一个栈和一个程序计数器。<br>2、栈和程序计数器用来保存线程的执行历史和线程的执行状态，是线程私有的资源。<br>3、其他的资源（比如堆、地址空间、全局变量）是由同一个进程内的多个线程共享。</p>
+<p>资料参考<br><a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/74272">https://time.geekbang.org/column/article/74272</a></p>
+<h2 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h2><p>协程，指的就是微线程。是应用层的一种概念。</p>
+<p>&ensp;&ensp;&ensp;&ensp;协程最大的优势就是具有极高的执行效率。可以把协程看做是一种子程序，因为子程序的切换不是进程也不是线程的切换，因此没有进程或者线程的切换的开销。</p>
+<h2 id="列出常见的信号，并解释下信号是怎么处理的。"><a href="#列出常见的信号，并解释下信号是怎么处理的。" class="headerlink" title="列出常见的信号，并解释下信号是怎么处理的。"></a>列出常见的信号，并解释下信号是怎么处理的。</h2><p>&ensp;&ensp;&ensp;&ensp;linux 系统下可以使用命令kill -l查看常见的信号。</p>
+<p>&ensp;&ensp;&ensp;&ensp;信号实际上就是一种很短的信息，信号可以被发送到一个进程或者一组进程。</p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>不可靠信号：</strong>指的是非实时的信号📶，其中1~31信号就是不可靠信号。</p>
+<p>&ensp;&ensp;&ensp;&ensp;<strong>可靠信号：</strong>指的是实时的信号，其中32~64信号是可靠信号📶。</p>
+<p>&ensp;&ensp;&ensp;&ensp;可靠信号与不可靠信号的区别在于：不可靠信号不支持排队，可能会造成信号丢失，但是可靠信号不会。如果一个不可靠的信号📶被连续发送多次，那么只有其中的一个会被发送到接收进城。</p>
+<p>&ensp;&ensp;&ensp;&ensp;内核给进程发送信号📶，实在进程所在的进程表项的信号阈设置相应的信号的位。</p>
+<p>&ensp;&ensp;&ensp;&ensp;进程检查信号的时机是：进程即将从内核态返回用户态的时候。如果进程睡眠了，要看睡眠能不能被中断，如果能被中断则是进行唤醒。</p>
+<h2 id="i-或者-i是否是原子操作，为什么。"><a href="#i-或者-i是否是原子操作，为什么。" class="headerlink" title="i++或者++i是否是原子操作，为什么。"></a>i++或者++i是否是原子操作，为什么。</h2><p>&ensp;&ensp;&ensp;&ensp;这个不是原子操作。因为i++这个可以在拆分为三个过程。</p>
+<p>&ensp;&ensp;&ensp;&ensp;1、内存到寄存器</p>
+<p>&ensp;&ensp;&ensp;&ensp;2、寄存器自增</p>
+<p>&ensp;&ensp;&ensp;&ensp;3、写回内存。</p>
+<p>&ensp;&ensp;&ensp;&ensp;这其中的任何一个阶段都有可能会被中断。</p>
+<p>&ensp;&ensp;&ensp;&ensp;++i这个其实在多核处理器上，CPU在读取内存时候，也会可能发生同时读取到一个值，这样其实也会导致两次自增，实际上只是增加了一次。</p>
+<p>&ensp;&ensp;&ensp;&ensp;所以，i++和++i都是不是原子操作。</p>
+<h2 id="linux下的同步机制，以及死锁，如何避免死锁。"><a href="#linux下的同步机制，以及死锁，如何避免死锁。" class="headerlink" title="linux下的同步机制，以及死锁，如何避免死锁。"></a>linux下的同步机制，以及死锁，如何避免死锁。</h2><p>&ensp;&ensp;&ensp;&ensp;1、原子操作。原子操作不会被任何事物所打断，通常用于资源的计数，引用的计数。例如有TCP/IP协议栈的IP碎片计数。</p>
+<p>&ensp;&ensp;&ensp;&ensp;2、信号量。就像房间内有好几把钥匙🗝，拿到钥匙就去访问。设置为1的时候变为了mutex。绝大多数部分可以作为互斥锁来进行使用。</p>
+<p>&ensp;&ensp;&ensp;&ensp;3、读写信号量。可以允许多个读，一个写。一旦有人在写，就大家都不可以读取，如果没有在写，可以允许多个人进行读取。</p>
+<p>&ensp;&ensp;&ensp;&ensp;4、锁🔐。自旋锁和互斥锁的区别在于是否会进行休眠。如果自旋锁被其他执行单元持有，那么调用者就会一直在那自旋，循环等待资源的释放。在持有时间很短的情况下一般使用自旋锁会比互斥锁稍微高效一些。</p>
+<p><strong>死锁产生的必要条件：</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;1、资源一定是互斥的。</p>
+<p>&ensp;&ensp;&ensp;&ensp;2、资源是不可抢占的。</p>
+<p>&ensp;&ensp;&ensp;&ensp;3、占有且需要申请的。</p>
+<p>&ensp;&ensp;&ensp;&ensp;4、需要循环等待的。</p>
+<h2 id="exit和-exit-EXIT-的区别"><a href="#exit和-exit-EXIT-的区别" class="headerlink" title="exit和_exit(_EXIT)的区别"></a>exit和_exit(_EXIT)的区别</h2><p>&ensp;&ensp;&ensp;&ensp;_exit和_EXIT函数调用时候立即进入内核，exit函数则是会先进行一些清理处理，然后再返回内核。</p>
+<p>&ensp;&ensp;&ensp;&ensp;exit函数总是会先执行一个标准的I/O库的清理关闭操作，对于所有打开流调用fclose函数，会将输出缓冲区中的所有数据都被冲洗。</p>
+<p>&ensp;&ensp;&ensp;&ensp;_exit函数调用则是直接关闭文件📃，文件缓冲区中的内容也就直接消失了，这个时候是不会再输出到显示设备了。</p>
+<h2 id="linux内存管理机制"><a href="#linux内存管理机制" class="headerlink" title="linux内存管理机制"></a>linux内存管理机制</h2><p>&ensp;&ensp;&ensp;&ensp;linux操作系统采用虚拟内存管理技术，将不同进程的虚拟地址空间和不同的内存物理地址映射起来，使得每个进程都有各自互不干扰的进程地址空间。</p>
+<p>&ensp;&ensp;&ensp;&ensp;在32位的系统上该空间的大小为4G的现行虚拟空间，用户所看到的或者接触的都是虚拟地址空间，并不会看到实际的物理地址。操作系统引入了虚拟内存，那么进程持有的虚拟地址就会通过CPU的内存管理单元（MMU）的映射关系，转化成物理地址，然后再通过物理地址进程访问。只有那些实际使用的UNINEICUN才分配物理内存，并且分配之后的物理内存是通过内存映射来管理的。</p>
+<p>&ensp;&ensp;&ensp;&ensp;内存映射，其实就是讲虚拟内存地址映射到物理内存地址，为了完成内存映射，内核为每一个进程都维护了一张页表，记录虚拟地址与物理地址之间的映射关系。页表实际上存储在CPU的内存管理单元MMU中，这样情况下，处理器可以直接通过硬件找出需要访问的内存。当进程访问虚拟地址在页表中查询不到的时候，系统就会产生一个缺页异常，进入到内核空间进行分配物理内存，更新进程页表，最后返回到用户空间，回复进程的运行。</p>
+<img src="/images/image-20201220131833527.jpg" alt="image-20201220131833527" style="zoom:40%;" />
+
+<p>MMU并不是以字节为单位来管理内存的，而是规定了一乐内存映射的最小单位，页。通常是4KB大小，这样每一个内存映射，都需要关联4KB或者4KB的整数倍的内存空间。</p>
+<p><strong>多级页表</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;多级页表就是把内存分成区块来进行管理，将原来的映射关系改成区块索引和区块偏移。由于虚拟地址空间通常只用很少的一部分，那么多级页表就只保存这些使用的区块，这样就可以大大的减少页表的项数。</p>
+<p>Linux是用过四级页表来管理内存的，如下图。虚拟地址被分为5个部分，前四个表项用于选择页，而最后一个表项这是索引表示页内偏移。</p>
+<img src="/images/image-20201220131933527.jpg" alt="image-20201220131933527" style="zoom:40%;" />
+
+<p>再看大页，大页指的是比普通页更大的内存块，常见的大小有2MB和1GB。大页通常用在使用大量内存的进程上，比如Oracle、DPDK等。</p>
+<p><strong>内存的分配与回收♻️</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;在C标准库中，malloc是其提供的内存分配函数，对应的系统调用上主要有两种实现的方式，即brk()和mmap()。</p>
+<p>&ensp;&ensp;&ensp;&ensp;（1）对于小块的内存，C标准库使用brk()来进行分配，也就是通过移动堆顶的位置来进行分配内存，这些内存释放之后不会立刻归还给系统，而是会被缓存起来，这样可以重复使用。</p>
+<p>&ensp;&ensp;&ensp;&ensp;（2）对于大块的内存（大于128K），则是使用内内存映射mmap()来进行分配，也就是在文件映射段找到一块空闲的内内存分配出去。</p>
+<p>这两种方式的优缺点：</p>
+<p>&ensp;&ensp;&ensp;&ensp;brk()方式的缓存，可以减少却也一行的发生，可以提高内存的访问效率，不过，由于这些内存没有归还给系统，在内存繁忙的时候，频繁的内存分配和释放会造成内存碎片。</p>
+<p>&ensp;&ensp;&ensp;&ensp;mmap()方式的分配内存，会在释放时候直接归还给系统，所以每次mmap都会发生缺页异常。在内存工作繁忙的时候，频繁的内存分配会导致大量的缺页异常的发生，使得内存的管理负担增大，这也是malloc只对大块内存使用mmap的原因。</p>
+<p>&ensp;&ensp;&ensp;&ensp;了解了这两种，调用方式之后，我们还需要清楚的了解一点，就是当发生这两种调用方式之后，其实没有镇长的分配内存，这些实际使用的内存，只有在首次访问的时候才进行分配，也就是通过缺页异常进入到内核中，再由内核进行分配内存。</p>
+<h2 id="Linux的任务调度机制"><a href="#Linux的任务调度机制" class="headerlink" title="Linux的任务调度机制"></a>Linux的任务调度机制</h2><p>&ensp;&ensp;&ensp;&ensp;&ensp;Linux作为一个多任务的操作系统，必须支持程序的并发执行。</p>
+<p>&ensp;&ensp;&ensp;&ensp;&ensp;多任务一般分为两类，非抢占式多任务与抢占式多任务。</p>
+<p><strong>&ensp;&ensp;&ensp;&ensp;&ensp;非抢占式多任务：</strong>除非任务自己结束🔚，否则将会一直执行。</p>
+<p>&ensp;&ensp;&ensp;&ensp;&ensp;<strong>抢占式多任务：</strong>这种情况下，由调度程序来决定什么时候停止一个进程的运行，这个强制的挂起动作则是<strong>抢占</strong>。抢占式多任务的基础就是使用<strong>时间片轮转</strong>机制来为每一个进程分配可以运行的时间单位。</p>
+<p><strong>策略：</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;&ensp;<strong>I/O消耗性和CPU消耗形。</strong>为了保证交互式桌面系统的性能，linux一般更倾向于优先调度I/O消耗形的进程。</p>
+<p>&ensp;&ensp;&ensp;&ensp;&ensp;<strong>进程优先级。</strong>Linux采用两种不同的优先级范围。</p>
+<p>&ensp;&ensp;&ensp;&ensp;（1）使用nice值：越大的nice值意味着更低的优先级。（-19~20之间）</p>
+<p>&ensp;&ensp;&ensp;&ensp;（2）实时优先级：可以配置，越高表示进程的优先级越高。</p>
+<h2 id="标准库函数和系统调用的区别"><a href="#标准库函数和系统调用的区别" class="headerlink" title="标准库函数和系统调用的区别"></a>标准库函数和系统调用的区别</h2><p>&ensp;&ensp;&ensp;&ensp;标准库函数，是语言本身的一部分，系统函数则是内核提供给应用层程序的一个接口，属于系统的一部分。函数库调用是语言或者应用程序的一部分，而系统调用则是操作系统的一部分。</p>
+<p>&ensp;&ensp;&ensp;&ensp;系统调用通常用于<strong>底层文件访问（low-level file access）</strong>，例如在驱动程序中对设备文件的直接访问。</p>
+<p>&ensp;&ensp;&ensp;&ensp;系统调用是操作系统相关的，因此一般没有跨操作系统的可移植性。</p>
+<h2 id="如何查看进程打开的文件"><a href="#如何查看进程打开的文件" class="headerlink" title="如何查看进程打开的文件"></a>如何查看进程打开的文件</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1、查看谁正在使用某个文件</span></span><br><span class="line">lsof /filepath/file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、通过某个进程号显示该进行打开的文件</span></span><br><span class="line">lsof -p 1</span><br></pre></td></tr></table></figure>
+<h2 id="gdb调试"><a href="#gdb调试" class="headerlink" title="gdb调试"></a>gdb调试</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://blog.csdn.net/zhangye3017/article/details/80382496</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="C语言基础"><a href="#C语言基础" class="headerlink" title="C语言基础"></a>C语言基础</h1><h2 id="memcpy比较两个结构体"><a href="#memcpy比较两个结构体" class="headerlink" title="memcpy比较两个结构体"></a>memcpy比较两个结构体</h2><p>不能。结构体struct 对象由于内存对齐会有内存间隙，就算其中的成员变量相等，内存直接比较还是不能相等。</p>
+<p>1、结构体赋值之前可以初始化memset一下，然后可以用memcpy来进行对比，（如果有指针的话 不行）</p>
+<p>2、可以使用运算符重载进行成员一一比较，看看变量是否相等。</p>
+<p>每个<strong>特定平台</strong>上的编译器都有自己的默认“<strong>对齐系数</strong>”。可以通过预编译命令#pragma pack(n)</p>
+<p>在经过对齐原则分析后，检查计算出的存储单元是否为所有元素中所占内存最大的元素的长度的整数倍，是，则结束；若不是，则补齐为它的整数倍。</p>
+<h2 id="strcpy与memcpy的区别"><a href="#strcpy与memcpy的区别" class="headerlink" title="strcpy与memcpy的区别"></a>strcpy与memcpy的区别</h2><p>1、一个是字符串拷贝函数一个是内存拷贝函数</p>
+<p>2、strcpy无需制定长度，遇到’\0’结束，无法复制0值</p>
+<p>3、memcpy是内存拷贝函数，将制定长度的字节直接整个拷贝不进行内容检查。</p>
+<p>4、strcpy是不安全字符串操作函数，如果参数dest所指定的内存空间不够大，那么久会出现缓冲区溢出问题，严重的话会导致程序崩溃。</p>
+<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><p><strong>Redis内存数据库的内存指的是共享内存么</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;Redis 是目前最火爆的内存数据库之一，通过在内存中读写数据，大大提高了读写速度，可以说 Redis 是实现网站高并发不可或缺的一部分，并不是指在一定只是在共享内存存取数据。</p>
+<h2 id="redis持久化方式"><a href="#redis持久化方式" class="headerlink" title="redis持久化方式"></a>redis持久化方式</h2><p>Redis的持久化方式主要有两种RDB和AOF两种。<br>&ensp;&ensp;&ensp;&ensp;RDB持久化是在一定的时间间隔内生成内存数据集的时间点的一个快照。<br>&ensp;&ensp;&ensp;&ensp;AOF持久化则是记录服务器执行的所有写操作命令，并且在服务器启动的时候，通过执行这些命令来对数据进行还原。<br><strong>RDB的优点</strong><br>&ensp;&ensp;&ensp;&ensp;1、采用RDB方式持久化，整个redis数据库将会只包含一个文件，对于这个备份文件来说很完美的。一旦系统出现故障，我们可以很快的进行恢复。<br>&ensp;&ensp;&ensp;&ensp;2、对于灾难恢复，RDB是一个不错的选择，可以压缩成 其他格式进行存储。<br>&ensp;&ensp;&ensp;&ensp;3、能使性能最大化。在进行持久化之时候，只需要fork一个子进程进行持久化工作，这样服务进程就能极大的避免进行IO操作。<br>&ensp;&ensp;&ensp;&ensp;4、相对于AOF而言，如果数据库的数据集很大的话，RDB的启动效率会高一些。<br><strong>RDB的缺点</strong><br>主要有两点：<br>&ensp;&ensp;&ensp;&ensp;1、在持久化任务进行之前，如果系统出现宕机，那么此前还没有进行持久化写入磁盘的数据将会丢失，对于数据的高可用性、完整性要求比较高的场景这种持久化的方式将不会是一个很好的选择。<br>&ensp;&ensp;&ensp;&ensp;2、因为RDB是通过fork子进程来进行协助完成持久化，如果数据集特别大的话，可能这个时候服务器会停止服务几百毫秒甚至一秒。<br><strong>AOF的优点</strong><br>&ensp;&ensp;&ensp;&ensp;1、相比于RDB有更好的数据安全性和数据持久性。在redis中主要提供了三种同步策略，每秒同步，每修改同步，还有不同同步。<br>&ensp;&ensp;&ensp;&ensp;2、由于这个机制对日志文件的写入操作是以append追加的方式进行。所以即使系统宕机了也不会破坏日志文件中已经存在的内容。<br>&ensp;&ensp;&ensp;&ensp;3、AOF日志文件中包含了对数据库的所有修改操作，我们可以通过该日志文件完成数据的重建。<br><strong>AOF的缺点</strong><br>&ensp;&ensp;&ensp;&ensp;1、对于相同的数据集而言，AOF文件通常大于RDB文件，在进行数据恢复的时候速通常比RDB慢。<br>&ensp;&ensp;&ensp;&ensp;2、根据同步的策略，AOF在运行效率上往往会慢于RDB。</p>
+<h2 id="持久化方式的选择"><a href="#持久化方式的选择" class="headerlink" title="持久化方式的选择"></a>持久化方式的选择</h2><p>&ensp;&ensp;&ensp;&ensp;1、对于数据一致性要求比较高的场景，建议使用使用AOF。<br>&ensp;&ensp;&ensp;&ensp;2、对于数据丢失的一部分没有那么看重的话，建议选择RDB。<br>&ensp;&ensp;&ensp;&ensp;3、如果对于数据的一致性、完整性特别重视，建议两种都开启。<br>&ensp;&ensp;&ensp;&ensp;4、AOF方式在不开启fsync的时候，性能和RDB相当。建议开启AOF方式的每秒钟同步一次。</p>
+<h2 id="redis和mysql有什么区别，用于什么场景"><a href="#redis和mysql有什么区别，用于什么场景" class="headerlink" title="redis和mysql有什么区别，用于什么场景"></a>redis和mysql有什么区别，用于什么场景</h2><p>&ensp;&ensp;&ensp;&ensp;1、redis 基于内存，读写速度快，可以持久化但是内存空间有限，数据量超过内存空间时，需要进行扩充内存。<br>&ensp;&ensp;&ensp;&ensp;2、MySQL则是磁盘存储，读写相对于redis扫稍慢些，但是不受空间容量限制，性价比高。</p>
+<p>&ensp;&ensp;&ensp;&ensp;在大多数的场景下都是MySQL+Redis配合使用，MySQL作为主存储库，Redis用作缓存可以加快访问速度。在需要高性能的地方使用Redis在不需要的高性能的地方使用MySQL。存储数据在MySQL和Redis之间做同步。</p>
+<p>&ensp;&ensp;&ensp;&ensp;使用Redis缓存到MySQL。可以把表中经常访问的数据记录在Redis中，在需要查询数据的时候，先去Redis查询，如果查询不到再去MySQL中进行查找，这样可以实现读写分离。现在的软件大量的软件使用Redis作为MySQL在本地的缓存数据库，再适当的时候和MySQL同步。</p>
+<h2 id="Redis缓存更新的模式以及出现的问题和应对思路"><a href="#Redis缓存更新的模式以及出现的问题和应对思路" class="headerlink" title="Redis缓存更新的模式以及出现的问题和应对思路"></a>Redis缓存更新的模式以及出现的问题和应对思路</h2><p>首先了解三个概念。<br>&ensp;&ensp;&ensp;&ensp;1、缓存雪崩<br>&ensp;&ensp;&ensp;&ensp;2、缓存穿透<br>&ensp;&ensp;&ensp;&ensp;3、缓存击穿<br><strong>缓存雪崩</strong><br>&ensp;&ensp;&ensp;&ensp;目前电商的首页以及热点的数据都会去做缓存，一般的缓存都是定时任务去更新或者说是查不到数据之后去数据库更新，在这里定时更新就会可能出现问题。缓存雪崩就是同一时间内大量的key值失效的瞬间或者同一瞬间大面积的请求数据库。这一瞬间，Redis缓存和没有一样，这个时候这个数量级别的请求直接打在数据库上几乎就是灾难性的。这就是缓存雪崩。</p>
+<p>应对思路：在批量往Redis存储数据的时候，需要把每个key的失效时间都加个随机值就好了，这样可以保证同一时间大面积失效。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setRedis(key, values, time+Math.random()*<span class="number">10000</span>)	</span><br></pre></td></tr></table></figure>
+<p><strong>缓存穿透</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;缓存穿透，指的是缓存和数据库中都没有请求的数据，而且用户却不断发起请求，导致数据库压力大，严重时候会直接击垮数据库。</p>
+<p>应对思路：接口层做参数校验，比如用户授权检验，参数做校验，对于不符合的数据直接return返回。对于Java来说，还有个高级的用法采用<em><strong>布隆过滤器（Bloom Filter）</strong></em>这个也可以很好的防止缓存穿透的发生，他的原理就是利用高效的数据结构和算法快速判断这个key在数据库中是否存在。</p>
+<p><strong>缓存击穿</strong></p>
+<p>&ensp;&ensp;&ensp;&ensp;缓存击穿和和缓存雪崩有点类似，但是两者有点区别。雪崩是因为大面积缓存失效，打崩数据库。缓存击穿则是指的是一个key非常热点，在不停的扛着大并发，大并发集中对一个点进行访问，当这个key在失效的瞬间，持续的大并发就会击穿缓存，直接请求数据库，就像在一个完好无损的桶上开了一个洞。</p>
+<p>应对思路：设置热点数据永不过期，或者加上互斥锁🔐就可以解决这个问题。</p>
+<h2 id="Redis的hash是什么实现的"><a href="#Redis的hash是什么实现的" class="headerlink" title="Redis的hash是什么实现的"></a>Redis的hash是什么实现的</h2><p>&ensp;&ensp;&ensp;&ensp;Redis中的字典采用哈希表作为底层实现，一个哈希表多个节点，每个节点保存一个键值对。Redis数据库就是使用字典作为底层实现的，通过key和value的键值对形式，代表了数据库中的全部数据。而且对数据库的增删改查都是建立在对字典的操作上。</p>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><p>1、100万数据个是topK。</p>
+<p>2、32位无符号整形个数的QQ号记录QQ号的状态 上线和下线，计算使用多少内存。</p>
+<p>3、printf(“%d “, 1, 2, 3);  printf(“%s”)；</p>
+<p>4、HTTP 和 HTTPS的区别。1、对称加密和非对称加密。2、效率问题的瓶颈。</p>
+<p>5、阻塞问题</p>
+<p>1、对端接收处理不过来 。流量控制。</p>
+<p>2、网络阻塞。拥塞控制。</p>
+<p>3、项目问题</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p>1、<a target="_blank" rel="noopener" href="https://blog.csdn.net/xp731574722/article/details/82868560">https://blog.csdn.net/xp731574722/article/details/82868560</a></p>
+<p>2、<a target="_blank" rel="noopener" href="https://blog.csdn.net/kozazyh/article/details/5495532">https://blog.csdn.net/kozazyh/article/details/5495532</a></p>
+<p>3、<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangye3017/article/details/80382496">https://blog.csdn.net/zhangye3017/article/details/80382496</a></p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>小主，路过打个赏再走呗~</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="小骆 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="小骆 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/02/e3aa8e8f.html" rel="prev" title="Google浏览器无法安装问题">
+      <i class="fa fa-chevron-left"></i> Google浏览器无法安装问题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/13/d0edc1ed.html" rel="next" title="Linux常用命令">
+      Linux常用命令 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+      
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">网络基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E7%AB%AF%E5%B0%8F%E7%AB%AF%E7%BD%91%E7%BB%9C%E5%AD%97%E8%8A%82%E5%BA%8F"><span class="nav-number">1.1.</span> <span class="nav-text">大端小端网络字节序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-number">1.2.</span> <span class="nav-text">tcp三次握手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP%E4%B8%8EUDP%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.</span> <span class="nav-text">TCP与UDP的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDP%E8%B0%83%E7%94%A8connect%E5%87%BD%E6%95%B0%E4%BD%9C%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">UDP调用connect函数作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP%E5%A6%82%E4%BD%95%E8%AE%BE%E5%AE%9A%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="nav-number">1.5.</span> <span class="nav-text">TCP如何设定超时时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SYN-flood%E6%B4%AA%E6%B0%B4%E6%94%BB%E5%87%BB"><span class="nav-number">1.6.</span> <span class="nav-text">SYN flood洪水攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-%E7%B2%98%E5%8C%85%E5%8D%8A%E5%8C%85%E9%97%AE%E9%A2%98%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86%EF%BC%9F"><span class="nav-number">1.7.</span> <span class="nav-text">tcp 粘包半包问题怎么处理？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%9F%E5%A5%97%E6%8E%A5%E5%AD%97%E6%AF%94%E6%B5%81%E5%BC%8F%E5%A5%97%E6%8E%A5%E5%AD%97%E5%BF%AB%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.8.</span> <span class="nav-text">域套接字比流式套接字快的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp%E7%9A%84socket%E6%80%8E%E4%B9%88%E6%94%B6%E5%8F%96%E6%95%B0%E6%8D%AE%E7%9A%84%EF%BC%8Crecv%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E3%80%82"><span class="nav-number">1.9.</span> <span class="nav-text">tcp的socket怎么收取数据的，recv的返回值。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP%E6%85%A2%E5%90%AF%E5%8A%A8%E3%80%81%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E3%80%81%E5%BF%AB%E9%87%8D%E4%BC%A0%E3%80%81%E5%BF%AB%E6%81%A2%E5%A4%8D"><span class="nav-number">1.10.</span> <span class="nav-text">TCP慢启动、拥塞控制、快重传、快恢复</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">进程和线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">僵尸进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU%E7%9A%84%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">CPU的执行方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98"><span class="nav-number">2.4.</span> <span class="nav-text">共享内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A0%86%E6%A0%88"><span class="nav-number">2.5.</span> <span class="nav-text">堆栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B"><span class="nav-number">2.6.</span> <span class="nav-text">协程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E5%87%BA%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BF%A1%E5%8F%B7%EF%BC%8C%E5%B9%B6%E8%A7%A3%E9%87%8A%E4%B8%8B%E4%BF%A1%E5%8F%B7%E6%98%AF%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86%E7%9A%84%E3%80%82"><span class="nav-number">2.7.</span> <span class="nav-text">列出常见的信号，并解释下信号是怎么处理的。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#i-%E6%88%96%E8%80%85-i%E6%98%AF%E5%90%A6%E6%98%AF%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E3%80%82"><span class="nav-number">2.8.</span> <span class="nav-text">i++或者++i是否是原子操作，为什么。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux%E4%B8%8B%E7%9A%84%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6%EF%BC%8C%E4%BB%A5%E5%8F%8A%E6%AD%BB%E9%94%81%EF%BC%8C%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%E3%80%82"><span class="nav-number">2.9.</span> <span class="nav-text">linux下的同步机制，以及死锁，如何避免死锁。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exit%E5%92%8C-exit-EXIT-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.10.</span> <span class="nav-text">exit和_exit(_EXIT)的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%9C%BA%E5%88%B6"><span class="nav-number">2.11.</span> <span class="nav-text">linux内存管理机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E6%9C%BA%E5%88%B6"><span class="nav-number">2.12.</span> <span class="nav-text">Linux的任务调度机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%BA%93%E5%87%BD%E6%95%B0%E5%92%8C%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">2.13.</span> <span class="nav-text">标准库函数和系统调用的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E6%89%93%E5%BC%80%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-number">2.14.</span> <span class="nav-text">如何查看进程打开的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gdb%E8%B0%83%E8%AF%95"><span class="nav-number">2.15.</span> <span class="nav-text">gdb调试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80"><span class="nav-number">3.</span> <span class="nav-text">C语言基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#memcpy%E6%AF%94%E8%BE%83%E4%B8%A4%E4%B8%AA%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-number">3.1.</span> <span class="nav-text">memcpy比较两个结构体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#strcpy%E4%B8%8Ememcpy%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.2.</span> <span class="nav-text">strcpy与memcpy的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-number">4.</span> <span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#redis%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="nav-number">4.1.</span> <span class="nav-text">redis持久化方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E5%BC%8F%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">4.2.</span> <span class="nav-text">持久化方式的选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis%E5%92%8Cmysql%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%8C%E7%94%A8%E4%BA%8E%E4%BB%80%E4%B9%88%E5%9C%BA%E6%99%AF"><span class="nav-number">4.3.</span> <span class="nav-text">redis和mysql有什么区别，用于什么场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0%E7%9A%84%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%92%8C%E5%BA%94%E5%AF%B9%E6%80%9D%E8%B7%AF"><span class="nav-number">4.4.</span> <span class="nav-text">Redis缓存更新的模式以及出现的问题和应对思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E7%9A%84hash%E6%98%AF%E4%BB%80%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84"><span class="nav-number">4.5.</span> <span class="nav-text">Redis的hash是什么实现的</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">6.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+      </div>
+
+      <!--/noindex-->
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小骆"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">小骆</p>
+  <div class="site-description" itemprop="description">一直青春无畏，一往无前</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+
+  <!--音乐插件-->
+  <audio src="/music/陈奕迅-喜帖街.mp3"  
+  style="max-height :100%; max-width: 100%; 
+  display: block; margin-left: auto; margin-right: auto;" 
+  controls="controls" loop="loop" preload="meta">
+  Your browser does not support the audio tag.
+  </audio>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/HDMLOVE/hello-algorithm" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;HDMLOVE&#x2F;hello-algorithm" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:lpyuan21@outlook.com" title="E-Mail → mailto:lpyuan21@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://mobile.twitter.com/HDML0VE" title="Twitter → https:&#x2F;&#x2F;mobile.twitter.com&#x2F;HDML0VE" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+      </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小骆</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'B4XbT4kXwfh9RTyBuoKPvOoH-9Nh9j0Va',
+      appKey     : 'S3dLSovwi3LXNsun5D7z7CI7',
+      placeholder: "如果对文章或本站点有任何疑问或者建议，请留言~",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '5' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":210,"height":360},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
