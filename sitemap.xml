@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.lpyuan219.com/2022/07/04/e13f38b.html</loc>
+    
+    <lastmod>2023-12-18</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.lpyuan219.com/2021/01/03/67a506ce.html</loc>
     
     <lastmod>2023-12-18</lastmod>
@@ -10,13 +17,6 @@
   
   <url>
     <loc>http://www.lpyuan219.com/2023/12/16/d6199888.html</loc>
-    
-    <lastmod>2023-12-18</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.lpyuan219.com/2022/07/04/e13f38b.html</loc>
     
     <lastmod>2023-12-18</lastmod>
     
@@ -149,14 +149,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/books/index.html</loc>
+    <loc>http://www.lpyuan219.com/categories/index.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/index.html</loc>
+    <loc>http://www.lpyuan219.com/books/index.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
@@ -487,13 +487,6 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%8A%A0%E5%AF%86/</loc>
-    <lastmod>2023-12-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://www.lpyuan219.com/tags/Unix/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
@@ -502,6 +495,13 @@
   
   <url>
     <loc>http://www.lpyuan219.com/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2023-12-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.lpyuan219.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%8A%A0%E5%AF%86/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -566,14 +566,14 @@
 
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/%E5%AD%98%E5%82%A8/</loc>
+    <loc>http://www.lpyuan219.com/categories/Linux/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/Linux/</loc>
+    <loc>http://www.lpyuan219.com/categories/%E5%AD%98%E5%82%A8/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -622,13 +622,6 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/Java/</loc>
-    <lastmod>2023-12-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://www.lpyuan219.com/categories/Unix%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
@@ -636,7 +629,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/K8s/</loc>
+    <loc>http://www.lpyuan219.com/categories/Java/</loc>
+    <lastmod>2023-12-18</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.lpyuan219.com/categories/Kubernetes/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -657,14 +657,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/%E5%85%B6%E4%BB%96/</loc>
+    <loc>http://www.lpyuan219.com/categories/CICD/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/CICD/</loc>
+    <loc>http://www.lpyuan219.com/categories/%E5%85%B6%E4%BB%96/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -678,14 +678,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/%E4%BD%8D%E8%BF%90%E7%AE%97/</loc>
+    <loc>http://www.lpyuan219.com/categories/linux/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/linux/</loc>
+    <loc>http://www.lpyuan219.com/categories/%E4%BD%8D%E8%BF%90%E7%AE%97/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
