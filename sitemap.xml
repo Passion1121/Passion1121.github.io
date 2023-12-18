@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.lpyuan219.com/2023/07/19/74c46917.html</loc>
+    
+    <lastmod>2023-12-18</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.lpyuan219.com/2023/07/16/2633a26.html</loc>
     
     <lastmod>2023-12-18</lastmod>
@@ -156,14 +163,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/books/index.html</loc>
+    <loc>http://www.lpyuan219.com/categories/index.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/index.html</loc>
+    <loc>http://www.lpyuan219.com/books/index.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
@@ -177,14 +184,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/BACKUP/README.html</loc>
+    <loc>http://www.lpyuan219.com/BACKUP/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/BACKUP/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99.html</loc>
+    <loc>http://www.lpyuan219.com/BACKUP/README.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
@@ -285,13 +292,6 @@
     <loc>http://www.lpyuan219.com/2020/04/13/d0edc1ed.html</loc>
     
     <lastmod>2023-11-23</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.lpyuan219.com/2023/07/19/74c46917.html</loc>
-    
-    <lastmod>2023-07-18</lastmod>
     
   </url>
   
@@ -664,13 +664,6 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/CICD/</loc>
-    <lastmod>2023-12-18</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://www.lpyuan219.com/categories/%E5%85%B6%E4%BB%96/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
@@ -678,14 +671,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/%E5%B7%A5%E5%85%B7/</loc>
+    <loc>http://www.lpyuan219.com/categories/CICD/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/linux/</loc>
+    <loc>http://www.lpyuan219.com/categories/%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2023-12-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
