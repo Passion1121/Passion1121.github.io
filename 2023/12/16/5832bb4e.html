@@ -800,7 +800,7 @@
 <h4 id="已知的问题"><a href="#已知的问题" class="headerlink" title="已知的问题"></a>已知的问题</h4><p>在 LUN 的所有路径都脱机的情况下，使用queue_if_no_path 选项可能会导致 D 状态进程挂起且不可终止。 建议改用 no_path_retry 选项。</p>
 <p>如果 dev_loss_tmo 设置导致设备在 I/O 仍在排队时被删除，则使用queue_if_no_path 或 no_path_retry 可能会导致死锁。 多路径守护进程将相应地更新 dev_loss_tmo 设置以避免这种死锁。 因此，如果指定了两个值，则优先顺序为 no_path_retry、queue_if_no_path、dev_loss_tmo。</p>
 <h4 id="也可以看看"><a href="#也可以看看" class="headerlink" title="也可以看看"></a>也可以看看</h4><p>udev(8), dmsetup(8), multipath(8), multipathd(8).</p>
-<h4 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h4><p>multipath-tools 由 Christophe Varoqui、<a href="mailto:&#x63;&#104;&#114;&#x69;&#x73;&#116;&#111;&#x70;&#104;&#x65;&#46;&#x76;&#x61;&#x72;&#x6f;&#113;&#x75;&#x69;&#x40;&#111;&#112;&#101;&#110;&#x73;&#118;&#99;&#46;&#x63;&#111;&#109;">&#x63;&#104;&#114;&#x69;&#x73;&#116;&#111;&#x70;&#104;&#x65;&#46;&#x76;&#x61;&#x72;&#x6f;&#113;&#x75;&#x69;&#x40;&#111;&#112;&#101;&#110;&#x73;&#118;&#99;&#46;&#x63;&#111;&#109;</a> 等人开发。</p>
+<h4 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h4><p>multipath-tools 由 Christophe Varoqui、<a href="mailto:&#99;&#x68;&#x72;&#105;&#115;&#x74;&#111;&#x70;&#x68;&#x65;&#46;&#x76;&#97;&#114;&#111;&#x71;&#117;&#x69;&#x40;&#111;&#112;&#x65;&#x6e;&#x73;&#118;&#99;&#46;&#x63;&#111;&#109;">&#99;&#x68;&#x72;&#105;&#115;&#x74;&#111;&#x70;&#x68;&#x65;&#46;&#x76;&#97;&#114;&#111;&#x71;&#117;&#x69;&#x40;&#111;&#112;&#x65;&#x6e;&#x73;&#118;&#99;&#46;&#x63;&#111;&#109;</a> 等人开发。</p>
 <h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><p>[1] <a target="_blank" rel="noopener" href="https://github.com/opensvc/multipath-tools">https://github.com/opensvc/multipath-tools</a></p>
 
     </div>
