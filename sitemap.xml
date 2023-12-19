@@ -184,14 +184,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/BACKUP/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99.html</loc>
+    <loc>http://www.lpyuan219.com/BACKUP/README.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/BACKUP/README.html</loc>
+    <loc>http://www.lpyuan219.com/BACKUP/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
@@ -543,14 +543,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/tags/Testing/</loc>
+    <loc>http://www.lpyuan219.com/tags/hexo/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/tags/hexo/</loc>
+    <loc>http://www.lpyuan219.com/tags/Testing/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -587,7 +587,7 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/C-C/</loc>
+    <loc>http://www.lpyuan219.com/categories/AI/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -601,7 +601,7 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/AI/</loc>
+    <loc>http://www.lpyuan219.com/categories/C-C/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -636,14 +636,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/Kubernetes/</loc>
+    <loc>http://www.lpyuan219.com/categories/Java/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/Java/</loc>
+    <loc>http://www.lpyuan219.com/categories/Kubernetes/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
