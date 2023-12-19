@@ -177,14 +177,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/books/index.html</loc>
+    <loc>http://www.lpyuan219.com/categories/index.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/index.html</loc>
+    <loc>http://www.lpyuan219.com/books/index.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
@@ -198,14 +198,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/BACKUP/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99.html</loc>
+    <loc>http://www.lpyuan219.com/BACKUP/README.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/BACKUP/README.html</loc>
+    <loc>http://www.lpyuan219.com/BACKUP/Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E7%BD%91%E7%AB%99.html</loc>
     
     <lastmod>2023-12-16</lastmod>
     
@@ -366,14 +366,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/2021/03/01/2c85f35d.html</loc>
+    <loc>http://www.lpyuan219.com/2023/06/30/0.html</loc>
     
     <lastmod>2023-06-30</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/2023/06/30/0.html</loc>
+    <loc>http://www.lpyuan219.com/2021/03/01/2c85f35d.html</loc>
     
     <lastmod>2023-06-30</lastmod>
     
@@ -452,14 +452,14 @@
 
   
   <url>
-    <loc>http://www.lpyuan219.com/tags/%E5%A4%9A%E8%B7%AF%E5%BE%84/</loc>
+    <loc>http://www.lpyuan219.com/tags/chatgpt/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/tags/chatgpt/</loc>
+    <loc>http://www.lpyuan219.com/tags/%E5%A4%9A%E8%B7%AF%E5%BE%84/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -494,6 +494,13 @@
   </url>
   
   <url>
+    <loc>http://www.lpyuan219.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%8A%A0%E5%AF%86/</loc>
+    <lastmod>2023-12-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://www.lpyuan219.com/tags/Unix/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
@@ -502,13 +509,6 @@
   
   <url>
     <loc>http://www.lpyuan219.com/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</loc>
-    <lastmod>2023-12-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://www.lpyuan219.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%8A%A0%E5%AF%86/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -529,14 +529,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/tags/%E5%9F%BA%E9%87%91/</loc>
+    <loc>http://www.lpyuan219.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/</loc>
+    <loc>http://www.lpyuan219.com/tags/%E5%9F%BA%E9%87%91/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -580,13 +580,6 @@
 
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/%E5%AD%98%E5%82%A8/</loc>
-    <lastmod>2023-12-19</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://www.lpyuan219.com/categories/Linux/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
@@ -595,6 +588,13 @@
   
   <url>
     <loc>http://www.lpyuan219.com/categories/AI/</loc>
+    <lastmod>2023-12-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://www.lpyuan219.com/categories/%E5%AD%98%E5%82%A8/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -636,14 +636,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/Java/</loc>
+    <loc>http://www.lpyuan219.com/categories/Unix%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/Unix%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B/</loc>
+    <loc>http://www.lpyuan219.com/categories/Java/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -692,14 +692,14 @@
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/%E9%87%91%E8%9E%8D%E7%90%86%E8%B4%A2/</loc>
+    <loc>http://www.lpyuan219.com/categories/%E6%9D%82%E8%B0%88/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://www.lpyuan219.com/categories/%E6%9D%82%E8%B0%88/</loc>
+    <loc>http://www.lpyuan219.com/categories/%E9%87%91%E8%9E%8D%E7%90%86%E8%B4%A2/</loc>
     <lastmod>2023-12-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
