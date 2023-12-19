@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.lpyuan219.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.lpyuan219.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="名字multipath.conf - 多路径守护程序配置文件 版本 multipath-tools v0.9.6 (07&#x2F;05, 2023)  描述&#x2F;etc&#x2F;multipath.conf 是多路径守护程序的配置文件。它用于覆盖multipathd的内置配置表。 任何第一个非空白字符为“#”的行都被视为注释行。 空行将被忽略。 当前使用的 multipathd 配置可以使用 multipath -t">
@@ -800,7 +800,7 @@
 <h4 id="已知的问题"><a href="#已知的问题" class="headerlink" title="已知的问题"></a>已知的问题</h4><p>在 LUN 的所有路径都脱机的情况下，使用queue_if_no_path 选项可能会导致 D 状态进程挂起且不可终止。 建议改用 no_path_retry 选项。</p>
 <p>如果 dev_loss_tmo 设置导致设备在 I/O 仍在排队时被删除，则使用queue_if_no_path 或 no_path_retry 可能会导致死锁。 多路径守护进程将相应地更新 dev_loss_tmo 设置以避免这种死锁。 因此，如果指定了两个值，则优先顺序为 no_path_retry、queue_if_no_path、dev_loss_tmo。</p>
 <h4 id="也可以看看"><a href="#也可以看看" class="headerlink" title="也可以看看"></a>也可以看看</h4><p>udev(8), dmsetup(8), multipath(8), multipathd(8).</p>
-<h4 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h4><p>multipath-tools 由 Christophe Varoqui、<a href="mailto:&#x63;&#x68;&#114;&#x69;&#115;&#116;&#x6f;&#112;&#104;&#101;&#46;&#118;&#x61;&#114;&#x6f;&#x71;&#x75;&#105;&#x40;&#x6f;&#112;&#101;&#x6e;&#115;&#x76;&#99;&#46;&#99;&#111;&#109;">&#x63;&#x68;&#114;&#x69;&#115;&#116;&#x6f;&#112;&#104;&#101;&#46;&#118;&#x61;&#114;&#x6f;&#x71;&#x75;&#105;&#x40;&#x6f;&#112;&#101;&#x6e;&#115;&#x76;&#99;&#46;&#99;&#111;&#109;</a> 等人开发。</p>
+<h4 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h4><p>multipath-tools 由 Christophe Varoqui、<a href="mailto:&#x63;&#x68;&#x72;&#105;&#x73;&#x74;&#111;&#112;&#x68;&#101;&#46;&#x76;&#x61;&#114;&#x6f;&#x71;&#117;&#105;&#64;&#111;&#x70;&#101;&#x6e;&#115;&#118;&#99;&#x2e;&#99;&#111;&#x6d;">&#x63;&#x68;&#x72;&#105;&#x73;&#x74;&#111;&#112;&#x68;&#101;&#46;&#x76;&#x61;&#114;&#x6f;&#x71;&#117;&#105;&#64;&#111;&#x70;&#101;&#x6e;&#115;&#118;&#99;&#x2e;&#99;&#111;&#x6d;</a> 等人开发。</p>
 <h3 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h3><p>[1] <a target="_blank" rel="noopener" href="https://github.com/opensvc/multipath-tools">https://github.com/opensvc/multipath-tools</a></p>
 
     </div>
@@ -921,7 +921,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.lpyuan219.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.lpyuan219.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="一直青春无畏，一往无前">
@@ -199,6 +199,87 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2023/11/20/c4860674.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小骆">
+      <meta itemprop="description" content="一直青春无畏，一往无前">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suzette219">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/20/c4860674.html" class="post-title-link" itemprop="url">atomic原子操作</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-20 00:55:26" itemprop="dateCreated datePublished" datetime="2023-11-20T00:55:26Z">2023-11-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-07 17:18:07" itemprop="dateModified" datetime="2023-12-07T17:18:07Z">2023-12-07</time>
+              </span>
+
+          
+            <span id="/2023/11/20/c4860674.html" class="post-meta-item leancloud_visitors" data-flag-title="atomic原子操作" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在没有实现无锁化编程之前，我们对共享数据（变量）的操作需要用到锁。多线程并发访问数据的时候，锁的维护非常的麻烦，并且锁的申请和释放、多线程竞争锁的过程中会存在资源的消耗。同时，锁的引入也会引起线程阻塞、锁竞争、死锁等问题。</p>
+<p>CAS (compare and swap, CAS) 比较并交换，是原子操作的一种，可用于在多线程编程环境中实现不被打断的数据交换操作，从而避免多线程同时改写某一数据时由于执行顺序不确定性以及终端的不可预知性产生的数据不一致的问题。该操作通过将内存中的值与指定的数据进行交换，当数值一样时将内存中的数据替换为新的值。</p>
+<p>一个CAS操作等价于以下C代码的原子实现如下:</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/20/c4860674.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -589,102 +670,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2023/07/02/ef4f0767.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="小骆">
-      <meta itemprop="description" content="一直青春无畏，一往无前">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Suzette219">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/02/ef4f0767.html" class="post-title-link" itemprop="url">ChatGPT Propmt</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-07-02 08:20:46" itemprop="dateCreated datePublished" datetime="2023-07-02T08:20:46Z">2023-07-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-18 08:01:27" itemprop="dateModified" datetime="2023-12-18T08:01:27Z">2023-12-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2023/07/02/ef4f0767.html" class="post-meta-item leancloud_visitors" data-flag-title="ChatGPT Propmt" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>自从OpenAI公司的推出以来大家立即被他强大的功能所吸引了。它具有非常大的潜力，它也辅助我解决了非常多的问题，提升了非常多的效率。当然，使用的过程中我们也发现，如果使用的不好，对他不熟悉，有时候他也会胡说八道，这对于不知道分辨内容的正确性的人来说，确实有点不友好，会被它带偏的情况。这其中，当然有他本身还不够成熟的原因，但是还有其他的一些原因，比如我们没有调教好它，给他足够的信息提示。</p>
-<p>在于ChatGPT对话的过程中，如果我们有一个高质量的提示，那么我们也会得到一个高效的结果，不需要反复的进行对话调试。</p>
-<p>在于ChatGPT交流的提示词中，我们需要记住几个关键原则：</p>
-<ul>
-<li><strong>清晰</strong>  使用清晰简洁的提示词、确定边界范围避免使用模棱两可，模糊，容易搞混的提示词</li>
-<li><strong>重点</strong> 哪一部分是重点需要突出出来，有助于寻找关键的信息。</li>
-<li><strong>关联</strong> 确保提示与用户的对话相关，一个问题内容使用一个会话，避免信息的混合。</li>
-</ul>
-<p>下面是整理的一些自己平时使用的提示词</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/07/02/ef4f0767.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -755,7 +740,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

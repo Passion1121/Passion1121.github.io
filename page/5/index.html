@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.lpyuan219.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.lpyuan219.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="一直青春无畏，一往无前">
@@ -199,6 +199,103 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2021/12/11/7969778.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="小骆">
+      <meta itemprop="description" content="一直青春无畏，一往无前">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Suzette219">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/11/7969778.html" class="post-title-link" itemprop="url">googletest自动化测试框架</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-11 10:29:04" itemprop="dateCreated datePublished" datetime="2021-12-11T10:29:04Z">2021-12-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-18 08:03:19" itemprop="dateModified" datetime="2023-12-18T08:03:19Z">2023-12-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C-C/" itemprop="url" rel="index"><span itemprop="name">C/C++</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/12/11/7969778.html" class="post-meta-item leancloud_visitors" data-flag-title="googletest自动化测试框架" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Googletest 是Google的测试技术 团队开发的一个C++测试框架。它支持任何类型的测试，而不仅仅是单元测试。</p>
+<p>一个好的测试框架应该有以下特点。</p>
+<ul>
+<li>测试应该是独立且可重复的。也就是可以再不同的对象上进行隔离测试，当遇到测试失败的时候，可以单独快速的对其进行调试。</li>
+<li>测试应该组织良好，并且能反应所测试的代码的结构。</li>
+<li>测试应该是轻量级的和可以重复使用的。</li>
+<li>当测试失败时，能提供有关问题尽可能多的错误信息。</li>
+<li>测试框架应当将编写测试代码的开发人员从繁琐的事情从解放出来，从而专注于测试的内容。</li>
+<li>测试应该很快速。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/12/11/7969778.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -544,100 +641,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.lpyuan219.com/2021/08/22/a4afd44d.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="小骆">
-      <meta itemprop="description" content="一直青春无畏，一往无前">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Suzette219">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/22/a4afd44d.html" class="post-title-link" itemprop="url">不积跬步无以至千里</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-08-22 09:52:20" itemprop="dateCreated datePublished" datetime="2021-08-22T09:52:20Z">2021-08-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-07 16:47:20" itemprop="dateModified" datetime="2023-12-07T16:47:20Z">2023-12-07</time>
-              </span>
-
-          
-            <span id="/2021/08/22/a4afd44d.html" class="post-meta-item leancloud_visitors" data-flag-title="不积跬步无以至千里" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>荀子在《劝学》中有道，”不积跬步，无以至千里，不积小流无以成江海“，我们需要不断的积累自己遇到的解决过的一些问题，这样久而久之我们才能会掌握的越来越丰富的东西。</p>
-<ul>
-<li>东西比较咋还不成系统，暂时先记录下来。</li>
-<li>方便再次遇到同样的问题方便查找。</li>
-</ul>
-<h1 id="2021-08-22"><a href="#2021-08-22" class="headerlink" title="2021.08.22"></a>2021.08.22</h1><p><code>__attribute__((unused))</code> 变量属性（variable attribute）</p>
-<p>&ensp;&ensp;&ensp;&ensp;通常，如果变量被声明但是从未被引用的话，C编译器则是会报出警告⚠️（warnning）。这个属性就是通知编译器你希望某个变量未使用，并且告诉它未使用的时候不要发出警告。</p>
-<blockquote>
-<p><strong>注意：</strong></p>
-<p>此变量属性是 ARM 编译器支持的 GNU 编译器扩展。</p>
-<p>This variable attribute is a GNU compiler extension that the ARM compiler supports.</p>
-</blockquote>
-<p><strong>示例1：</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Variable_Attribute_unused_0</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> aStatic = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> aUnesed __attribute__((unused));</span><br><span class="line">    <span class="comment">// __attribute__((unused)) int aUnesed;</span></span><br><span class="line">    <span class="keyword">int</span> bUnused;</span><br><span class="line">    aStatic++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在此示例中，编译器警告<code>bUnused</code>已声明但从未引用过的 ，但不会警告<code>aUnused</code>.</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://www.keil.com/support/man/docs/armcc/armcc_chr1359124982981.htm">https://www.keil.com/support/man/docs/armcc/armcc_chr1359124982981.htm</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/08/22/a4afd44d.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -708,7 +711,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
